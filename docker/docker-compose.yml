@@ -1,0 +1,24 @@
+version: '3.6'
+services:
+  envoy-proxy:
+    depends_on:
+      - proxy-client
+    image: fydeinc/envoyproxy-centos:latest
+    networks:
+      - envoymesh
+    ports:
+      # Publicly exposed Access Proxy port must match in the management console
+      - "8000:8000"
+    restart: unless-stopped
+
+  proxy-client:
+    environment:
+      # Update with Proxy Enrollment Link
+      - FYDE_ENROLLMENT_TOKEN=<paste here your proxy enrollment url>
+    image: fydeinc/fydeproxy-centos:latest
+    networks:
+      - envoymesh
+    restart: unless-stopped
+
+networks:
+  envoymesh: {}
