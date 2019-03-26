@@ -7,3 +7,5 @@ Note: all instalations require a valid `Proxy Enrollment Link`, the link is obta
 - [Bare Metal / Virtual Machine](fyde_proxy_bm_vm.md)
 
 - [Docker](fyde_proxy_docker.md)
+
+- [Kubernetes](fyde_proxy_kubernetes.md)

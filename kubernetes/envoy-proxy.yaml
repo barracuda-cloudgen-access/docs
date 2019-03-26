@@ -1,0 +1,54 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: envoy-proxy
+  annotations:
+    # Adjust according to your kubernetes cluster environment
+    # https://kubernetes.io/docs/concepts/services-networking/#publishing-services-service-types
+spec:
+  ports:
+    - name: envoy-proxy
+      port: 8000
+      protocol: TCP
+  selector:
+    app: envoy-proxy
+  type: LoadBalancer
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: envoy-proxy-pdb
+spec:
+  selector:
+    matchLabels:
+      app: envoy-proxy
+  minAvailable: 1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: envoy-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: envoy-proxy
+  template:
+    metadata:
+      name: envoy-proxy
+    spec:
+      containers:
+        - name: envoy-proxy
+          image: fydeinc/envoyproxy-centos:latest
+          imagePullPolicy: Always
+          readinessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
