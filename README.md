@@ -6,4 +6,6 @@
 
 ## Resources
 
+- [Fyde Enterprise Console](fyde_console.md)
+
 - [Fyde Proxy](fyde_proxy.md)
