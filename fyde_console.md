@@ -15,3 +15,5 @@
 - [Azure AD](console/saml/azure_saml.md)
 
 - [Google Suite](console/saml/gsuite_saml.md)
+
+- [Okta](console/saml/okta_saml.md)

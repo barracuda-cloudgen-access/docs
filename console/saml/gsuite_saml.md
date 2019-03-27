@@ -9,7 +9,7 @@ Steps to create a Google Suite SAML application to use with Fyde Enterprise Cons
 
 1. Got to SAML Apps `https://admin.google.com/AdminHome?fral=1#AppsList:serviceType=SAML_APPS`
 
-1. Create new application by selecting the `yellow plus sign` and then `SETUP MY OWN APP`
+1. Create a new application by selecting the `yellow plus sign` and then `SETUP MY OWN APP`
 
     ![New Application](imgs/google_saml_new_application.png)
 
