@@ -11,3 +11,5 @@
 - [Fyde Enterprise Console](console/saml/fyde_console_saml.md)
 
 ### Provider Specific
+
+- [Azure AD](console/saml/azure_saml.md)
