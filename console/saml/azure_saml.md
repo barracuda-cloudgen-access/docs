@@ -19,7 +19,7 @@ Steps to create an Azure AD SAML application to use with Fyde Enterprise Console
 
     ![New Application](imgs/azure_saml_new_application.png)
 
-1. Select `Non-galery Application`
+1. Select `Non-gallery Application`
 
     - Insert the desired `Name` (suggestion: Fyde Enterprise Console)
 
@@ -43,7 +43,7 @@ Steps to create an Azure AD SAML application to use with Fyde Enterprise Console
 
     - Click `Save` and close the form with top right `X`
 
-    ![SAML Configuration](imgs/azure_saml_saml_configuration.png)
+    ![SAML Configuration](imgs/azure_saml_configuration.png)
 
 1. Get the custom application SAML configuration:
 
@@ -51,7 +51,7 @@ Steps to create an Azure AD SAML application to use with Fyde Enterprise Console
 
     - Click `Download` to get the `Certificate (Base64)`
 
-    ![SAML Properties](imgs/azure_saml_saml_provider.png)
+    ![SAML Properties](imgs/azure_saml_provider.png)
 
 1. Select `Manage` - `Properties`:
 
