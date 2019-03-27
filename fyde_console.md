@@ -13,3 +13,5 @@
 ### Provider Specific
 
 - [Azure AD](console/saml/azure_saml.md)
+
+- [Google Suite](console/saml/gsuite_saml.md)
