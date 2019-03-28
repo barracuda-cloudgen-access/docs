@@ -2,9 +2,9 @@
 
 - Pre-requisites:
 
-  - [Docker](https://www.docker.com/get-started)
+  - [Docker](https://www.docker.com/get-started) (version 18.02.0+)
 
-  - [Docker Compose](https://docs.docker.com/compose/install/)
+  - [Docker Compose](https://docs.docker.com/compose/install/) (version 1.21.0+)
 
   - `Proxy Enrollment Link` (obtained after creating a proxy)
 
