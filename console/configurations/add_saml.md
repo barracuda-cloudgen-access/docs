@@ -12,6 +12,6 @@
 
 - [Azure AD](saml/azure_saml.md)
 
-- [Google Suite](/saml/gsuite_saml.md)
+- [Google Suite](saml/gsuite_saml.md)
 
 - [Okta](saml/okta_saml.md)
