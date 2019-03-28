@@ -1,4 +1,4 @@
-# Adding a proxy
+# Add new proxy
 
 To add an access proxy, go to the **Access tab** and navigate to the **Access Proxies**. Click the **“+”** icon in the top right.
 

@@ -1,4 +1,4 @@
-# Adding a new user
+# Add new user
 
 To add a new user, go to **Control tab** and Click the **“+”** icon in the top right. 
 

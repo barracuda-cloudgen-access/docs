@@ -1,4 +1,4 @@
-# Adding a user to a group
+# Add user to a new group
 
 To add a user to a group, go to **Control tab** and click on a user. Then, click the **“+”** icon. 
 
