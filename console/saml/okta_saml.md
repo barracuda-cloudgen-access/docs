@@ -5,6 +5,8 @@ Steps to create an Okta SAML application to use with Fyde Enterprise Console
 
 - The steps were retrieved from this tutorial `https://developer.okta.com/standards/SAML/setting_up_a_saml_application_in_okta/`
 
+- This tutorial was created with Okta `Version 2019.03.2`
+
 ## Configure SAML
 
 1. Log in to your Okta organization as a user with administrative privilege

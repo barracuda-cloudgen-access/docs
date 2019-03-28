@@ -6,7 +6,7 @@
 
   - Configured and installed [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-  - `Proxy Enrollment Link` (obtained after creating a proxy)
+  - [Proxy Enrollment Link](../console/exercises/add_proxy.md#adding-a-proxy)
 
 - The steps described assume familiarity with kubernetes
 
