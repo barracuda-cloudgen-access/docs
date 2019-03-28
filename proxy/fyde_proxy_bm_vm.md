@@ -44,7 +44,7 @@
 
 1. Deploy enrollment token using a service unit override
 
-    - NOTE: `Proxy Enrollment Link` required for this step
+    - NOTE: [Proxy Enrollment Link](../console/configurations/add_proxy.md#adding-a-proxy)
 
     ```sh
     mkdir -p /etc/systemd/system/fydeproxy.service.d

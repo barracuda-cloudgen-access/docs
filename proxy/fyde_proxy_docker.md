@@ -6,7 +6,7 @@
 
   - [Docker Compose](https://docs.docker.com/compose/install/) (version 1.21.0+)
 
-  - `Proxy Enrollment Link` (obtained after creating a proxy)
+  - [Proxy Enrollment Link](../console/configurations/add_proxy.md#adding-a-proxy)
 
 - The required images are available in Dockerhub registry under the organization [FydeInc](https://hub.docker.com/u/fydeinc)
 
