@@ -6,12 +6,12 @@
 
 ### Common
 
-- [Fyde Enterprise Console](console/configurations/saml/fyde_console_saml.md)
+- [Fyde Enterprise Console](saml/fyde_console_saml.md)
 
 ### Provider Specific
 
-- [Azure AD](console/configurations/saml/azure_saml.md)
+- [Azure AD](saml/azure_saml.md)
 
-- [Google Suite](console/configurations/saml/gsuite_saml.md)
+- [Google Suite](/saml/gsuite_saml.md)
 
-- [Okta](console/configurations/saml/okta_saml.md)
+- [Okta](saml/okta_saml.md)
