@@ -1,6 +1,6 @@
-# Adding a group
+# Add new group
 
-To add a new group, go to **Control tab** and navigate to the **Groups** Click the **“+”** icon in the top right. 
+To add a new group, go to **Control tab** and navigate to the **Groups**. Click the **“+”** icon in the top right. 
 
 ![Control Screen](imgs/control_groups.png)
 

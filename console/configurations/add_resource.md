@@ -1,4 +1,4 @@
-# Adding a resource
+# Add new resource
 
 To add a new resource, go to **Access tab** and click the **“+”** icon in the top right. 
 

@@ -1,4 +1,4 @@
-# Adding a policy
+# Add new policy
 
 To add an access policy, go to the **Access tab** and navigate to the **Access Policies**. Click the **“+”** icon in the top right.
 
