@@ -7,7 +7,7 @@ Follow the steps below to get started with Fyde. We’ll guide you through an en
 For an optimal initial configuration, we recommend the following sequence:
 - [Add user](console/configurations/add_user.md)
 - [Add group](console/configurations/add_group.md)
-- [Add a user to a group](configurations/exercises/add_user_to_group.md)
+- [Add a user to a group](console/configurations/add_user_to_group.md)
 - [Add policy](console/configurations/add_policy.md)
 - [Add proxy](console/configurations/add_proxy.md)
 - [Add resource](console/configurations/add_resource.md)
