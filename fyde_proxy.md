@@ -33,9 +33,9 @@
 | authz_cache_positive_ttl  | 30            | int   | Authentication cache TTL (seconds)                                  |
 | authz_cache_negative_ttl  | 5             | int   | Currently it represents the proxy certificates that Envoy requires  |
 | redis_host                | None          | str   | Used for HA mode only, leave empty in Proxy Client single mode      |
-| redis_port                | 6379          | int   | redis port                                                          |
-| redis_auth                | None          | str   | redis auth key                                                      |
-| redis_db                  | 0             | int   | redis database                                                      |
+| redis_port                | 6379          | int   | Redis port                                                          |
+| redis_auth                | None          | str   | Redis auth key                                                      |
+| redis_db                  | 0             | int   | Redis database                                                      |
 | grpc_insecure             | True          | bool  | gRPC insecure mode for the Proxy Client                             |
 | grpc_listener             | '[::]:50051'  | str   | gRPC listener for the Proxy Client                                  |
 | envoy_prometheus          | True          | bool  | Prometheus metrics for Envoy Client status                          |
@@ -48,10 +48,19 @@
 Note: all instalations require a valid [Proxy Enrollment Link](./console/exercises/add_proxy.md#adding-a-proxy)
 
 - [Bare Metal / Virtual Machine](proxy/fyde_proxy_bm_vm.md)
-
 - [Docker](proxy/fyde_proxy_docker.md)
-
 - [Kubernetes](proxy/fyde_proxy_kubernetes.md)
+
+## High Available mode
+
+- Multiple instances of each component (Envoy Proxy and Fyde Client ) can be executed simultaneously to increase availability of the services
+- This mode requires a redis instance available from all the Proxy Clients. The instance is used to:
+  - share cache authorization status
+  - cache the list of resources to decrease API requests and increase performance
+- Redis settings are configured with the respective `redis_` keys (check [Configure](#configure))
+- Please check the [Network](proxy/fyde_proxy_req_net.md) requirements for load balancer information and diagram
+- NOTE: Redis Replication is out of the scope for this document
+  - Please check `https://redis.io/topics/replication`
 
 ## Monitor
 
