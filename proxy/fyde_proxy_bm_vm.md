@@ -6,21 +6,18 @@
 
 ## Centos 7
 
-1. Update OS
+1. Install Software Collections (SCL) repository
 
     ```sh
     rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-    yum install -y epel-release
-    rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
-    yum -y updateinfo
-    yum update -y
+    yum -y install centos-release-scl
+    rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
     ```
 
 1. Add Fyde repository
 
     ```sh
     yum-config-manager -y --add-repo https://downloads.fyde.com/stable.repo
-    yum -y updateinfo
     ```
 
 1. Install Envoy Proxy
