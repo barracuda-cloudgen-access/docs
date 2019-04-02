@@ -19,7 +19,7 @@
 | mtls_ca_validation        | True          | bool  | Require and check client certificates belong to a given trusted CA  |
 | envoy_disable_authz       | False         | bool  | Disable calling our APE authorization system from Envoy Proxy       |
 | envoy_disable_rscs_healthcheck  | False   | bool  | Disable resources healthcheck                                       |
-| fyde_authz_timeout        | 5             | int   | Fyde authorization call timeout (seconds)                           |
+| authz_timeout             | 30            | int   | Fyde authorization call timeout (seconds)                           |
 | forced_authz_response     | None          | bool  | Force an authz response (True: allow, False: denied)                |
 | disable_authz_cache       | False         | bool  | Disable authentication cache                                        |
 | authz_cache_positive_ttl  | 30            | int   | Authentication cache TTL (seconds)                                  |
