@@ -43,8 +43,8 @@
     ```sh
     kubectl apply \
       --namespace fyde-proxy \
-      --filename= envoy-proxy.yaml \
-      --filename= proxy-client.yaml
+      --filename=envoy-proxy.yaml \
+      --filename=proxy-client.yaml
     ```
 
 1. Get deployed resources
