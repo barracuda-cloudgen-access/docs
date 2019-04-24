@@ -10,7 +10,7 @@
 
     ```sh
     rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-    yum -y install centos-release-scl
+    yum -y install centos-release-scl yum-utils
     rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
     ```
 
