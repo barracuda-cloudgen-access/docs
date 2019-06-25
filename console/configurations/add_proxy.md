@@ -4,12 +4,19 @@ To add an access proxy, go to the **Access tab** and navigate to the **Access Pr
 
 ![Control Screen](imgs/access_proxies.png)
 
-Add **Proxy Name**, **Location** (optional), **Host** and **Port**. Click **Create**. 
+Add the following:
+
+- **Proxy Name**: Used to identify the proxy
+- **Location**: Optional, for your reference only
+- **Host**: IP/DNS record used to reach the proxy
+- **Port**: Port where the proxy will be available
+
+Click **Create**.
 
 ![Add Proxy](imgs/access_add_proxy.png)
 
-To cancel the entry and go back to the **Access tab**, click **Cancel**.
+Copy the link that will be used when configuring the proxy.
 
-Copy the link to integrate with other systems.
+Please Note: This is the only time the link is provided by the Management Console.
 
 ![Add Proxy](imgs/access_add_proxy2.png)
