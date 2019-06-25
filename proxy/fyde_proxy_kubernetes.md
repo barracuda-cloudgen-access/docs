@@ -20,7 +20,7 @@
 
         - [kubernetes/envoy-proxy.yaml](kubernetes/envoy-proxy.yaml)
 
-    - Make sure configured port matches the one configured in the Management Console
+    - Make sure the Access Proxy (envoy) port, as configured in the management console, is allowed in the firewall
 
     - If required, update anotations to match your environment
 

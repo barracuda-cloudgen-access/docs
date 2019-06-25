@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: enrollment-token
+  name: fyde-proxy-secrets
 type: Opaque
 stringData:
   enrollment_token: <paste here your proxy enrollment url>
@@ -19,22 +19,12 @@ spec:
   selector:
     app: proxy-client
 ---
-apiVersion: policy/v1beta1
-kind: PodDisruptionBudget
-metadata:
-  name: proxy-client-pdb
-spec:
-  selector:
-    matchLabels:
-      app: proxy-client
-  minAvailable: 1
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: proxy-client
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: proxy-client
@@ -52,15 +42,29 @@ spec:
             - name: FYDE_ENROLLMENT_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: enrollment-token
+                  name: fyde-proxy-secrets
                   key: enrollment_token
+          ports:
+            - name: proxy
+              containerPort: 50051
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64M
+            limits:
+              cpu: 100m
+              memory: 128M
           readinessProbe:
             tcpSocket:
-              port: 50051
-            initialDelaySeconds: 5
-            periodSeconds: 10
+              port: proxy
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
           livenessProbe:
             tcpSocket:
-              port: 50051
-            initialDelaySeconds: 15
-            periodSeconds: 20
+              port: proxy
+            initialDelaySeconds: 30
+            periodSeconds: 2
+            successThreshold: 1
+            failureThreshold: 3
