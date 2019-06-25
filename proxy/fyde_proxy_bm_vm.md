@@ -57,4 +57,4 @@
     systemctl start fydeproxy
     ```
 
-- Make sure the Access Proxy port configured in the management console is allowed in the firewall
+- Make sure the Access Proxy port, as configured in the management console, is allowed in the firewall
