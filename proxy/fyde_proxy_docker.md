@@ -1,4 +1,4 @@
-# Fyde Proxy in Docker
+# Install Fyde Proxy in Docker
 
 - Pre-requisites:
 

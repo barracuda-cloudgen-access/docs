@@ -6,6 +6,8 @@
 
 ## Resources
 
+- [Quick Start](quick_start.md)
+
 - [Fyde Enterprise Console](fyde_console.md)
 
 - [Fyde Proxy](fyde_proxy.md)

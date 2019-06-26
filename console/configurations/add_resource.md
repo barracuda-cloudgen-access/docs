@@ -30,5 +30,3 @@ Fill in the details:
 Please note:
 
 - When accessing an internal resource with HTTPS configured, the **Public Host** needs to match the configured hostname in the resource certificate
-
-To cancel the entry and go back to the **Resources**, click **Cancel**.

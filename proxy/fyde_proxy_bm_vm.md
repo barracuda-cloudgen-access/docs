@@ -1,4 +1,4 @@
-# Install in Bare Metal / Virtual Machine
+# Install Fyde Proxy in Bare Metal / Virtual Machine
 
 - Supported distributions:
 

@@ -1,4 +1,4 @@
-# Fyde Proxy in Kubernetes
+# Install Fyde Proxy in Kubernetes
 
 - Pre-requisites:
 
