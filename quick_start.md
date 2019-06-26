@@ -27,17 +27,36 @@ Please Note: This is the only time the link is provided by the Management Consol
 
 ## Install Fyde Proxy in Docker
 
-- Pre-requisites:
-
-  - [Docker](https://www.docker.com/get-started) (version 18.02.0+)
-
-  - [Docker Compose](https://docs.docker.com/compose/install/) (version 1.21.0+)
-
-  - [Proxy Enrollment Link](../console/configurations/add_proxy.md#adding-a-proxy)
-
 - The required images are available in Dockerhub registry under the organization [FydeInc](https://hub.docker.com/u/fydeinc)
 
-### Docker Compose
+- Choose **Install script** or **Manual steps** to proceed
+
+### Install script
+
+- Please note that the steps below will execute scripts obtained externally
+- We advise to inspect the content before execution
+
+1. Download and execute script
+
+    ```sh
+    curl -fsSL https://raw.githubusercontent.com/fydeinc/docs/master/proxy/docker/install-fyde-proxy-docker.sh \
+        -o install-fyde-proxy-docker.sh
+    sudo bash install-fyde-proxy-docker.sh
+    ```
+
+- Tested in:
+  - Ubuntu 16.04
+  - Centos 7
+
+### Manual steps
+
+#### Pre-requisites
+
+- [Docker](https://www.docker.com/get-started) (version 18.02.0+)
+
+- [Docker Compose](https://docs.docker.com/compose/install/) (version 1.21.0+)
+
+#### Docker Compose
 
 1. Create the docker compose file
 
@@ -52,13 +71,13 @@ Please Note: This is the only time the link is provided by the Management Consol
 1. Start the services (detached)
 
     ```sh
-    docker-compose -f docker-compose.yml up -d
+    sudo docker-compose -f docker-compose.yml up -d
     ```
 
 1. Check logs
 
     ```sh
-    docker-compose -f docker-compose.yml logs -f
+    sudo docker-compose -f docker-compose.yml logs -f
     ```
 
 ## Add new resource
