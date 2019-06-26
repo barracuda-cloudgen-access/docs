@@ -1,4 +1,1 @@
 theme: jekyll-theme-hacker
-exclude:
-  - "*.yaml"
-  - "*.yml"

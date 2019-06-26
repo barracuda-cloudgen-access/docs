@@ -1,3 +1,4 @@
+# Proxy
 ---
 apiVersion: v1
 kind: Secret
