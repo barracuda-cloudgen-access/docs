@@ -14,7 +14,7 @@ services:
   proxy-client:
     environment:
       # Update with Proxy Enrollment Link
-      - FYDE_ENROLLMENT_TOKEN=<paste here your proxy enrollment url>
+      - FYDE_ENROLLMENT_TOKEN=<paste here your Proxy Enrollment Link>>
     image: fydeinc/fydeproxy-centos:latest
     networks:
       - envoymesh
