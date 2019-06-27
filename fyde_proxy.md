@@ -8,6 +8,10 @@
 
 - [Kubernetes](proxy/fyde_proxy_kubernetes.md)
 
+## Troubleshoot
+
+- [Troubleshoot](proxy/fyde_proxy_troubleshoot.md)
+
 ## Configure
 
 - [Parameters](proxy/fyde_proxy_parameters.md)
