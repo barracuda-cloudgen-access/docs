@@ -33,7 +33,7 @@ log_entry "INFO" "Please provide required variables"
 
 read -r -p "Specify proxy public port (8000): " PUBLIC_PORT
 PUBLIC_PORT=${PUBLIC_PORT:-"8000"}
-read -r -p "Paste the proxy token (hidden): " -s PROXY_TOKEN
+read -r -p "Paste the Proxy Enrollment Link (hidden): " -s PROXY_TOKEN
 echo ""
 
 # Get docker install script and execute
@@ -72,7 +72,7 @@ curl -fsSL "$DL_MANIFEST" -o docker-compose.yml
 
 log_entry "INFO" "Replacing variables"
 sed -i -E "s|8000:8000|${PUBLIC_PORT}:8000|" docker-compose.yml
-sed -i -E "s|(<paste\ here\ your\ proxy\ enrollment\ url>)|${PROXY_TOKEN/\&/\\&}|g" docker-compose.yml
+sed -i -E "s|(<paste\ here\ your\ Proxy\ Enrollment\ Link>)|${PROXY_TOKEN/\&/\\&}|g" docker-compose.yml
 
 # Start containers
 
@@ -82,3 +82,5 @@ docker-compose -f docker-compose.yml up -d
 log_entry "WARNING" "Manifest saved in this folder"
 log_entry "INFO" "To check container logs please run:"
 echo "sudo docker-compose -f docker-compose.yml logs -f"
+
+log_entry "INFO" "Complete."

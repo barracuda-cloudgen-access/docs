@@ -2,7 +2,13 @@
 
 - The required images are available in Dockerhub registry under the organization [FydeInc](https://hub.docker.com/u/fydeinc)
 
-- Choose **Install script** or **Manual steps** to proceed
+- Instalation requires a valid [Proxy Enrollment Link](../console/configurations/add_proxy.md#adding-a-proxy)
+
+- Tested in:
+  - Ubuntu 16.04
+  - Centos 7
+
+- Choose [**Install script**](##install-script) or [**Manual steps**](##manual-steps) to proceed
 
 ## Install script
 
@@ -12,14 +18,8 @@
 1. Download and execute script
 
     ```sh
-    curl -fsSL https://raw.githubusercontent.com/fydeinc/docs/master/proxy/docker/install-fyde-proxy-docker.sh \
-        -o install-fyde-proxy-docker.sh
-    sudo bash install-fyde-proxy-docker.sh
+    curl -fsSL https://url.fyde.me/install-fyde-proxy-docker | sudo bash
     ```
-
-- Tested in:
-  - Ubuntu 16.04
-  - Centos 7
 
 ## Manual steps
 
