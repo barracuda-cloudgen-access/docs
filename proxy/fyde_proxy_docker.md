@@ -13,12 +13,13 @@
 ## Install script
 
 - Please note that the steps below will execute scripts obtained externally
+
 - We advise to inspect the content before execution
 
 1. Download and execute script
 
     ```sh
-    curl -fsSL https://url.fyde.me/install-fyde-proxy-docker | sudo bash
+    sudo bash -c "$(curl -fsSL https://url.fyde.me/install-fyde-proxy-docker)"
     ```
 
 ## Manual steps
