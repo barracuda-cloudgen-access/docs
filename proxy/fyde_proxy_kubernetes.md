@@ -53,10 +53,3 @@
     kubectl get all \
       --namespace fyde-proxy
     ```
-
-1. Check proxy client logs
-
-    ```sh
-    kubectl logs <proxy-client-pod-name> \
-      --namespace fyde-proxy
-    ```
