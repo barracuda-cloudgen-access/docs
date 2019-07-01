@@ -1,10 +1,48 @@
 # Quick Start
 
-Follow these steps to perform the required configuration to access a resource protected by a Fyde Proxy.
+- Follow these steps to perform the required configuration to access a resource protected by Fyde Access Proxy
 
-## Add new proxy
+## Steps
 
-To add an access proxy, go to the **Access tab** and navigate to the **Access Proxies**. Click the **“+”** icon in the top right.
+1. [Add new Fyde Access Proxy](#add-new-fyde-access-proxy)
+
+    - Fyde Access Proxy is the software combo that contains Envoy Proxy and Fyde Proxy Orchestrator
+    - Envoy Proxy listens to requests and proxies them to the correct destination
+    - Fyde Proxy Orchestrator ensures that Envoy Proxy is configured with the correct requests and takes care of requests authorization and authentication
+    - In order to work, Fyde Proxy Orchestrator needs a valid token that contains the necessary information to bootstrap the service
+
+1. [Install Fyde Access Proxy in Docker](#install-fyde-access-proxy-in-docker)
+
+    - In this quick start we recomend installing the solution using the docker infrastructure, for other platforms please visit [Fyde Proxy - Install steps](fyde_proxy.md##install)
+    - The public port will need to be available for the clients connecting to resources
+
+1. [Add new resource](#add-new-resource)
+
+    - In this step we are going to create a test resource, however you can use an existing resource of your own instead
+
+1. [Add new user](#add-new-user)
+
+    - In order to register a device, we need to create a user
+    - Please note that users and account administrators are separate entities. The same email can be used for an account administrators and a regular user and there will be no relation between them
+
+1. [Enroll a device](#enroll-a-device)
+
+    - A user can have multiple devices, this will be determined by the account administrators
+    - In this step we enroll a new device
+
+1. [Access created resource](#access-created-resource)
+
+    - The enrolled device will now access the created resource
+
+1. [Troubleshoot](#troubleshoot)
+
+    - If the device is not accessing the resource we provide these troubleshooting steps
+
+## Add new Fyde Access Proxy
+
+- To add a Fyde Access Proxy, go to the **Access tab** and navigate to the **Access Proxies**. Click the **“+”** icon in the top right.
+
+- This proxy will be used to test an access for the test resource, however this doesn't prevent it from being used as a permanent proxy later on
 
 ![Control Screen](console/configurations/imgs/access_proxies.png)
 
@@ -25,60 +63,27 @@ Please Note: This is the only time the link is provided by the Management Consol
 
 ![Add Proxy](console/configurations/imgs/access_add_proxy2.png)
 
-## Install Fyde Proxy in Docker
+## Install Fyde Access Proxy in Docker
 
 - The required images are available in Dockerhub registry under the organization [FydeInc](https://hub.docker.com/u/fydeinc)
 
-- Instalation requires a valid [Proxy Enrollment Link](../console/configurations/add_proxy.md#adding-a-proxy)
+- Instalation requires a valid Fyde Access Proxy Enrollment Link, obtained in the previous step
 
 - Tested in:
-  - Ubuntu 16.04
+  - Debian 9
   - Centos 7
-
-- Choose [**Install script**](##install-script) or [**Manual steps**](##manual-steps) to proceed
-
-### Install script
+  - Ubuntu 16.04/18.04
 
 - Please note that the steps below will execute scripts obtained externally
 
 - We advise to inspect the content before execution
 
+- Choose yes, when questioned about installing the test resource
+
 1. Download and execute script
 
     ```sh
     sudo bash -c "$(curl -fsSL https://url.fyde.me/install-fyde-proxy-docker)"
-    ```
-
-### Manual steps
-
-#### Pre-requisites
-
-- [Docker](https://www.docker.com/get-started) (version 18.02.0+)
-
-- [Docker Compose](https://docs.docker.com/compose/install/) (version 1.21.0+)
-
-#### Docker Compose
-
-1. Create the docker compose file
-
-    - Download the docker-compose file definition:
-
-        - [docker/docker-compose.yml](docker/docker-compose.yml)
-
-    - Make sure configured port matches the one configured in the Management Console
-
-    - Update `FYDE_ENROLLMENT_TOKEN` value with `Proxy Enrollment Link`
-
-1. Start the services (detached)
-
-    ```sh
-    sudo docker-compose -f docker-compose.yml up -d
-    ```
-
-1. Check logs
-
-    ```sh
-    sudo docker-compose -f docker-compose.yml logs -f
     ```
 
 ## Add new resource
@@ -91,28 +96,21 @@ Fill in the details:
 
 ![Add Resource](console/configurations/imgs/access_add_resource.png )
 
-- **Resource Name**: Simple identifier for the resource in the console
+- **Resource Name**: HTTP Test
 
-- **Public Host**: Hostname used by the Fyde Client (in the device) to redirect the request to the Access Proxy
-  - Needs to be a valid DNS record
-  - Doesn’t need to exist as a public DNS record, private or at all
+- **Public Host**: http.test.local
 
-- **Resource Host**: Internal resource hostname or IP used by the Access Proxy to connect to
-  - Needs to be a hostname or IP that the Access Proxy can resolve and connect to
+- **Resource Host**: httptest
 
-- **External Port**: Port used for the request to the Public Host from the device
+- **External Port**: 81
 
-- **Internal Port**: Internal Resource port used by the Fyde Proxy to connect to the Resource Host
+- **Internal Port**: 80
 
-- **Access Proxy**: The Access Proxy that will be used and has access to the resource being configured
+- **Access Proxy**: Select the existing Access Proxy
 
-- **Policy Name**: The policy used to allow access for this resource
+- **Policy Name**: Allow Everyone
 
-- **Notes**: Can be used to add extra information regarding the resource
-
-Please note:
-
-- When accessing an internal resource with HTTPS configured, the **Public Host** needs to match the configured hostname in the resource certificate
+- **Notes**: Leave empty
 
 ## Add new user
 
@@ -131,9 +129,19 @@ Click **Create**.
 
 ![Add User](console/configurations/imgs/control_add_user.png)
 
-## Access created resource
+## Enroll a device
 
 - Enroll a new device for the created user by acessing the enrollment link
   - The link is sent to the email configured for the user or by sharing the link from the user details
 
-- Access the configured resource
+- The enrollment process is done directly from the created user's device
+
+## Access created resource
+
+- Access the configured resource by visiting the following link from the enrolled device:
+
+  - <http://http.test.local:81>
+
+## Troubleshoot
+
+- For troubleshooting steps please visit: [Troubleshooting](./proxy/fyde_proxy_troubleshoot.md)
