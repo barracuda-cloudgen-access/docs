@@ -25,7 +25,8 @@ function log_entry() {
 
 DL_DOCKER="https://get.docker.com"
 DL_COMPOSE="https://github.com/docker/compose/releases/download/1.24.0/docker-compose-"
-DL_MANIFEST="https://raw.githubusercontent.com/fydeinc/docs/master/proxy/docker/docker-compose.yml"
+DL_MANIFEST_BASE="https://raw.githubusercontent.com/fydeinc/docs/master/proxy/docker/docker-compose.yml"
+DL_MANIFEST_TEST="https://raw.githubusercontent.com/fydeinc/docs/master/proxy/docker/docker-compose-httptest.yml"
 
 # Request information
 
@@ -33,7 +34,10 @@ log_entry "INFO" "Please provide required variables"
 
 read -r -p "Specify proxy public port (8000): " PUBLIC_PORT
 PUBLIC_PORT=${PUBLIC_PORT:-"8000"}
-read -r -p "Paste the Proxy Enrollment Link (hidden): " -s PROXY_TOKEN
+
+read -r -p "Install test resource (N/y): " INSTALL_TEST
+
+read -r -p "Paste the Proxy Enrollment Link [hidden]: " -s PROXY_TOKEN
 echo ""
 
 # Get docker install script and execute
@@ -67,8 +71,18 @@ fi
 
 # Get docker-compose manifest and replace values
 
-log_entry "INFO" "Downloading docker-compose manifest"
-curl -fsSL "$DL_MANIFEST" -o docker-compose.yml
+log_entry "INFO" "Downloading docker-compose manifest(s)"
+if [[ "${INSTALL_TEST,,}" =~ ^(y|yes)$ ]]
+then
+    log_entry "INFO" "Including test resource"
+    COMPOSE_FILES=(-f docker-compose.yml -f docker-compose-httptest.yml)
+    curl -fsSL "$DL_MANIFEST_BASE" -o docker-compose.yml
+    curl -fsSL "$DL_MANIFEST_TEST" -o docker-compose-httptest.yml
+else
+    log_entry "INFO" "Skipping test resource"
+    COMPOSE_FILES=(-f docker-compose.yml)
+    curl -fsSL "$DL_MANIFEST_BASE" -o docker-compose.yml
+fi
 
 log_entry "INFO" "Replacing variables"
 sed -i -E "s|8000:8000|${PUBLIC_PORT}:8000|" docker-compose.yml
@@ -76,11 +90,11 @@ sed -i -E "s|(<paste\ here\ your\ Proxy\ Enrollment\ Link>)|${PROXY_TOKEN/\&/\\&
 
 # Start containers
 
-log_entry "INFO" "Starting docker-compose"
-docker-compose -f docker-compose.yml up -d
+log_entry "INFO" "Starting containers"
+docker-compose "${COMPOSE_FILES[@]}" up -d
 
-log_entry "WARNING" "Manifest saved in this folder"
+log_entry "WARNING" "Manifest(s) saved in this folder"
 log_entry "INFO" "To check container logs please run:"
-echo "sudo docker-compose -f docker-compose.yml logs -f"
+echo "sudo docker-compose ${COMPOSE_FILES[*]} logs -f"
 
 log_entry "INFO" "Complete."
