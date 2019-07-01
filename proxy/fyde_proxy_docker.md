@@ -5,8 +5,9 @@
 - Instalation requires a valid [Proxy Enrollment Link](../console/configurations/add_proxy.md#adding-a-proxy)
 
 - Tested in:
-  - Ubuntu 16.04
+  - Debian 9
   - Centos 7
+  - Ubuntu 16.04/18.04
 
 - Choose [**Install script**](##install-script) or [**Manual steps**](##manual-steps) to proceed
 
