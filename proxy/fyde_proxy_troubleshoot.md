@@ -1,5 +1,9 @@
 # Troubleshoot
 
+- The steps in this page are best performed from a desktop client
+
+- Troubleshooting using the mobile app is currently in development
+
 ## Test connectivity from the device to the Fyde Access Proxy
 
 - Get the Access Proxy details from the Enterprise Console

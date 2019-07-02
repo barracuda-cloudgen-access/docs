@@ -17,7 +17,7 @@ services:
     container_name: proxy-client
     environment:
       # Update with Proxy Enrollment Link
-      - FYDE_ENROLLMENT_TOKEN=<paste here your Proxy Enrollment Link>>
+      - FYDE_ENROLLMENT_TOKEN=<paste here your Proxy Enrollment Link>
     image: fydeinc/fydeproxy-centos:latest
     networks:
       - fyde

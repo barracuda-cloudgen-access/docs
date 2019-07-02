@@ -1,0 +1,18 @@
+version: '3.6'
+services:
+
+
+  envoy-proxy:
+    networks:
+      - fyde-test
+
+  httptest:
+    container_name: httptest
+    image: fydeinc/http-test:latest
+    networks:
+      - fyde-test
+    restart: unless-stopped
+
+networks:
+  fyde-test:
+    name: fyde-test
