@@ -15,7 +15,7 @@ Click **Create**.
 
 ![Add Proxy](imgs/access_add_proxy.png)
 
-Copy the enrollmennt link that will be used when configuring the Fyde Access Proxy.
+Copy the enrollment link that will be used when configuring the Fyde Access Proxy.
 
 Please Note: This is the only time the link is provided by Fyde Enterprise Console.
 
