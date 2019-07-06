@@ -1,49 +1,51 @@
-# Proxy
+# Fyde Proxy Orchestrator
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: fyde-proxy-secrets
+  name: fyde-secrets
 type: Opaque
 stringData:
-  enrollment_token: <paste here your proxy enrollment url>
+  enrollment_token: <paste here your Fyde Access Proxy enrollment link>
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  # This name cannot be changed for now
+  # Envoy proxy uses it to find the Fyde Proxy Orchestrator
   name: proxy-client
 spec:
   ports:
-    - name: proxy-client
+    - name: fyde-orchestrator
       port: 50051
       protocol: TCP
   selector:
-    app: proxy-client
+    app: fyde-orchestrator
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: proxy-client
+  name: fyde-orchestrator
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: proxy-client
+      app: fyde-orchestrator
   template:
     metadata:
-      name: proxy-client
+      name: fyde-orchestrator
       labels:
-        app: proxy-client
+        app: fyde-orchestrator
     spec:
       containers:
-        - name: proxy-client
+        - name: fyde-orchestrator
           image: fydeinc/fydeproxy-centos:latest
           imagePullPolicy: Always
           env:
             - name: FYDE_ENROLLMENT_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: fyde-proxy-secrets
+                  name: fyde-secrets
                   key: enrollment_token
           ports:
             - name: proxy
@@ -51,10 +53,10 @@ spec:
           resources:
             requests:
               cpu: 50m
-              memory: 64M
+              memory: 128M
             limits:
               cpu: 100m
-              memory: 128M
+              memory: 256M
           readinessProbe:
             tcpSocket:
               port: proxy

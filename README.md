@@ -10,4 +10,4 @@
 
 - [Fyde Enterprise Console](fyde_console.md)
 
-- [Fyde Proxy](fyde_proxy.md)
+- [Fyde Access Proxy](fyde_access_proxy.md)

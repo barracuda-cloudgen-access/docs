@@ -1,6 +1,6 @@
 # Prometheus
 
-- Prometheus metrics are enabled by default in Envoy Proxy and Fyde Client
+- Prometheus metrics are enabled by default in the Fyde Access Proxy components
 - The scrapping path is in the root of the endpoint `/`
 - Ports can be customized in each component (check [Parameters](fyde_proxy_parameters.md))
 
@@ -11,12 +11,12 @@
 - Add the following job to the existing prometheus configuration
 
 ```yaml
-- job_name: fyde-envoy-proxy
+- job_name: envoy-proxy
   scrape_interval: 10s
   scrape_timeout:  5s
   metrics_path: /
   static_configs:
-    - targets: ['fyde-envoy-proxy-1:9000']
+    - targets: ['envoy-proxy:9000']
 ```
 
 ### Envoy Proxy prometheus-operator Service Monitor
@@ -36,10 +36,10 @@ spec:
   endpoints:
     - interval: 10s
       path: /
-      port: prometheus-metrics
+      port: metrics
   namespaceSelector:
     matchNames:
-      - fyde-proxy
+      - fyde-access-proxy
   selector:
     matchLabels:
       app: envoy-proxy
@@ -48,7 +48,7 @@ spec:
 - Also add the following to the corresponding service, if the service is deployed in kubernetes:
 
 ```yaml
-    - name: prometheus-metrics
+    - name: metrics
       protocol: TCP
       port: 9000
       targetPort: 9000

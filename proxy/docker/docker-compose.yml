@@ -4,23 +4,28 @@ services:
   envoy-proxy:
     container_name: envoy-proxy
     depends_on:
-      - proxy-client
+      - fyde-orchestrator
     image: fydeinc/envoyproxy-centos:latest
     networks:
       - fyde
     ports:
-      # Publicly exposed Access Proxy port must match in the management console
+      # Publicly exposed Fyde Access Proxy port
+      # Must match the one define in Fyde Enterprise Console
       - "8000:8000"
     restart: unless-stopped
 
-  proxy-client:
-    container_name: proxy-client
+  fyde-orchestrator:
+    container_name: fyde-orchestrator
     environment:
-      # Update with Proxy Enrollment Link
-      - FYDE_ENROLLMENT_TOKEN=<paste here your Proxy Enrollment Link>
+      # Update with Fyde Access Proxy enrollment link
+      - FYDE_ENROLLMENT_TOKEN=<paste here your Fyde Access Proxy enrollment link>
     image: fydeinc/fydeproxy-centos:latest
     networks:
-      - fyde
+      fyde:
+        aliases:
+          # This name cannot be changed for now
+          # Envoy proxy uses it to find the Fyde Proxy Orchestrator
+          - proxy-client
     restart: unless-stopped
 
 networks:

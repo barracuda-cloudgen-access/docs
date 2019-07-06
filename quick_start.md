@@ -9,11 +9,11 @@
     - Fyde Access Proxy is the software combo that contains Envoy Proxy and Fyde Proxy Orchestrator
     - Envoy Proxy listens to requests and proxies them to the correct destination
     - Fyde Proxy Orchestrator ensures that Envoy Proxy is configured with the correct requests and takes care of requests authorization and authentication
-    - In order to work, Fyde Proxy Orchestrator needs a valid token that contains the necessary information to bootstrap the service
+    - Fyde Proxy Orchestrator requires a valid token (Fyde Access Proxy enrollment link) that contains the necessary information to bootstrap and authorize the service
 
 1. [Install Fyde Access Proxy in Docker](#install-fyde-access-proxy-in-docker)
 
-    - In this quick start we recomend installing the solution using the docker infrastructure, for other platforms please visit [Fyde Proxy - Install steps](fyde_proxy.md##install)
+    - In this quick start we recomend installing the solution using the docker infrastructure, for other platforms please visit [Fyde Access Proxy - Install steps](fyde_access_proxy.md##install)
     - The public port will need to be available for the clients connecting to resources
 
 1. [Add new resource](#add-new-resource)
@@ -51,23 +51,23 @@ Add the following:
 - **Proxy Name**: Used to identify the proxy
 - **Location**: Optional, for your reference only
 - **Host**: IP/DNS record used to reach the proxy
-- **Port**: Port where the proxy will be available
+- **Port**: Port where the Fyde Access Proxy will be available
 
 Click **Create**.
 
-![Add Proxy](console/configurations/imgs/access_add_proxy.png)
+![Add Fyde Access Proxy](console/configurations/imgs/access_add_proxy.png)
 
 Copy the link that will be used when configuring the proxy.
 
 Please Note: This is the only time the link is provided by the Management Console.
 
-![Add Proxy](console/configurations/imgs/access_add_proxy2.png)
+![Add Fyde Access Proxy 2](console/configurations/imgs/access_add_proxy2.png)
 
 ## Install Fyde Access Proxy in Docker
 
-- The required images are available in Dockerhub registry under the organization [FydeInc](https://hub.docker.com/u/fydeinc)
+- The required images are available in Dockerhub registry under the organization [FydeInc](https://url.fyde.me/docker)
 
-- Instalation requires a valid Fyde Access Proxy Enrollment Link, obtained in the previous step
+- Requires a valid Fyde Access Proxy enrollment link, obtained in the previous step
 
 - Tested in:
   - Debian 9
@@ -80,7 +80,7 @@ Please Note: This is the only time the link is provided by the Management Consol
 
 - Choose yes, when questioned about installing the test resource
 
-1. Download and execute script
+- Download and execute installation script
 
     ```sh
     sudo bash -c "$(curl -fsSL https://url.fyde.me/install-fyde-proxy-docker)"
@@ -106,7 +106,7 @@ Fill in the details:
 
 - **Internal Port**: 80
 
-- **Access Proxy**: Select the existing Access Proxy
+- **Access Proxy**: Select the existing Fyde Access Proxy
 
 - **Policy Name**: Allow Everyone
 

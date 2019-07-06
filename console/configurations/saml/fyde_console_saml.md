@@ -19,7 +19,7 @@
 
     ![Console Settings](imgs/fyde_console_settings_saml_menu.png)
 
-1. Follow one of the [provider specific](../../fyde_console.md#provider-specific) steps to obtain the required fields:
+1. Follow one of the [provider specific](../add_saml.md#provider-specific) steps to obtain the required fields:
 
     - Entity ID
 

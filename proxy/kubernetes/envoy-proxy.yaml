@@ -1,4 +1,4 @@
-# Envoy
+# Envoy Proxy
 ---
 apiVersion: v1
 kind: Service

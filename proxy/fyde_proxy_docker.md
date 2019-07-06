@@ -1,8 +1,8 @@
-# Install Fyde Proxy in Docker
+# Install Fyde Access Proxy in Docker
 
-- The required images are available in Dockerhub registry under the organization [FydeInc](https://hub.docker.com/u/fydeinc)
+- The required images are available in Dockerhub registry under the organization [FydeInc](https://url.fyde.me/docker)
 
-- Instalation requires a valid [Proxy Enrollment Link](../console/configurations/add_proxy.md#adding-a-proxy)
+- Requires a valid [Fyde Access Proxy enrollment link](../console/configurations/add_proxy.md#adding-a-proxy)
 
 - Tested in:
   - Debian 9
@@ -39,9 +39,9 @@
 
         - [docker/docker-compose.yml](docker/docker-compose.yml)
 
-    - Make sure configured port matches the one configured in the Management Console
+    - Make sure configured port matches the one configured in Fyde Enterprise Console
 
-    - Update `FYDE_ENROLLMENT_TOKEN` value with `Proxy Enrollment Link`
+    - Update `FYDE_ENROLLMENT_TOKEN` value with Fyde Access Proxy enrollment link
 
 1. Start the services (detached)
 
@@ -54,3 +54,7 @@
     ```sh
     sudo docker-compose -f docker-compose.yml logs -f
     ```
+
+## Troubleshoot
+
+- For troubleshooting steps please visit: [Troubleshooting](./fyde_proxy_troubleshoot.md)
