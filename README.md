@@ -11,3 +11,5 @@
 - [Fyde Enterprise Console](fyde_console.md)
 
 - [Fyde Access Proxy](fyde_access_proxy.md)
+
+- [Glossary](glossary.md)
