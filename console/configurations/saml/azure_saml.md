@@ -57,7 +57,7 @@ Steps to create an Azure AD SAML application to use with Fyde Enterprise Console
 
     - Ensure `Enabled for users to sign-in?` is enabled
 
-    - [Optional] Use this [image](../../fyde_logo.png) to configure the logo for the application
+    - [Optional] Use this [image](../../../fyde_logo.png) to configure the logo for the application
 
     - We recomend disabling `User assignment required?`, otherwise you need to manually add all the desired users/groups allowed to use the application
 

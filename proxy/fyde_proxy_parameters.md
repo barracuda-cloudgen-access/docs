@@ -1,6 +1,6 @@
-# Fyde Proxy Parameters
+# Fyde Access Proxy Parameters
 
-- These keys are applicable to the Proxy Client
+- These keys are applicable to the Fyde Proxy Orchestrator
 
 - The following override mechanisms will be processed in order, the last override representing the final value:
 
@@ -22,21 +22,21 @@
 | authz_timeout             | 30            | int   | Fyde authorization call timeout (seconds)                             |
 | forced_authz_response     | None          | bool  | Force an authz response (True: allow, False: denied)                  |
 | disable_authz_cache       | False         | bool  | Disable authentication cache                                          |
-| enrollment_token          | None          | str   | Enrollment token provided by the Fyde Enterprise Console              |
+| enrollment_token          | None          | str   | Enrollment token provided by Fyde Enterprise Console                  |
 | envoy_disable_authz       | False         | bool  | Disable calling our APE authorization system from Envoy Proxy         |
 | envoy_disable_rscs_healthcheck  | False   | bool  | Disable resources healthcheck                                         |
 | envoy_listener_port       | 8000          | int   | Envoy General Listener port                                           |
-| envoy_prometheus          | True          | bool  | Prometheus metrics for Envoy Client status                            |
-| envoy_prometheus_port     | 9000          | int   | Prometheus for Envoy Client port                                      |
+| envoy_prometheus          | True          | bool  | Prometheus metrics for Envoy Proxy status                             |
+| envoy_prometheus_port     | 9000          | int   | Prometheus for Envoy Proxy port                                       |
 | envoy_secrets             | None          | dict  | Currently it represents the proxy certificates that Envoy requires    |
-| grpc_insecure             | True          | bool  | gRPC insecure mode for the Proxy Client                               |
-| grpc_listener             | '[::]:50051'  | str   | gRPC listener for the Proxy Client                                    |
+| grpc_insecure             | True          | bool  | gRPC insecure mode for the Fyde Proxy Orchestrator                    |
+| grpc_listener             | '[::]:50051'  | str   | gRPC listener for the Fyde Proxy Orchestrator                         |
 | mtls_ca_validation        | True          | bool  | Require and check client certificates belong to a given trusted CA    |
-| proxy_prometheus          | True          | bool  | Prometheus metrics for Proxy Client status                            |
-| proxy_prometheus_port     | 9010          | int   | Prometheus for Proxy Client port                                      |
+| proxy_prometheus          | True          | bool  | Prometheus metrics for Fyde Proxy Orchestrator status                 |
+| proxy_prometheus_port     | 9010          | int   | Prometheus for Fyde Proxy Orchestrator port                           |
 | redis_auth                | None          | str   | Redis auth key                                                        |
 | redis_db                  | 0             | int   | Redis database                                                        |
-| redis_host                | None          | str   | Used for HA mode only, leave empty in Proxy Client single mode        |
+| redis_host                | None          | str   | Used for HA mode only, leave empty in Fyde Access Proxy single mode   |
 | redis_port                | 6379          | int   | Redis port                                                            |
 | redis_timeout             | 1.0           | float | Redis socket_timeout in seconds                                       |
 | redis_sentinel_hosts      | None          | str   | Redis Sentinel comma separated list of host:port pairs                |

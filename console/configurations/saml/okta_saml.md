@@ -33,7 +33,7 @@ Steps to create an Okta SAML application to use with Fyde Enterprise Console
 
     - Insert the desired `App name` (suggestion: Fyde Enterprise Console)
 
-    - [Optional] Use this [image](../../fyde_logo.png) to configure the `App logo` for the application
+    - [Optional] Use this [image](../../../fyde_logo.png) to configure the `App logo` for the application
 
     - Select `Next` to continue
 

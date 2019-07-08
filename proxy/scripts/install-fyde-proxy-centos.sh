@@ -25,9 +25,9 @@ function log_entry() {
 
 log_entry "INFO" "Please provide required variables"
 
-read -r -p "Specify proxy public port (8000): " PUBLIC_PORT
+read -r -p "Specify Fyde Access Proxy public port (8000): " PUBLIC_PORT
 PUBLIC_PORT=${PUBLIC_PORT:-"8000"}
-read -r -p "Paste the proxy token (hidden): " -s PROXY_TOKEN
+read -r -p "Paste the Fyde Access Proxy enrollment link (hidden): " -s PROXY_TOKEN
 echo ""
 
 log_entry "INFO" "Install Software Collections (SCL) repository"
@@ -46,7 +46,7 @@ yum -y install envoy
 systemctl enable envoy
 systemctl start envoy
 
-log_entry "INFO" "Install Fyde-Proxy orchestrator and authz system"
+log_entry "INFO" "Install Fyde Proxy Orchestrator and authz system"
 
 yum -y install fydeproxy
 systemctl enable fydeproxy
@@ -61,7 +61,7 @@ Environment='FYDE_ENVOY_LISTENER_PORT=${PUBLIC_PORT}'
 EOF
 chmod 600 /etc/systemd/system/fydeproxy.service.d/10-environment.conf
 
-log_entry "INFO" "Reload and start Fyde-Proxy orchestrator daemon"
+log_entry "INFO" "Reload and start Fyde Proxy Orchestrator daemon"
 
 systemctl --system daemon-reload
 systemctl start fydeproxy
@@ -77,10 +77,10 @@ else
     log_entry "WARNING" "Firewalld not started, skipping configuration"
 fi
 
-log_entry "INFO" "To check envoy logs please run:"
+log_entry "INFO" "To check Envoy Proxy logs please run:"
 echo "sudo tail /var/log/envoy/envoy.log -f"
 
-log_entry "INFO" "To check Fyde Proxy logs please run:"
+log_entry "INFO" "To check Fyde Proxy Orchestrator logs please run:"
 echo "sudo journalctl -u fydeproxy -f"
 
 log_entry "INFO" "Complete."

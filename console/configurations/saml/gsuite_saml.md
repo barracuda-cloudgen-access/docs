@@ -29,7 +29,7 @@ Steps to create a Google Suite SAML application to use with Fyde Enterprise Cons
 
     - [Optional] Insert description to identify the application if needed
 
-    - [Optional] Use this [image](../../fyde_logo.png) to configure the logo for the application
+    - [Optional] Use this [image](../../../fyde_logo.png) to configure the logo for the application
 
     - Select `Next` to continue
 

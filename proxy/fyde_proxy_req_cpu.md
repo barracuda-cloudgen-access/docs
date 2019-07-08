@@ -1,4 +1,4 @@
-# Fyde Proxy Computing
+# Fyde Access Proxy computing
 
 ## Requirements
 
@@ -12,8 +12,8 @@
 
 ## Baseline
 
-| Component     | CPU               | Memory    |
-| ------------- | ----------------- | --------- |
-Envoy Proxy     | 0.25 core (2Ghz)  | 256MB     |
-Proxy Client    | 0.1 core (2Ghz)   | 128MB     |
-Redis (HA only) | 0.1 core (2Ghz)   | 32MB      |
+| Component             | CPU               | Memory    |
+| --------------------- | ----------------- | --------- |
+Envoy Proxy             | 0.25 core (2Ghz)  | 256MB     |
+Fyde Proxy Orchestrator | 0.1 core (2Ghz)   | 128MB     |
+Redis (HA only)         | 0.1 core (2Ghz)   | 32MB      |

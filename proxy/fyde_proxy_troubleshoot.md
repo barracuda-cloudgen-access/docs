@@ -6,7 +6,7 @@
 
 ## Test connectivity from the device to the Fyde Access Proxy
 
-- Get the Access Proxy details from the Enterprise Console
+- Get the Fyde Access Proxy details from Fyde Enterprise Console
 
 - Try to open an SSL connection to the proxy
 
@@ -47,7 +47,7 @@
   - NAT configuration in the device/service that is exposing the Fyde Access Proxy
   - Firewall rules to allow inbound communication to the configured Fyde Access Proxy
 
-## Check if the Device is trying to access the Resource with the Fyde App
+## Check if the device is trying to access the Resource with the Fyde App
 
 - Check the IP for the failing Resource, it should return an IP in the 192.0.2.0/24 range
 
@@ -64,12 +64,12 @@
 
   - Confirm that Fyde App is running and the tunnel is started
   - Check that Fyde App is enrolled in a tenant
-  - Confirm the Resource is created in the Enterprise Console
+  - Confirm the Resource is created in Fyde Enterprise Console
   - Resource list update on Fyde App can take up to 15m, force refresh if your Fyde App version allows it
 
-## Test connectivity from the Fyde Access Proxy to the Resource
+## Test connectivity from Envoy Proxy to the Resource
 
-- The Fyde Access Proxy needs to be able to reach the Resource with the configured properties
+- The Envoy Proxy needs to be able to reach the Resource with the configured properties
 
 - Take note of the following resource:
   - **Resource Name**: My Resource
@@ -79,7 +79,7 @@
   - **Internal Port**: 3000
   - **Access Proxy**: US-EAST-1-PROXY
 
-- Fyde Access Proxy needs to be able to resolve the **Resource Host** record
+- Envoy Proxy needs to be able to resolve the **Resource Host** record
 
   ```sh
   → nslookup myresource.internal
@@ -90,7 +90,7 @@
   Address: 10.0.0.20
   ```
 
-- For an HTTP resource we could send an HTTP request with curl
+- For an HTTP resource we can send an HTTP request using curl
 
   ```sh
   → curl myresource.internal:3000
@@ -98,7 +98,7 @@
   [...]
   ```
 
-- For a redis resource we could send the HTTP request through netcat
+- For a redis resource we can connect using netcat
 
   ```sh
   → nc myresource.internal 3000
@@ -117,13 +117,13 @@
 
 ### Bare Metal / Virtual Machine
 
-- Check envoy logs
+- Check Envoy Proxy logs
 
   ```sh
   sudo tail /var/log/envoy/envoy.log -f
   ```
 
-- Check proxy logs
+- Check Fyde Access Proxy logs
 
   ```sh
   sudo journalctl -u fydeproxy -f
@@ -137,13 +137,13 @@
   sudo iptables -L -xvn
   ```
 
-- Ensure envoy is running
+- Ensure Envoy Proxy is running
 
   ```sh
   sudo ps axuww | grep envoy
   ```
 
-- Ensure envoy is listening on the correct port
+- Ensure Envoy Proxy is listening on the correct port
 
   ```sh
   sudo ss -anp | grep envoy | grep LISTEN
@@ -153,13 +153,13 @@
 
 ### Docker
 
-- Confirm that both envoy-proxy and proxy-client containers are running
+- Confirm that both `envoy-proxy` and `fyde-orchestrator` containers are running
 
   ```sh
   sudo docker ps
   ```
 
-- Confirm that envoy is mapping the correct port to the host
+- Confirm that `envoy-proxy` container is mapping the correct port to the host
 
   - In the example above, and for the public port 8000 the output should contain the following
 
@@ -167,19 +167,19 @@
   0.0.0.0:8000->8000/tcp
   ```
 
-- Check envoy-proxy logs
+- Check Envoy Proxy logs
 
   ```sh
   sudo docker logs envoy-proxy -f
   ```
 
-- Check proxy-client logs
+- Check Fyde Access Proxy logs
 
   ```sh
-  sudo docker logs proxy-client -f
+  sudo docker logs fyde-orchestrator -f
   ```
 
-- Check that docker network is not conflicting with another remote network
+- Check that docker network is not conflicting with a remote network
 
   - Check the value for `IPAM.Config.Subnet`
 
@@ -197,7 +197,7 @@
 
   ```sh
   kubectl get all \
-    --namespace fyde-proxy
+    --namespace fyde-access-proxy
   ```
 
 - Check envoy logs
@@ -205,20 +205,20 @@
   ```sh
   kubectl logs \
     -l app=envoy-proxy -f \
-    --namespace fyde-proxy
+    --namespace fyde-access-proxy
   ```
 
 - Check proxy logs
 
   ```sh
   kubectl logs \
-    -l app=proxy-client -f \
-    --namespace fyde-proxy
+    -l app=fyde-orchestrator -f \
+    --namespace fyde-access-proxy
   ```
 
 - Check that envoy service is properly configured for your environment
 
   ```sh
   kubectl describe service envoy-proxy \
-    --namespace fyde-proxy
+    --namespace fyde-access-proxy
   ```

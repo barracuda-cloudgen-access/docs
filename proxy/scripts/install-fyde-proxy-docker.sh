@@ -32,12 +32,12 @@ DL_MANIFEST_TEST="https://raw.githubusercontent.com/fydeinc/docs/master/proxy/do
 
 log_entry "INFO" "Please provide required variables"
 
-read -r -p "Specify proxy public port (8000): " PUBLIC_PORT
+read -r -p "Specify Fyde Access Proxy public port (8000): " PUBLIC_PORT
 PUBLIC_PORT=${PUBLIC_PORT:-"8000"}
 
 read -r -p "Install test resource (N/y): " INSTALL_TEST
 
-read -r -p "Paste the Proxy Enrollment Link [hidden]: " -s PROXY_TOKEN
+read -r -p "Paste the Fyde Access Proxy enrollment link [hidden]: " -s PROXY_TOKEN
 echo ""
 
 # Get docker install script and execute
@@ -86,7 +86,7 @@ fi
 
 log_entry "INFO" "Replacing variables"
 sed -i -E "s|8000:8000|${PUBLIC_PORT}:8000|" docker-compose.yml
-sed -i -E "s|(<paste\ here\ your\ Proxy\ Enrollment\ Link>)|${PROXY_TOKEN/\&/\\&}|g" docker-compose.yml
+sed -i -E "s|(<paste\ here\ your\ Fyde\ Access\ Proxy\ enrollment\ link>)|${PROXY_TOKEN/\&/\\&}|g" docker-compose.yml
 
 # Start containers
 

@@ -7,3 +7,5 @@ For customer support or troubleshooting you can contact us by clicking the chat 
 ![Customer Support](imgs/customer_support2.png)
 
 We will get back to you as soon as possible!
+
+- For Fyde Access Proxy related troubleshooting check [here](../..//proxy/fyde_proxy_troubleshoot.md)
