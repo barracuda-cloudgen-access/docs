@@ -48,10 +48,17 @@ if ! docker version &> /dev/null
 then
     curl -fsSL "$DL_DOCKER" -o get-docker.sh
     sh get-docker.sh
-    systemctl start docker
 else
     log_entry "WARNING" "Docker detected, skipping install"
 fi
+
+log_entry "INFO" "Enable docker service on boot"
+
+systemctl enable docker
+
+log_entry "INFO" "Starting docker"
+
+systemctl start docker
 
 # Instal docker-compose
 
