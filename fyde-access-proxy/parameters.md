@@ -10,13 +10,13 @@ nav_order: 5
 
 - The following override mechanisms will be processed in order, the last override representing the final value:
 
-  1) default value
-  1) configuration pushed from Fyde Enterprise Console
-  1) overrides.json file on the CWD of the service process
-  1) Docker provisioned secret (/run/secrets/\<key>)
-  1) AWS SSM (all keys prefixed with 'fyde_')
-  1) AWS SecretsManager (all keys prefixed with 'fyde_')
-  1) environment variable, prefixed with FYDE_ and all caps
+  1. default value
+  1. configuration pushed from Fyde Enterprise Console
+  1. overrides.json file on the CWD of the service process
+  1. Docker provisioned secret (/run/secrets/\<key>)
+  1. AWS SSM (all keys prefixed with 'fyde_')
+  1. AWS SecretsManager (all keys prefixed with 'fyde_')
+  1. environment variable, prefixed with FYDE_ and all caps
 
 | Key                       | Default Value | Type  | Description                                                           |
 | ------------------------- | ------------- | ----- | --------------------------------------------------------------------- |

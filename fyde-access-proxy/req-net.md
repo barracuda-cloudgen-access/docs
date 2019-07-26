@@ -37,7 +37,6 @@ NOTE: assuming default values
 ### Single mode
 
 ![Network Diagram Single Mode]({{ site.baseurl }}{% link imgs/ap-net-single-mode.png %})
-(imgs/fyde_proxy_network_single_mode.png)
 
 ### Highly Available mode
 
