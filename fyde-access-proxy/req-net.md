@@ -40,7 +40,7 @@ NOTE: assuming default values
 
 ### Highly Available mode
 
-- Redis Replication is out of the scope for this document
+- Redis Replication is out of the scope of this document
 
 - Please check [Redis Replication](https://redis.io/topics/replication){:target="_blank"}
 
