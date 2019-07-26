@@ -1,1 +1,15 @@
-theme: jekyll-theme-cayman
+# Site settings
+remote_theme: pmarsceill/just-the-docs
+title: Fyde Docs
+baseurl: /docs/
+url: https://fydeinc.github.io
+description: Documentation for the Fyde Enterprise Console
+permalink: pretty
+
+# Enable or disable the site search
+search_enabled: true
+
+# Aux links for the upper right navigation
+aux_links:
+  "Go to Fyde Enterprise Console":
+    - "//enterprise.fyde.com"

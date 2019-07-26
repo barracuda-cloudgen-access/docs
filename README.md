@@ -1,15 +1,25 @@
 # Fyde Documentation
 
-![Fyde](fyde_logo.png)
+![Fyde](imgs/fyde-logo.png)
 
 - Website: <https://fyde.com>
+- Documentation: <https://fydeinc.github.io/docs>
 
-## Resources
+## Test locally
 
-- [Quick Start](quick_start.md)
+1. Setup (steps for macOS, requires brew)
 
-- [Fyde Enterprise Console](fyde_console.md)
+```sh
+brew install rbenv ruby-build
+rbenv install 2.5.1
+rbenv local 2.5.1
+gem install bundler
+bundle install
+```
 
-- [Fyde Access Proxy](fyde_access_proxy.md)
+1. Test
 
-- [Glossary](glossary.md)
+```sh
+bundle exec just-the-docs rake search:init
+bundle exec jekyll serve
+```
