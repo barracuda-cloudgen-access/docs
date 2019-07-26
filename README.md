@@ -9,16 +9,16 @@
 
 1. Setup (steps for macOS, requires brew)
 
-```sh
-brew install rbenv ruby-build
-rbenv install 2.5.1
-rbenv local 2.5.1
-gem install bundler
-bundle install
-```
+    ```sh
+    brew install rbenv ruby-build
+    rbenv install 2.5.1
+    rbenv local 2.5.1
+    gem install bundler
+    bundle install
+    ```
 
 1. Test
 
-```sh
-bundle exec jekyll serve
-```
+    ```sh
+    bundle exec jekyll serve
+    ```
