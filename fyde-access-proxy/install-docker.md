@@ -6,7 +6,7 @@ nav_order: 2
 ---
 # Install in Docker
 
-- The required images are available in Dockerhub registry under the organization [FydeInc](https://url.fyde.me/docker)
+- The required images are available in Dockerhub registry under the organization [FydeInc](https://url.fyde.me/docker){:target="_blank"}
 
 - Requires a valid [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy)
 
@@ -33,17 +33,15 @@ nav_order: 2
 
 ### Pre-requisites
 
-- [Docker](https://www.docker.com/get-started) (version 18.02.0+)
+- [Docker](https://www.docker.com/get-started){:target="_blank"} (version 18.02.0+)
 
-- [Docker Compose](https://docs.docker.com/compose/install/) (version 1.21.0+)
+- [Docker Compose](https://docs.docker.com/compose/install/){:target="_blank"} (version 1.21.0+)
 
 ### Docker Compose
 
 1. Create the docker compose file
 
-    - Download the docker-compose file definition:
-
-        - [docker/docker-compose.yml]({{ site.baseurl }}{% link /fyde-access-proxy/docker/docker-compose.yml %})
+    - Download the docker-compose file: [docker-compose.yml]({{ site.baseurl }}{% link /fyde-access-proxy/docker/docker-compose.yml %}){:target="_blank"}
 
     - Make sure configured port matches the one configured in Fyde Enterprise Console
 

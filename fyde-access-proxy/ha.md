@@ -18,6 +18,6 @@ nav_order: 9
 
 - Please check the [Network]({{ site.baseurl }}{% link fyde-access-proxy/req-net.md %}) requirements for load balancer information and diagram
 
-- NOTE: Redis Replication is out of the scope for this document
+- Redis Replication is out of the scope for this document
 
-  - Please check `https://redis.io/topics/replication`
+- Please check [Redis Replication](https://redis.io/topics/replication){:target="_blank"}

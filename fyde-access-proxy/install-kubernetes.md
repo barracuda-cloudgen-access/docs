@@ -9,23 +9,21 @@ nav_order: 3
 
 - Pre-requisites:
 
-  - Running [kubernetes cluster](https://kubernetes.io/) or local [minikube](https://kubernetes.io/docs/setup/minikube/) installation
+  - Running [kubernetes cluster](https://kubernetes.io/){:target="_blank"} or local [minikube](https://kubernetes.io/docs/setup/minikube/){:target="_blank"} installation
 
-  - Configured and installed [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+  - Configured and installed [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/){:target="_blank"}
 
   - [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy)
 
 - The steps described assume familiarity with kubernetes
 
-- The required images are available in Dockerhub registry under the organization [FydeInc](https://url.fyde.me/docker)
+- The required images are available in Dockerhub registry under the organization [FydeInc](https://url.fyde.me/docker){:target="_blank"}
 
 ## Deploy manifests
 
 1. Create the Envoy Proxy manifest file
 
-    - Download the manifest file:
-
-        - [kubernetes/envoy-proxy.yaml]({{ site.baseurl }}{% link /fyde-access-proxy/kubernetes/envoy-proxy.yaml %})
+    - Download the manifest file: [envoy-proxy.yaml]({{ site.baseurl }}{% link /fyde-access-proxy/kubernetes/envoy-proxy.yaml %}){:target="_blank"}
 
     - Make sure the Fyde Access Proxy port, as configured in Fyde Enterprise Console, is allowed in the firewall
 
@@ -33,9 +31,7 @@ nav_order: 3
 
 1. Create the Fyde Proxy Orchestrator manifest file
 
-    - Download the manifest file:
-
-        - [kubernetes/fyde-proxy-orchestrator.yaml]({{ site.baseurl }}{% link /fyde-access-proxy/kubernetes/fyde-proxy-orchestrator.yaml %})
+    - Download the manifest file: [fyde-proxy-orchestrator.yaml]({{ site.baseurl }}{% link /fyde-access-proxy/kubernetes/fyde-proxy-orchestrator.yaml %}){:target="_blank"}
 
     - Update **enrollment_token** value with Fyde Access Proxy enrollment link
 

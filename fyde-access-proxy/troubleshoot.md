@@ -189,7 +189,7 @@ nav_order: 4
 
   - Check the value for **IPAM.Config.Subnet**
 
-  - For more information check [compose-file/#ipam](https://docs.docker.com/compose/compose-file/#ipam)
+  - For more information check [compose-file](https://docs.docker.com/compose/compose-file/#ipam){:target="_blank"}
 
   ```sh
   sudo docker network inspect fyde
