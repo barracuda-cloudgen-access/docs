@@ -1,3 +1,8 @@
+---
+title: Glossary
+has_children: false
+nav_order: 5
+---
 # Glossary
 
 - [Admin](#admin)
