@@ -37,7 +37,7 @@ nav_order: 3
 
         - [kubernetes/fyde-proxy-orchestrator.yaml]({{ site.baseurl }}{% link /fyde-access-proxy/kubernetes/fyde-proxy-orchestrator.yaml %})
 
-    - Update `enrollment_token` value with Fyde Access Proxy enrollment link
+    - Update **enrollment_token** value with Fyde Access Proxy enrollment link
 
 1. Create namespace for the resources
 

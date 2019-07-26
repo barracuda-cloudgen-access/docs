@@ -47,7 +47,7 @@ nav_order: 2
 
     - Make sure configured port matches the one configured in Fyde Enterprise Console
 
-    - Update `FYDE_ENROLLMENT_TOKEN` value with Fyde Access Proxy enrollment link
+    - Update **FYDE_ENROLLMENT_TOKEN** value with Fyde Access Proxy enrollment link
 
 1. Start the services (detached)
 
