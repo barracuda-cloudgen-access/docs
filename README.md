@@ -20,6 +20,5 @@ bundle install
 1. Test
 
 ```sh
-bundle exec just-the-docs rake search:init
 bundle exec jekyll serve
 ```
