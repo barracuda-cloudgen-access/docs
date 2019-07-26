@@ -40,7 +40,8 @@ NOTE: assuming default values
 
 ### Highly Available mode
 
-- NOTE: Redis Replication is out of the scope for this document
-  - Please check `https://redis.io/topics/replication`
+- Redis Replication is out of the scope of this document
+
+- Please check [Redis Replication](https://redis.io/topics/replication){:target="_blank"}
 
 ![Network Diagram HA Mode]({{ site.baseurl }}{% link imgs/ap-net-ha-mode.png %})

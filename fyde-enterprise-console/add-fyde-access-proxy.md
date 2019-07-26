@@ -14,7 +14,7 @@ Add the following:
 
 - **Proxy Name**: Used to identify the Fyde Access Proxy
 - **Location**: Optional, for your reference only
-- **Host**: IP/DNS record used to reach the proxy
+- **Host**: IP/Hostname used to reach the proxy
 - **Port**: Port where the Fyde Access Proxy will be available
 
 Click **Create**.

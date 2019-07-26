@@ -159,13 +159,13 @@ nav_order: 4
 
 ### Docker
 
-- Confirm that both `envoy-proxy` and `fyde-orchestrator` containers are running
+- Confirm that both **envoy-proxy** and **fyde-orchestrator** containers are running
 
   ```sh
   sudo docker ps
   ```
 
-- Confirm that `envoy-proxy` container is mapping the correct port to the host
+- Confirm that **envoy-proxy** container is mapping the correct port to the host
 
   - In the example above, and for the public port 8000 the output should contain the following
 
@@ -187,9 +187,9 @@ nav_order: 4
 
 - Check that docker network is not conflicting with a remote network
 
-  - Check the value for `IPAM.Config.Subnet`
+  - Check the value for **IPAM.Config.Subnet**
 
-  - For more information check [compose-file/#ipam](https://docs.docker.com/compose/compose-file/#ipam)
+  - For more information check [compose-file](https://docs.docker.com/compose/compose-file/#ipam){:target="_blank"}
 
   ```sh
   sudo docker network inspect fyde

@@ -25,7 +25,7 @@ A user device where the Fyde App is installed.
 
 ## Envoy Proxy
 
-From [Envoy documentation](https://www.envoyproxy.io/docs/envoy/latest/intro/what_is_envoy):
+From [Envoy documentation](https://www.envoyproxy.io/docs/envoy/latest/intro/what_is_envoy){:target="_blank"}:
 
 > Envoy is an L7 proxy and communication bus designed for large modern service oriented architectures
 
