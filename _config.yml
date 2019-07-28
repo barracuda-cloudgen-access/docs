@@ -1,7 +1,7 @@
 # Site settings
 remote_theme: pmarsceill/just-the-docs
 title: Fyde Docs
-baseurl: /docs/
+baseurl: /docs
 url: https://fydeinc.github.io
 description: Documentation for the Fyde Enterprise Console
 permalink: pretty
