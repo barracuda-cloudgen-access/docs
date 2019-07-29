@@ -22,8 +22,8 @@ Next, serve the project:
 
 ```sh
 docker run -v "$PWD:/srv/jekyll" \
-  -p 4000:4000 fyde-docs \
-  jekyll serve --incremental
+  -p 4000:4000 -p 35729:35729 fyde-docs \
+  jekyll serve --incremental --livereload
 ```
 
 Open your browser on <http://localhost:4000/docs/>.
@@ -44,7 +44,7 @@ bundle install
 Next, serve the project:
 
 ```sh
-bundle exec jekyll serve
+bundle exec jekyll serve --livereload
 ```
 
 Open your browser on <http://localhost:4000/docs/>.
