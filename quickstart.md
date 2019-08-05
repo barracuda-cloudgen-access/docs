@@ -5,7 +5,7 @@ nav_order: 2
 ---
 # Quick Start
 
-- Follow these steps to perform the required configuration to access a resource protected by Fyde Access Proxy
+Please follow the next steps to perform the required configuration to access a resource protected by Fyde Access Proxy.
 
 ## 1. Add new Fyde Access Proxy
 
