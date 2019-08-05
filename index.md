@@ -15,7 +15,7 @@ The days of the VPN are gone: it is no longer feasible to establish a secure net
 
 Zero Trust builds upon the assertion that the network is assumed to be hostile. In consequence, network locality is not sufficient for establishing trust and every flow must be authenticated and authorized in a dynamic fashion. This creates an effective separation between the _control plane_ -- the supporting system that implements the flow authentication and authorization according to the defined policies -- and the _data plane_.
 
-To learn more about Zero Trust, check [Zero Trust Networks: Building Secure Systems in Untrusted Networks](https://www.amazon.com/Zero-Trust-Networks-Building-Untrusted/dp/1491962194) and the [BeyondCorp paper by Google](https://storage.googleapis.com/pub-tools-public-publication-data/pdf/43231.pdf)
+To learn more about Zero Trust, check [Zero Trust Networks: Building Secure Systems in Untrusted Networks](https://www.amazon.com/Zero-Trust-Networks-Building-Untrusted/dp/1491962194){:target="_blank"} and the [BeyondCorp paper by Google](https://storage.googleapis.com/pub-tools-public-publication-data/pdf/43231.pdf){:target="_blank"}
 
 ## Architecture overview
 
