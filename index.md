@@ -7,7 +7,7 @@ nav_order: 1
 
 Welcome to Fyde! Fyde brings Zero Trust/BeyondCorp Security to the endpoint. In short, with Fyde, you can implement secure access to enterprise resources, whether they are on-prem or in the cloud, with a quick and easy configuration process.
 
-Fyde has three main components: an agent (Fyde App), a proxy (Fyde Access Proxy), and an administration console (Fyde Enterprise Console). It is very simple to start using Fyde: register a proxy and invite your employees to install Fyde App. Check our [Quick Start]({{ site.baseurl }}{% link quickstart.md %})) to know more details.
+Fyde has three main components: an agent (Fyde App), a proxy (Fyde Access Proxy), and an administration console (Fyde Enterprise Console). It is very simple to start using Fyde: register a proxy and invite your employees to install Fyde App. Check our [Quick Start]({{ site.baseurl }}{% link quickstart.md %}) to know more details.
 
 ## About Zero Trust
 
@@ -35,4 +35,4 @@ With Fyde, you can:
 
 ## Next steps
 
-To start using Fyde,check our [Quick Start]({{ site.baseurl }}{% link quickstart.md %}))
+To start using Fyde, check our [Quick Start]({{ site.baseurl }}{% link quickstart.md %}).
