@@ -7,7 +7,7 @@ nav_order: 1
 
 Welcome to Fyde! Fyde brings Zero Trust/BeyondCorp Security to the endpoint. In short, with Fyde, you can implement secure access to enterprise resources, whether they are on-prem or in the cloud, with a quick and easy configuration process.
 
-Fyde has three main components: an agent (Fyde App), a proxy (Fyde Access Proxy), and an administration console (Fyde Enterprise Console). It is very simple to start using Fyde: register a proxy and invite your employees to install Fyde App. Check our [Quick Start]({{ site.baseurl }}{% link quickstart.md %})) to know more details.
+Fyde has three main components: an agent (Fyde App), a proxy (Fyde Access Proxy), and an administration console (Fyde Enterprise Console). It is very simple to start using Fyde: register a proxy and invite your employees to install Fyde App. Check our [Quick Start]({{ site.baseurl }}{% link quickstart.md %}) to know more details.
 
 ## About Zero Trust
 
@@ -15,7 +15,7 @@ The days of the VPN are gone: it is no longer feasible to establish a secure net
 
 Zero Trust builds upon the assertion that the network is assumed to be hostile. In consequence, network locality is not sufficient for establishing trust and every flow must be authenticated and authorized in a dynamic fashion. This creates an effective separation between the _control plane_ -- the supporting system that implements the flow authentication and authorization according to the defined policies -- and the _data plane_.
 
-To learn more about Zero Trust, check [Zero Trust Networks: Building Secure Systems in Untrusted Networks](https://www.amazon.com/Zero-Trust-Networks-Building-Untrusted/dp/1491962194) and the [BeyondCorp paper by Google](https://storage.googleapis.com/pub-tools-public-publication-data/pdf/43231.pdf)
+To learn more about Zero Trust, check [Zero Trust Networks: Building Secure Systems in Untrusted Networks](https://www.amazon.com/Zero-Trust-Networks-Building-Untrusted/dp/1491962194){:target="_blank"} and the [BeyondCorp paper by Google](https://storage.googleapis.com/pub-tools-public-publication-data/pdf/43231.pdf){:target="_blank"}
 
 ## Architecture overview
 
@@ -35,4 +35,4 @@ With Fyde, you can:
 
 ## Next steps
 
-To start using Fyde,check our [Quick Start]({{ site.baseurl }}{% link quickstart.md %}))
+To start using Fyde, check our [Quick Start]({{ site.baseurl }}{% link quickstart.md %}).
