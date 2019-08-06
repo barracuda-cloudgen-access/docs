@@ -12,6 +12,7 @@ spec:
     - name: envoy-proxy
       port: 8000
       protocol: TCP
+      targetPort: envoy
   selector:
     app: envoy-proxy
   type: LoadBalancer
