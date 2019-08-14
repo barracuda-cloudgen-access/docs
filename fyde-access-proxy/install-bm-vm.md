@@ -27,12 +27,12 @@ nav_order: 1
 
 ## Manual steps
 
-1. Install Software Collections (SCL) repository
+1. Install yum repository manager and update cURL (necessary in old CentOS 7.0 versions)
 
     ```sh
     sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-    sudo yum -y install centos-release-scl yum-utils
-    sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
+    sudo yum -y install yum-utils
+    sudo yum -y update curl
     ```
 
 1. Add Fyde repository
