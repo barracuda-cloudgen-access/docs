@@ -30,11 +30,11 @@ PUBLIC_PORT=${PUBLIC_PORT:-"8000"}
 read -r -p "Paste the Fyde Access Proxy enrollment link (hidden): " -s PROXY_TOKEN
 echo ""
 
-log_entry "INFO" "Install Software Collections (SCL) repository"
+log_entry "INFO" "Install yum repository manager and update cURL (necessary in old CentOS 7.0 versions)"
 
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-yum -y install centos-release-scl yum-utils
-rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo
+yum -y install yum-utils
+yum -y update curl
 
 log_entry "INFO" "Add Fyde repository"
 
