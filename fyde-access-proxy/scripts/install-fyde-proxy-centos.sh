@@ -44,6 +44,25 @@ log_entry "INFO" "Install Envoy Proxy"
 
 yum -y install envoy
 systemctl enable envoy
+
+if [ $PUBLIC_PORT -lt 1024 ];
+then
+    log_entry "INFO" "Add CAP_NET_BIND_SERVICE to Envoy using a service unit override"
+
+    mkdir -p /etc/systemd/system/envoy.service.d
+    cat > /etc/systemd/system/envoy.service.d/10-add-cap-net-bind.conf <<EOF
+[Service]
+Capabilities=CAP_NET_BIND_SERVICE+ep
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+SecureBits=keep-caps
+EOF
+    chmod 600 /etc/systemd/system/envoy.service.d/10-add-cap-net-bind.conf
+fi
+
+log_entry "INFO" "Reload and start Envoy Proxy"
+
+systemctl --system daemon-reload
 systemctl start envoy
 
 log_entry "INFO" "Install Fyde Proxy Orchestrator and authz system"

@@ -46,6 +46,30 @@ nav_order: 1
     ```sh
     sudo yum -y install envoy
     sudo systemctl enable envoy
+    ```
+
+1. Add CAP_NET_BIND_SERVICE to Envoy using a service unit override
+
+    If you choose to configure your proxy to run in a port below 1024,
+    you will need to add the CAP_NET_BIND_SERVICE capability to Envoy.
+
+    ```sh
+    sudo mkdir -p /etc/systemd/system/envoy.service.d
+
+    sudo bash -c "cat > /etc/systemd/system/envoy.service.d/10-add-cap-net-bind.conf <<EOF
+    [Service]
+    Capabilities=CAP_NET_BIND_SERVICE+ep
+    CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+    AmbientCapabilities=CAP_NET_BIND_SERVICE
+    SecureBits=keep-caps
+    EOF"
+
+    sudo chmod 600 /etc/systemd/system/envoy.service.d/10-add-cap-net-bind.conf
+    ```
+
+1. Reload and start Envoy Proxy
+    ```sh
+    sudo systemctl --system daemon-reload
     sudo systemctl start envoy
     ```
 
