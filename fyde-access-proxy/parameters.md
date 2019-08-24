@@ -29,8 +29,6 @@ nav_order: 5
 | forced_authz_response     | None          | bool  | Force an authz response (True: allow, False: denied)                  |
 | disable_authz_cache       | False         | bool  | Disable authentication cache                                          |
 | enrollment_token          | None          | str   | Enrollment token provided by Fyde Enterprise Console                  |
-| envoy_disable_authz       | False         | bool  | Disable calling our APE authorization system from Envoy Proxy         |
-| envoy_disable_rscs_healthcheck  | False   | bool  | Disable resources healthcheck                                         |
 | envoy_listener_port       | 8000          | int   | Envoy General Listener port                                           |
 | envoy_prometheus          | True          | bool  | Prometheus metrics for Envoy Proxy status                             |
 | envoy_prometheus_port     | 9000          | int   | Prometheus for Envoy Proxy port                                       |
