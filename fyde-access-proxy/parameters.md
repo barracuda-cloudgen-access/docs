@@ -6,7 +6,18 @@ nav_order: 5
 ---
 # Parameters
 
-- These keys are applicable to the Fyde Proxy Orchestrator
+## Fyde Envoy Proxy
+
+- Environment variables to override default values:
+
+| Key               | Default Value | Type      | Description                                   |
+| ----------------- | ------------- | --------- | --------------------------------------------- |
+| COMPONENTLOGLEVEL | grpc:debug,config:debug   | str   | Envoy's component specific log level [info](https://www.envoyproxy.io/docs/envoy/latest/operations/cli#cmdoption-component-log-level){:target="_blank"} |
+| FYDE_PROXY_HOST   | proxy-client  | str       | Fyde Orchestrator's hostname / DNS record     |
+| FYDE_PROXY_PORT   | 50051         | str       | Fyde Orchestrator's service port              |
+| LOGLEVEL          | info          | str       | Envoy's global loglevel [info](https://www.envoyproxy.io/docs/envoy/latest/operations/cli#cmdoption-component-log-level){:target="_blank"}   |
+
+## Fyde Proxy Orchestrator
 
 - The following override mechanisms will be processed in order, the last override representing the final value:
 
