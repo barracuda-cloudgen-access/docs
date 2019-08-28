@@ -41,6 +41,10 @@ spec:
               value: info
             - name: COMPONENTLOGLEVEL
               value: grpc:debug,config:debug
+            - name: FYDE_PROXY_HOST
+              value: fyde-orchestrator
+            - name: FYDE_PROXY_PORT
+              value: "50051"
           ports:
             - name: envoy
               containerPort: 8000
