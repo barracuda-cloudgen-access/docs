@@ -7,6 +7,9 @@ services:
     container_name: envoy-proxy
     depends_on:
       - fyde-orchestrator
+    environment:
+      - FYDE_PROXY_HOST=fyde-orchestrator
+      - FYDE_PROXY_PORT=50051
     image: fydeinc/envoyproxy-centos:latest
     networks:
       - fyde
@@ -23,11 +26,7 @@ services:
       - FYDE_ENROLLMENT_TOKEN=<paste here your Fyde Access Proxy enrollment link>
     image: fydeinc/fydeproxy-centos:latest
     networks:
-      fyde:
-        aliases:
-          # This name cannot be changed for now
-          # Envoy proxy uses it to find the Fyde Proxy Orchestrator
-          - proxy-client
+      - fyde
     restart: unless-stopped
 
 networks:

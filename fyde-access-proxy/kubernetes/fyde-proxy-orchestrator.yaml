@@ -11,9 +11,7 @@ stringData:
 apiVersion: v1
 kind: Service
 metadata:
-  # This name cannot be changed for now
-  # Envoy proxy uses it to find the Fyde Proxy Orchestrator
-  name: proxy-client
+  name: fyde-orchestrator
 spec:
   ports:
     - name: fyde-orchestrator
