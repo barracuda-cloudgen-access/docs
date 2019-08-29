@@ -25,8 +25,8 @@ function log_entry() {
 
 DL_DOCKER="https://get.docker.com"
 DL_COMPOSE="https://github.com/docker/compose/releases/download/1.24.0/docker-compose-"
-DL_MANIFEST_BASE="https://raw.githubusercontent.com/fydeinc/docs/master/fyde-access-proxy/docker/docker-compose.yml"
-DL_MANIFEST_TEST="https://raw.githubusercontent.com/fydeinc/docs/master/fyde-access-proxy/docker/docker-compose-httptest.yml"
+DL_MANIFEST_BASE="https://raw.githubusercontent.com/fyde/docs/master/fyde-access-proxy/docker/docker-compose.yml"
+DL_MANIFEST_TEST="https://raw.githubusercontent.com/fyde/docs/master/fyde-access-proxy/docker/docker-compose-httptest.yml"
 
 # Request information
 

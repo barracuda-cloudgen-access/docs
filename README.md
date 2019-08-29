@@ -3,7 +3,7 @@
 ![Fyde](imgs/fyde-logo.png)
 
 - Website: <https://fyde.com>
-- Documentation: <https://fydeinc.github.io/docs>
+- Documentation: <https://fyde.github.io/docs>
 
 ## Test locally
 
