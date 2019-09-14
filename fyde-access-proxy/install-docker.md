@@ -11,9 +11,11 @@ nav_order: 2
 - Requires a valid [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy)
 
 - Tested in:
+
   - Debian 9
   - Centos 7
   - Ubuntu 16.04/18.04
+  - MacOS 10.14
 
 - Choose [**Install script**](#install-script) or [**Manual steps**](#manual-steps) to proceed
 
