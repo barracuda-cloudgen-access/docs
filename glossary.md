@@ -44,7 +44,7 @@ Required by Fyde Access Proxy and used to bootstrap and authorize the service. O
 
 ## Fyde App
 
-Agent software installed in a user's device.
+Agent software installed in a user's device. Bundles the end user UI and the Fyde agent.
 
 ## fyde-cli
 
