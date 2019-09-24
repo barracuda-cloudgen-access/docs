@@ -33,19 +33,18 @@ echo ""
 log_entry "INFO" "Install yum repository manager and update cURL (necessary in old CentOS 7.0 versions)"
 
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-yum -y install yum-utils
-yum -y update curl
+yum -y install yum-utils curl
 
 log_entry "INFO" "Add Fyde repository"
 
-yum-config-manager -y --add-repo https://downloads.fyde.com/stable.repo
+yum-config-manager -y --add-repo https://downloads.fyde.com/fyde.repo
 
 log_entry "INFO" "Install Envoy Proxy"
 
 yum -y install envoy
 systemctl enable envoy
 
-if [ $PUBLIC_PORT -lt 1024 ];
+if [ "$PUBLIC_PORT" -lt 1024 ];
 then
     log_entry "INFO" "Add CAP_NET_BIND_SERVICE to Envoy using a service unit override"
 
