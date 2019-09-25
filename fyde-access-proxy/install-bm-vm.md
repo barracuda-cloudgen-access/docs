@@ -31,14 +31,13 @@ nav_order: 1
 
     ```sh
     sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-    sudo yum -y install yum-utils
-    sudo yum -y update curl
+    sudo yum -y install yum-utils curl
     ```
 
 1. Add Fyde repository
 
     ```sh
-    sudo yum-config-manager -y --add-repo https://downloads.fyde.com/stable.repo
+    sudo yum-config-manager -y --add-repo https://downloads.fyde.com/fyde.repo
     ```
 
 1. Install Envoy Proxy
@@ -68,6 +67,7 @@ nav_order: 1
     ```
 
 1. Reload and start Envoy Proxy
+
     ```sh
     sudo systemctl --system daemon-reload
     sudo systemctl start envoy
