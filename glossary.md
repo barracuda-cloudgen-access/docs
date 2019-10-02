@@ -13,6 +13,7 @@ nav_order: 5
 - [Fyde App](#fyde-app)
 - [Fyde Enterprise Console](#fyde-enterprise-console)
 - [Fyde Proxy Orchestrator](#fyde-proxy-orchestrator)
+- [Fyde User Directory Connector](#fyde-user-directory-connector)
 - [User](#user)
 
 ## Admin
@@ -52,6 +53,10 @@ Web application to manage the Fyde's customer platform.
 Fyde Proxy Orchestrator ensures that Envoy Proxy is configured with the correct requests and takes care of requests authorization and authentication.
 
 Requires a valid token (Fyde Access Proxy enrollment link) that contains the necessary information to bootstrap and authorize the service.
+
+## Fyde User Directory Connector
+
+Program that retrieves users and groups from multiple sources and sync them into a Fyde Enterprise tenant
 
 ## User
 
