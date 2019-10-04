@@ -55,15 +55,18 @@ nav_order: 4
 
 ## Check if the device is trying to access the Resource with the Fyde App
 
-- Check the IP for the failing Resource, it should return an IP in the 192.0.2.0/24 range
+- Check the IP for the failing Resource, it should return an IP in the range:
+
+  - 255.0.0.0/8 for Unix/Linux based Operative systems
+  - 198.18.0.0/15 for Microsoft Operative Systems
 
   ```sh
   → nslookup myresource.private
-  Server:    192.0.2.2
-  Address:   192.0.2.2#53
+  Server:    192.0.2.5
+  Address:   192.0.2.5#53
 
   Name: myresource.private
-  Address: 192.0.2.4
+  Address: 255.0.0.12
   ```
 
 - Next steps:
