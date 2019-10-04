@@ -39,6 +39,7 @@ nav_order: 5
 | authz_timeout             | 30            | int   | Fyde authorization call timeout (seconds)                             |
 | forced_authz_response     | None          | bool  | Force an authz response (True: allow, False: denied)                  |
 | disable_authz_cache       | False         | bool  | Disable authentication cache                                          |
+| enable_ipv6               | False         | bool  | Enable ipv6 usage for DNS in envoy                                    |
 | enrollment_token          | None          | str   | Enrollment token provided by Fyde Enterprise Console                  |
 | envoy_listener_port       | 8000          | int   | Envoy General Listener port                                           |
 | envoy_prometheus          | True          | bool  | Prometheus metrics for Envoy Proxy status                             |
