@@ -1,20 +1,22 @@
 ---
 title: Glossary
 has_children: false
-nav_order: 5
+nav_order: 6
 ---
 # Glossary
 
-- [Admin](#admin)
-- [Device](#device)
-- [Envoy Proxy](#envoy-proxy)
-- [Fyde Access Proxy](#fyde-access-proxy)
-- [Fyde Access Proxy enrollment link](#fyde-access-proxy-enrollment-link)
-- [Fyde App](#fyde-app)
-- [Fyde Enterprise Console](#fyde-enterprise-console)
-- [Fyde Proxy Orchestrator](#fyde-proxy-orchestrator)
-- [Fyde User Directory Connector](#fyde-user-directory-connector)
-- [User](#user)
+- [Glossary](#glossary)
+  - [Admin](#admin)
+  - [Device](#device)
+  - [Envoy Proxy](#envoy-proxy)
+  - [Fyde Access Proxy](#fyde-access-proxy)
+  - [Fyde Access Proxy enrollment link](#fyde-access-proxy-enrollment-link)
+  - [Fyde App](#fyde-app)
+  - [fyde-cli](#fyde-cli)
+  - [Fyde Enterprise Console](#fyde-enterprise-console)
+  - [Fyde Proxy Orchestrator](#fyde-proxy-orchestrator)
+  - [Fyde User Directory Connector](#fyde-user-directory-connector)
+  - [User](#user)
 
 ## Admin
 
@@ -43,6 +45,10 @@ Required by Fyde Access Proxy and used to bootstrap and authorize the service. O
 ## Fyde App
 
 Agent software installed in a user's device.
+
+## fyde-cli
+
+Command-line software used to interact with the Fyde Enterprise Console.
 
 ## Fyde Enterprise Console
 
