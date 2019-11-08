@@ -50,6 +50,15 @@ nav_order: 5
 | mtls_ca_validation        | True          | bool  | Require and check client certificates belong to a given trusted CA    |
 | proxy_prometheus          | True          | bool  | Prometheus metrics for Fyde Proxy Orchestrator status                 |
 | proxy_prometheus_port     | 9010          | int   | Prometheus for Fyde Proxy Orchestrator port                           |
+| redis_ssl                 | False         | bool  | Enable SSL support for Redis connections                              |
+| redis_sentinel_ssl        | False         | bool  | Enable SSL support for Redis Sentinel connections                     |
+| redis_ssl_cert_reqs       | 'none'        | str   | SSL Certificate verification options. one of 'none', 'optional', 'required'. See https://docs.python.org/3/library/ssl.html#ssl.SSLContext.verify_mode for more info |
+| redis_ssl_key             | None          | str   | Redis/Sentinel SSL client authentication private key |
+|                           |               |       | This can be a path to a file holding the key or the content of it inlined in the variable |
+| redis_ssl_cert            | None          | str   | Redis/Sentinel SSL client authentication certificate |
+|                           |               |       | This can be a path to a file holding the cert or the content of it inlined in the variable |
+| redis_ssl_ca_certs        | None          | str   | Redis/Sentinel SSL CA trusted anchors |
+|                           |               |       | This can be a path to a file holding the certs or the content of it inlined in the variable |
 | redis_auth                | None          | str   | Redis auth key                                                        |
 | redis_db                  | 0             | int   | Redis database                                                        |
 | redis_host                | None          | str   | Used for HA mode only, leave empty in Fyde Access Proxy single mode   |
