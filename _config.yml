@@ -15,3 +15,5 @@ aux_links:
     - "//enterprise.fyde.com"
   "Fyde.com":
     - "//fyde.com"
+  "Edit":
+    - "//github.com/fyde/docs"
