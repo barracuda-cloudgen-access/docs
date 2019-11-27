@@ -27,7 +27,6 @@ NOTE: assuming default values
 | Envoy Proxy               | Access port                   | Inbound   | Configured in Console | All     |
 |                           | Registered resources          | Outbound  | Configured in Console | All     |
 |                           | Fyde Proxy Orchestrator       | Outbound  | TCP 50051             | All     |
-|                           | Envoy Proxy Cluster           | Any       | Any                   | HA mode |
 | Fyde Proxy Orchestrator   | Envoy Proxy Cluster           | Inbound   | TCP 50051             | All     |
 |                           | Fyde Enterprise Console API   | Outbound  | TCP 443               | All     |
 |                           | Redis                         | Outbound  | Configured Redis port | HA mode |
