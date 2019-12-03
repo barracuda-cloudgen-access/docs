@@ -2,7 +2,7 @@
 layout: default
 title: Fyde Enterprise Console
 has_children: true
-nav_order: 3
+nav_order: 4
 permalink: /fyde-enterprise-console
 ---
 # Fyde Enterprise Console

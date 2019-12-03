@@ -2,7 +2,7 @@
 layout: default
 title: Fyde Access Proxy
 has_children: true
-nav_order: 4
+nav_order: 5
 permalink: /fyde-access-proxy
 ---
 # Fyde Access Proxy
