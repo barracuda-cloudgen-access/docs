@@ -1,8 +1,10 @@
 ---
 title: Fyde CLI Client
-has_children: false
+has_children: true
 nav_order: 5
+permalink: /fyde-cli
 ---
+
 # Fyde CLI Client
 
 The Fyde CLI Client, fyde-cli, provides some of the [Fyde Enterprise Console]({{ site.baseurl }}{% link fyde-enterprise-console/README.md %}) functionality as a command-line utility.
