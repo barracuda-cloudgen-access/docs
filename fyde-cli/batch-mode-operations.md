@@ -3,7 +3,7 @@ layout: default
 title: Batch mode operations
 parent: Fyde CLI Client
 has_children: true
-nav_order: 5
+nav_order: 6
 ---
 
 # Batch mode operations

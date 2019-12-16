@@ -2,7 +2,7 @@
 layout: default
 title: Configuration file
 parent: Fyde CLI Client
-nav_order: 3
+nav_order: 4
 ---
 # Configuration file
 

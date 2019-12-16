@@ -2,7 +2,7 @@
 layout: default
 title: Credentials file
 parent: Fyde CLI Client
-nav_order: 4
+nav_order: 5
 ---
 # Credentials file
 

@@ -2,7 +2,7 @@
 layout: default
 title: Set EC endpoint
 parent: Fyde CLI Client
-nav_order: 2
+nav_order: 3
 ---
 # Set EC endpoint
 
