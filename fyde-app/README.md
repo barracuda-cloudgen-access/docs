@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Fyde App
-has_children: false
+has_children: true
 nav_order: 3
 permalink: /fyde-app
 ---
@@ -14,7 +14,7 @@ The Fyde app bundles the end user UI and the Fyde Agent. It is available on the 
 * [Android](https://www.fyde.com/downloads/android){:target="_blank"}
 * [MacOS](https://www.fyde.com/downloads/macos){:target="_blank"}
 * [Windows](https://www.fyde.com/downloads/windows){:target="_blank"}
-* [Linux](https://www.fyde.com/downloads/linux){:target="_blank"}
+* [Linux]({{ site.baseurl }}{% link fyde-app/linux.md %})
 
 ## Fyde Agent
 
