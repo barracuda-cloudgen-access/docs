@@ -8,7 +8,7 @@ nav_order: 6
 # Add domains in batch mode
 
 fyde-cli supports adding domains in batch mode, importing data from JSON or CSV files.
-This operation uses the [common batch mode flags](https://github.com/fyde/fyde-cli/wiki/Common-batch-mode-flags).
+This operation uses the [common batch mode flags]({{ site.baseurl }}{% link fyde-cli/batch-mode-operations.md %}).
 
 JSON files should contain an array of objects, each containing the fields for each domain one wishes to add.
 

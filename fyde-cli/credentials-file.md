@@ -2,10 +2,11 @@
 layout: default
 title: Credentials file
 parent: Fyde CLI Client
+nav_order: 4
 ---
 # Credentials file
 
-fyde-cli uses a "credentials file" or "authentication file" which specifies what [endpoint to use](https://github.com/fyde/fyde-cli/wiki/Working-with-different-EC-endpoints) and the API credentials.
+fyde-cli uses a "credentials file" or "authentication file" which specifies what [endpoint to use]({{ site.baseurl }}{% link fyde-cli/set-EC-endpoint.md %}) and the API credentials.
 This file is changed by the `endpoint set` and `login` commands.
 
 By default, fyde-cli places the credentials file in a folder owned by the user.

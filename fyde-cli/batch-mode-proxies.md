@@ -8,7 +8,7 @@ nav_order: 4
 # Add and edit proxies in batch mode
 
 fyde-cli supports adding and editing proxies in batch mode, importing data from JSON or CSV files.
-Batch operations on proxies use the [common batch mode flags](https://github.com/fyde/fyde-cli/wiki/Common-batch-mode-flags).
+Batch operations on proxies use the [common batch mode flags]({{ site.baseurl }}{% link fyde-cli/batch-mode-operations.md %}).
 
 JSON files should contain an array of objects, each containing the fields for each proxy one wishes to add or edit.
 

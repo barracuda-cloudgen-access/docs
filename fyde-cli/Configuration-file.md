@@ -2,6 +2,7 @@
 layout: default
 title: Configuration file
 parent: Fyde CLI Client
+nav_order: 3
 ---
 # Configuration file
 
@@ -27,7 +28,7 @@ The path to the config file can be overridden in two different ways:
 
 The "full path of the file" can be absolute or relative, and must include the file name and extension.
 
-# Syntax
+## Syntax
 
 As indicated by the extension, YAML format is expected.
 All configuration parameters are optional.
@@ -41,9 +42,9 @@ defaultRangeSize: 20
 cachePath: /tmp/fyde-cli-cache
 ```
 
-# Parameters
+## Parameters
 
-## `outputFormat`
+### outputFormat
 This defines the default output format, for commands where the `--output` flag can be used, if an interactive terminal is detected.
 It is ignored if the `--output` flag is explicitly provided.
 
@@ -51,7 +52,7 @@ It is ignored if the `--output` flag is explicitly provided.
 
 **Default value:** `table`
 
-## `pipeOutputFormat`
+### pipeOutputFormat
 This defines the default output format, for commands where the `--output` flag can be used, if an interactive terminal is **not** detected.
 It is ignored if the `--output` flag is explicitly provided.
 
@@ -59,7 +60,7 @@ It is ignored if the `--output` flag is explicitly provided.
 
 **Default value:** `json`
 
-## `recordsPerGetRequest`
+### recordsPerGetRequest
 
 fyde-cli abstracts pagination in server requests, exposing only `--range-start` and `--range-end` to the user, which operate on record indexes and not pages.
 This setting controls how many records should be requested per page on list commands.
@@ -69,7 +70,7 @@ Setting a larger value results in less requests being made when retrieving large
 
 **Default value:** `50`
 
-## `defaultRangeSize`
+### defaultRangeSize
 
 How many records to display on list commands, when neither `--range-start`, `--range-end` or `--list-all` are specified.
 
@@ -77,12 +78,12 @@ How many records to display on list commands, when neither `--range-start`, `--r
 
 **Default value:** `20`
 
-## `cachePath`
+### cachePath
 
 Path for cache files.
 Currently used only if `--experimental-use-cache` is specified on `endpoint set`.
 Note that this setting does not control whether the cache is used.
-Because it basically changes an aspect of the communication with the API, that setting is actually stored in the [credentials file](https://github.com/fyde/fyde-cli/wiki/Working-with-credentials-files).
+Because it changes an aspect of the communication with the API, that setting is actually stored in the [credentials file]({{ site.baseurl }}{% link fyde-cli/credentials-file.md %}).
 
 **Possible values:** any valid folder path. fyde-cli will attempt creating the folder the first time it writes to cache, if it doesn't exist.
 

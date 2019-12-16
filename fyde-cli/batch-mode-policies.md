@@ -8,7 +8,7 @@ nav_order: 5
 # Add and edit policies in batch mode
 
 fyde-cli supports adding and editing policies in batch mode, importing data from JSON or CSV files.
-Batch operations on policies use the [common batch mode flags](https://github.com/fyde/fyde-cli/wiki/Common-batch-mode-flags).
+Batch operations on policies use the [common batch mode flags]({{ site.baseurl }}{% link fyde-cli/batch-mode-operations.md %}).
 
 JSON files should contain an array of objects, each containing the fields for each policy one wishes to add or edit.
 

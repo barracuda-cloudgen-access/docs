@@ -2,6 +2,7 @@
 layout: default
 title: Set EC endpoint
 parent: Fyde CLI Client
+nav_order: 2
 ---
 # Set EC endpoint
 
@@ -24,23 +25,23 @@ Endpoint changed to fydeconsole.example.com.
 Credentials cleared, please login again using `fyde-cli login`
 ```
 
-The endpoint is saved in the authentication settings file, therefore, when you [switch between credentials files](https://github.com/fyde/fyde-cli/wiki/Working-with-credentials-files), the correct endpoint for the credentials is used automatically.
+The endpoint is saved in the authentication settings file, therefore, when you [switch between credentials files]({{ site.baseurl }}{% link fyde-cli/credentials-file.md %}), the correct endpoint for the credentials is used automatically.
 
 As indicated by the message shown, when the endpoint is set, credentials are cleared from the current credentials file.
 
-# Experimental endpoint settings
+## Experimental endpoint settings
 
-## Use HTTP cache
+### Use HTTP cache
 
 Experimental support for RFC 7234-compliant HTTP caching can be enabled by including the `--experimental-use-cache` option when setting the endpoint.
 
-The location of the cache can be adjusted using the [configuration file](https://github.com/fyde/fyde-cli/wiki/Configuration-file#cachepath).
+The location of the cache can be adjusted using the [configuration file]({{ site.baseurl }}{% link fyde-cli/configuration-file.md %}).
 
 The cache is cleared when the endpoint is set.
 
-# Advanced endpoint settings
+## Advanced endpoint settings
 
-## Disabling TLS certificate validation
+### Disabling TLS certificate validation
 
 Under very specific circumstances, such as debugging certificate issues, it is possible to disable the validation of the EC TLS certificate.
 **This should only be used for development and testing.**
@@ -57,7 +58,7 @@ WARNING: TLS certificate verification is being skipped for the endpoint. THIS IS
 
 fyde-cli will show the above warning on every run, until the endpoint is set again, without using this option.
 
-## Using HTTP instead of HTTPS
+### Using HTTP instead of HTTPS
 
 Under very specific circumstances, it is possible to have fyde-cli communicate with the EC over HTTP instead of HTTPS.
 **This should only be used for development and testing.**
