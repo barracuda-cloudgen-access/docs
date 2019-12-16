@@ -18,9 +18,9 @@ Supported versions:
 | Distro    | Versions      | Instructions              |
 | ---       | ---           | ---                       |
 | Arch      | -             | In progress               |
-| CentOS    | 7, 8          | [YUM](##yum-repository)   |
-| Debian    | 9, 10         | [APT](##apt-repository)   |
-| Ubuntu    | 16.04, 18.04  | [APT](##apt-repository)   |
+| CentOS    | 7, 8          | [YUM](#yum-repository)    |
+| Debian    | 9, 10         | [APT](#apt-repository)    |
+| Ubuntu    | 16.04, 18.04  | [APT](#apt-repository)    |
 | Other Distribution     | x86_64   | In progress       |
 
 ## APT Repository
