@@ -1,3 +1,12 @@
+---
+layout: default
+title: Add and edit policies
+parent: Batch mode operations
+grand_parent: Fyde CLI Client
+nav_order: 5
+---
+# Add and edit policies in batch mode
+
 fyde-cli supports adding and editing policies in batch mode, importing data from JSON or CSV files.
 Batch operations on policies use the [common batch mode flags](https://github.com/fyde/fyde-cli/wiki/Common-batch-mode-flags).
 
@@ -8,7 +17,7 @@ They must contain a header, specifying the fields and their order, followed by t
 
 When editing policies, unspecified non-mandatory fields remain unchanged.
 
-# Fields
+## Fields
 
 The expected fields for each format are as follows:
 
@@ -19,7 +28,7 @@ The expected fields for each format are as follows:
 | `access_resource_ids` | string array | `AccessResourceIds` | `["2a70f6e3-879d-462d-a14f-c58ccf048b9a"]` | Resource IDs of the policy | No
 | `conditions` | object | _Unsupported_ |  | See below | No
 
-## `conditions`
+### `conditions`
 
 To enable RBAC for this policy, include a `conditions` object as follows:
 
@@ -38,14 +47,14 @@ If both are empty arrays, the policy will deny access to all users and groups.
 
 Specifying RBAC settings is not supported when using the CSV format.
 
-# File examples
+## File examples
 
 Note: field order can be different from what is shown in the examples, and non-mandatory fields can be omitted.
 When using CSV, make sure to specify the correct field order in the header, and to maintain the order and number of fields consistent throughout each line.
 
-## Adding policies
+### Adding policies
 
-### JSON
+#### JSON
 
 ```json
 [
@@ -68,7 +77,7 @@ When using CSV, make sure to specify the correct field order in the header, and 
 
 `$ fyde-cli policies add --from-file=example.json`
 
-### CSV
+#### CSV
 
 ```
 Name,AccessResourceIds
@@ -78,9 +87,9 @@ Example policy,[55]
 
 `$ fyde-cli policies add --from-file=example.csv --file-format=csv`
 
-## Editing policies
+### Editing policies
 
-### JSON
+#### JSON
 
 ```json
 [
@@ -97,7 +106,7 @@ Example policy,[55]
 
 `$ fyde-cli policies edit --from-file=example.json`
 
-### CSV
+#### CSV
 
 ```
 ID,Name,AccessResourceIds

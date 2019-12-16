@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Adding and editing groups in batch mode
+title: Add and edit groups
 parent: Batch mode operations
+grand_parent: Fyde CLI Client
+nav_order: 2
 ---
-
-# Adding and editing groups in batch mode
+# Add and edit groups in batch mode
 
 fyde-cli supports adding and editing groups in batch mode, importing data from JSON or CSV files.
 Batch operations on groups use the [common batch mode flags](https://github.com/fyde/fyde-cli/wiki/Common-batch-mode-flags).

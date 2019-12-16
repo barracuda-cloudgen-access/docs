@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Working with credentials files
+title: Credentials file
 parent: Fyde CLI Client
 ---
-# Working with credentials files
+# Credentials file
 
-fyde-cli uses a "authentication file" which specifies what [endpoint to use](https://github.com/fyde/fyde-cli/wiki/Working-with-different-EC-endpoints) and the API credentials.
+fyde-cli uses a "credentials file" or "authentication file" which specifies what [endpoint to use](https://github.com/fyde/fyde-cli/wiki/Working-with-different-EC-endpoints) and the API credentials.
 This file is changed by the `endpoint set` and `login` commands.
 
-By default, fyde-cli places the authentication file in a folder owned by the user.
+By default, fyde-cli places the credentials file in a folder owned by the user.
 The exact path is platform-dependent.
 You can see what path fyde-cli will use by default in the "Global flags" section of the help text:
 
@@ -20,7 +20,7 @@ Global Flags:
 <snip>
 ```
 
-When managing more than one Management Console installation, quickly switching between authentication files can be useful.
+When managing more than one Management Console installation, quickly switching between credentials files can be useful.
 The path to the credentials file can be overridden in two different ways:
 
 - Using the environment variable `FYDE_CLI_AUTH_FILE`, set to the full path of the file.

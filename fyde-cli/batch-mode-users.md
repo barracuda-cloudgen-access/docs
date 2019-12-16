@@ -1,3 +1,12 @@
+---
+layout: default
+title: Add and edit users
+parent: Batch mode operations
+grand_parent: Fyde CLI Client
+nav_order: 1
+---
+# Add and edit users in batch mode
+
 fyde-cli supports adding and editing users in batch mode, importing data from JSON or CSV files.
 Batch operations on users use the [common batch mode flags](https://github.com/fyde/fyde-cli/wiki/Common-batch-mode-flags).
 
@@ -8,7 +17,7 @@ They must contain a header, specifying the fields and their order, followed by t
 
 When editing users, unspecified non-mandatory fields remain unchanged.
 
-# Fields
+## Fields
 
 The expected fields for each format are as follows:
 
@@ -22,14 +31,14 @@ The expected fields for each format are as follows:
 | `enabled` | boolean | `Enabled` | `true` | Whether the user is enabled | No
 | `send_email`<br>`_invitation` | boolean | `SendEmail`<br>`Invitation` | `false` | Whether to send an email invitation.<br>**Used only when adding** | No
 
-# File examples
+## File examples
 
 Note: field order can be different from what is shown in the examples, and non-mandatory fields can be omitted.
 When using CSV, make sure to specify the correct field order in the header, and to maintain the order and number of fields consistent throughout each line.
 
-## Adding users
+### Adding users
 
-### JSON
+#### JSON
 
 ```json
 [
@@ -46,7 +55,7 @@ When using CSV, make sure to specify the correct field order in the header, and 
 
 `$ fyde-cli users add --from-file=example.json`
 
-### CSV
+#### CSV
 
 ```
 Name,Email,PhoneNumber,GroupIds,Enabled,SendEmailInvitation
@@ -56,9 +65,9 @@ User 2,2@example.com,644889998,[],true,true
 
 `$ fyde-cli users add --from-file=example.csv --file-format=csv`
 
-## Editing users
+### Editing users
 
-### JSON
+#### JSON
 
 ```json
 [
@@ -75,7 +84,7 @@ User 2,2@example.com,644889998,[],true,true
 
 `$ fyde-cli users edit --from-file=example.json`
 
-### CSV
+#### CSV
 
 ```
 ID,Name,Email,PhoneNumber,GroupIds,Enabled

@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Working with different EC endpoints
+title: Set EC endpoint
 parent: Fyde CLI Client
 ---
-# Working with different EC endpoints
+# Set EC endpoint
 
 By default, fyde-cli communicates with the Enterprise Console (EC) endpoint `enterprise.fyde.com`. You can obtain the current endpoint using `endpoint`:
 

@@ -1,3 +1,12 @@
+---
+layout: default
+title: Add and edit proxies
+parent: Batch mode operations
+grand_parent: Fyde CLI Client
+nav_order: 4
+---
+# Add and edit proxies in batch mode
+
 fyde-cli supports adding and editing proxies in batch mode, importing data from JSON or CSV files.
 Batch operations on proxies use the [common batch mode flags](https://github.com/fyde/fyde-cli/wiki/Common-batch-mode-flags).
 
@@ -8,7 +17,7 @@ They must contain a header, specifying the fields and their order, followed by t
 
 When editing proxies, unspecified non-mandatory fields remain unchanged.
 
-# Fields
+## Fields
 
 The expected fields for each format are as follows:
 
@@ -20,14 +29,14 @@ The expected fields for each format are as follows:
 | `host` | string | `Host` | `myproxy.example.com` | Host of the proxy | When adding
 | `port` | string (adding) / integer (editing) | `Port` | `9000` | Port of the proxy | When adding
 
-# File examples
+## File examples
 
 Note: field order can be different from what is shown in the examples, and non-mandatory fields can be omitted.
 When using CSV, make sure to specify the correct field order in the header, and to maintain the order and number of fields consistent throughout each line.
 
-## Adding proxies
+### Adding proxies
 
-### JSON
+#### JSON
 
 ```json
 [
@@ -44,7 +53,7 @@ When using CSV, make sure to specify the correct field order in the header, and 
 
 `$ fyde-cli proxies add --from-file=example.json`
 
-### CSV
+#### CSV
 
 ```
 Name,Location,Host,Port
@@ -54,9 +63,9 @@ Another Proxy,EU-Central,phost2.example.com,9001
 
 `$ fyde-cli proxies add --from-file=example.csv --file-format=csv`
 
-## Editing proxies
+### Editing proxies
 
-### JSON
+#### JSON
 
 ```json
 [
@@ -75,7 +84,7 @@ Another Proxy,EU-Central,phost2.example.com,9001
 
 `$ fyde-cli proxies edit --from-file=example.json`
 
-### CSV
+#### CSV
 
 ```
 ID,Name,Location,Host,Port

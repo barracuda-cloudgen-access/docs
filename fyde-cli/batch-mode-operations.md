@@ -9,7 +9,9 @@ has_children: true
 
 fyde-cli supports adding and editing most record types in batch mode, using data contained in JSON or CSV files.
 
-When performing operations in batch mode, reading data from a file, there are four relevant flags:
+## Common flags
+
+Commands that support batch mode operations have four common flags:
 
  - `--from-file` specifies the filename from where to read the data
  - `--file-format` specifies the format of the file (`json` or `csv`). Can be omitted if JSON is used

@@ -1,3 +1,12 @@
+---
+layout: default
+title: Add and edit resources
+parent: Batch mode operations
+grand_parent: Fyde CLI Client
+nav_order: 3
+---
+# Add and edit resources in batch mode
+
 fyde-cli supports adding and editing resources in batch mode, importing data from JSON or CSV files.
 Batch operations on resources use the [common batch mode flags](https://github.com/fyde/fyde-cli/wiki/Common-batch-mode-flags).
 
@@ -8,7 +17,7 @@ They must contain a header, specifying the fields and their order, followed by t
 
 When editing resources, unspecified non-mandatory fields remain unchanged.
 
-# Fields
+## Fields
 
 The expected fields for each format are as follows:
 
@@ -24,14 +33,14 @@ The expected fields for each format are as follows:
 | `access_policy_ids` | integer array | `AccessPolicyIds` | `[123]` | Resource access policy IDs | No
 | `notes` | string | `Notes` | `some notes` | Notes on the resource | No
 
-# File examples
+## File examples
 
 Note: field order can be different from what is shown in the examples, and non-mandatory fields can be omitted.
 When using CSV, make sure to specify the correct field order in the header, and to maintain the order and number of fields consistent throughout each line.
 
-## Adding resources
+### Adding resources
 
-### JSON
+#### JSON
 
 ```json
 [
@@ -54,7 +63,7 @@ When using CSV, make sure to specify the correct field order in the header, and 
 
 `$ fyde-cli resources add --from-file=example.json`
 
-### CSV
+#### CSV
 
 ```
 Name,PublicHost,InternalHost,Ports,AccessProxyID,Enabled,AccessPolicyIds,Notes
@@ -64,9 +73,9 @@ Test Resource 2,another.example.com,another.example.com,"[\"80:80\", \"443:443\"
 
 `$ fyde-cli resources add --from-file=example.csv --file-format=csv`
 
-## Editing resources
+### Editing resources
 
-### JSON
+#### JSON
 
 ```json
 [
@@ -91,7 +100,7 @@ Test Resource 2,another.example.com,another.example.com,"[\"80:80\", \"443:443\"
 
 `$ fyde-cli resources edit --from-file=example.json`
 
-### CSV
+#### CSV
 
 ```
 ID,Name,PublicHost,InternalHost,Ports,AccessProxyID,Enabled,AccessPolicyIds,Notes
