@@ -21,4 +21,4 @@ you connect initially. Please see [the SQL database connectivity docs](https://d
 
 When a Fyde Proxy is inside Azure, the SQL Gateway will try to use the redirect mode by default. This secondary connection is to a randomly allocated SQL worker server and, as such, is not caught by the Fyde proxy. In order to make this work with Fyde, please switch the SQL Server to always use Proxy mode. After this change, all traffic will go through the same 1433 port on the same TCP connection instead of using the worker model.
 
-The steps to change the SQL Server mode are listed [here](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connectivity-architecture#change-azure-sql-database-connection-policy){:target="_blank"}. You need a CLI or PowerShell console to do it.
+Please check [the Azure SQL server how to]({{ site.baseurl }}{% link how_tos.md %}#setting-up-azure-sql-server) for more information.
