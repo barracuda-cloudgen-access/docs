@@ -26,7 +26,19 @@ nav_order: 1
 
 ### ECS on AWS Fargate
 
-- Coming soon
+- This Cloudformation template contains all the resources and steps needed to deploy Fyde Access Proxy in an ECS [AWS Fargate](https://aws.amazon.com/fargate/){:target="_blank"} cluster
+
+- The template creates the required containers behind an NLB. Required security groups are included. The template will use the latest container versions
+
+- Install steps:
+
+  1. Get a [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy) by creating a new Fyde Access Proxy. Since we don't have the Host value yet, please insert a placeholder (e.g. temp.local)
+
+  2. Create the Cloudformation stack with the Cloudformation template obtained from [https://url.fyde.me/fyde-proxy-aws-cf-ecs-fargate](https://url.fyde.me/fyde-proxy-aws-cf-ecs-fargate){:target="_blank"}
+
+  3. Update the created Fyde Access Proxy Host with the DNS name obtained in the stack output key `NetworkLoadBalancerDnsName`
+
+  4. Configure access to the desired resources with the security group id obtained in the stack output key `SecurityGroupforResources`
 
 ## AMI
 
