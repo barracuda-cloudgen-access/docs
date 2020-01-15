@@ -51,6 +51,14 @@ URL_COMPOSE_INFO="https://docs.docker.com/compose/install/"
 URL_MANIFEST_BASE="https://raw.githubusercontent.com/fyde/docs/master/fyde-access-proxy/docker/docker-compose.yml"
 URL_MANIFEST_TEST="https://raw.githubusercontent.com/fyde/docs/master/fyde-access-proxy/docker/docker-compose-httptest.yml"
 
+# Check for minimum bash version
+
+if [ "${BASH_VERSINFO:-0}" -lt 4 ]
+then
+    log_entry "ERROR" "Bash version must be at least 4"
+    exit 1
+fi
+
 # Request information
 
 log_entry "INFO" "Please provide required variables"

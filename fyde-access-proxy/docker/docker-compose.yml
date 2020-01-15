@@ -15,7 +15,7 @@ services:
       - fyde
     ports:
       # Publicly exposed Fyde Access Proxy port
-      # Must match the one define in Fyde Enterprise Console
+      # Host port must match the one defined in Fyde Enterprise Console
       - "8000:8000"
     restart: unless-stopped
 
