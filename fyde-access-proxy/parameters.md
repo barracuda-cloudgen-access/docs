@@ -31,28 +31,22 @@ nav_order: 5
 
 | Key                       | Default Value | Type  | Description                                                           |
 | ------------------------- | ------------- | ----- | --------------------------------------------------------------------- |
-| accept_any_authz_token    | False         | bool  | Accept any JWT auth tokens (no signature check)                       |
-| api_ca_validation         | True          | bool  | Verify CA chain on TLS connection to Fyde Infra                       |
-| authz_cache_negative_ttl  | 5             | int   | Authentication cache TTL (seconds)                                    |
-| authz_cache_positive_ttl  | 30            | int   | Authentication cache TTL (seconds)                                    |
 | authz_pubkey              | None          | str   | Authorizer EC Public Key (Used to verify authorization JWTs)          |
 | authz_timeout             | 30            | int   | Fyde authorization call timeout (seconds)                             |
-| forced_authz_response     | None          | bool  | Force an authz response (True: allow, False: denied)                  |
-| disable_authz_cache       | False         | bool  | Disable authentication cache                                          |
 | enable_ipv6               | False         | bool  | Enable ipv6 usage for DNS in envoy                                    |
 | enrollment_token          | None          | str   | Enrollment token provided by Fyde Enterprise Console                  |
 | envoy_listener_port       | 8000          | int   | Envoy General Listener port                                           |
 | envoy_prometheus          | True          | bool  | Prometheus metrics for Envoy Proxy status                             |
 | envoy_prometheus_port     | 9000          | int   | Prometheus for Envoy Proxy port                                       |
-| envoy_secrets             | None          | dict  | Currently it represents the proxy certificates that Envoy requires    |
 | grpc_insecure             | True          | bool  | gRPC insecure mode for the Fyde Proxy Orchestrator                    |
 | grpc_listener             | '[::]:50051'  | str   | gRPC listener for the Fyde Proxy Orchestrator                         |
-| mtls_ca_validation        | True          | bool  | Require and check client certificates belong to a given trusted CA    |
+| http_proxy                | None          | str   | Use HTTP proxy. Example: "http://proxy.host:1234/" or "socks5://10.0.0.1:5555"    |
+| https_proxy               | None          | str   | Use HTTPS proxy. Example: "https://proxy.host:1234/" or "socks5://10.0.0.1:5555"  |
 | proxy_prometheus          | True          | bool  | Prometheus metrics for Fyde Proxy Orchestrator status                 |
 | proxy_prometheus_port     | 9010          | int   | Prometheus for Fyde Proxy Orchestrator port                           |
 | redis_ssl                 | False         | bool  | Enable SSL support for Redis connections                              |
 | redis_sentinel_ssl        | False         | bool  | Enable SSL support for Redis Sentinel connections                     |
-| redis_ssl_cert_reqs       | 'none'        | str   | SSL Certificate verification options. one of 'none', 'optional', 'required'. See https://docs.python.org/3/library/ssl.html#ssl.SSLContext.verify_mode for more info |
+| redis_ssl_cert_reqs       | 'none'        | str   | SSL Certificate verification options. one of 'none', 'optional', 'required'. [More info here](https://docs.python.org/3/library/ssl.html#ssl.SSLContext.verify_mode) |
 | redis_ssl_key             | None          | str   | Redis/Sentinel SSL client authentication private key |
 |                           |               |       | This can be a path to a file holding the key or the content of it inlined in the variable |
 | redis_ssl_cert            | None          | str   | Redis/Sentinel SSL client authentication certificate |
