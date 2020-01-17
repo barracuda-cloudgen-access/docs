@@ -6,12 +6,14 @@ nav_order: 1
 ---
 # Install in Bare Metal / Virtual Machine
 
-- Supported distributions:
+- Minimum OS supported versions:
   - CentOS 7
+
+- Debian / Ubuntu steps coming soon
 
 - Requires a valid [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy)
 
-- Choose [**Install script**](#install-script) or [**Manual steps**](#manual-steps) to proceed
+- Choose [**Install script**](#install-script) or [**Manual steps**](#centos---manual-steps) to proceed
 
 ## Install script
 
@@ -22,16 +24,15 @@ nav_order: 1
 1. Download and execute installation script
 
     ```sh
-    sudo bash -c "$(curl -fsSL https://url.fyde.me/install-fyde-proxy-centos)"
+    sudo bash -c "$(curl -fsSL https://url.fyde.me/install-fyde-proxy-linux)"
     ```
 
-## Manual steps
+## CentOS - Manual steps
 
-1. Install yum repository manager and update cURL (necessary in old CentOS 7.0 versions)
+1. Install yum repository manager
 
     ```sh
-    sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-    sudo yum -y install yum-utils curl
+    sudo yum -y install yum-utils
     ```
 
 1. Add Fyde repository
@@ -88,7 +89,7 @@ nav_order: 1
     sudo bash -c "cat > /etc/systemd/system/fydeproxy.service.d/10-environment.conf <<EOF
     [Service]
     Environment='FYDE_ENROLLMENT_TOKEN=<paste here your Fyde Access Proxy enrollment link>'
-    Environment='FYDE_ENVOY_LISTENER_PORT=<replace with the Fyde Access Proxy port, as configured in Fyde Enterprise Console>'
+    Environment='FYDE_ENVOY_LISTENER_PORT=<replace with the corresponding Fyde Access Proxy port, as configured in Fyde Enterprise Console>'
     EOF"
 
     sudo chmod 600 /etc/systemd/system/fydeproxy.service.d/10-environment.conf
@@ -101,10 +102,10 @@ nav_order: 1
     sudo systemctl start fydeproxy
     ```
 
-1. Configure the firewall (enabled by default in CentOS)
+1. Configure the firewall (if enabled)
 
     ```sh
-    sudo firewall-cmd --zone=public --add-port="<Fyde Access Proxy port, as configured in Fyde Enterprise Console>/tcp" --permanent
+    sudo firewall-cmd --zone=public --add-port="<replace with the corresponding Fyde Access Proxy port, as configured in Fyde Enterprise Console>/tcp" --permanent
     sudo firewall-cmd --reload
     ```
 

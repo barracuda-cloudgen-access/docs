@@ -6,16 +6,15 @@ nav_order: 2
 ---
 # Install in Docker
 
+- Minimum OS supported versions:
+  - Debian 9
+  - Centos 7
+  - Ubuntu 16.04
+  - MacOS 10.14
+
 - The required images are available in Dockerhub registry under the organization [FydeInc](https://url.fyde.me/docker){:target="_blank"}
 
 - Requires a valid [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy)
-
-- Tested in:
-
-  - Debian 9
-  - Centos 7
-  - Ubuntu 16.04/18.04
-  - MacOS 10.14
 
 - Choose [**Install script**](#install-script) or [**Manual steps**](#manual-steps) to proceed
 
@@ -45,7 +44,7 @@ nav_order: 2
 
     - Download the docker-compose file: [docker-compose.yml]({{ site.baseurl }}{% link /fyde-access-proxy/docker/docker-compose.yml %}){:target="_blank"}
 
-    - Make sure configured port matches the one configured in Fyde Enterprise Console
+    - Ensure that configured host port for envoy matches the one configured in Fyde Enterprise Console for the corresponding Fyde Access Proxy
 
     - Update **FYDE_ENROLLMENT_TOKEN** value with Fyde Access Proxy enrollment link
 

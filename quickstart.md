@@ -50,11 +50,10 @@ Please follow the next steps to perform the required configuration to access a r
 
 - Requires a valid Fyde Access Proxy enrollment link, obtained in the previous step
 
-- Tested in:
-
+- Minimum OS supported versions:
   - Debian 9
   - Centos 7
-  - Ubuntu 16.04/18.04
+  - Ubuntu 16.04
   - MacOS 10.14
 
 - Please note that the steps below will execute scripts obtained externally

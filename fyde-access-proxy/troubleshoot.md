@@ -170,10 +170,10 @@ nav_order: 4
 
 - Confirm that **envoy-proxy** container is mapping the correct port to the host
 
-  - In the example above, and for the public port 8000 the output should contain the following
+  - In the example above, and for the public port 443 the output should contain the following
 
   ```sh
-  0.0.0.0:8000->8000/tcp
+  0.0.0.0:443->443/tcp
   ```
 
 - Check Envoy Proxy logs
