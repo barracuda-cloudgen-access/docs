@@ -15,11 +15,13 @@ The days of the VPN are gone: it is no longer feasible to establish a secure net
 
 Zero Trust builds upon the assertion that the network is assumed to be hostile. In consequence, network locality is not sufficient for establishing trust and every flow must be authenticated and authorized in a dynamic fashion. This creates an effective separation between the _control plane_ -- the supporting system that implements the flow authentication and authorization according to the defined policies -- and the _data plane_.
 
-To learn more about Zero Trust, check [Zero Trust Networks: Building Secure Systems in Untrusted Networks](http://shop.oreilly.com/product/0636920052265.do){:target="_blank"} and the [BeyondCorp paper by Google](https://storage.googleapis.com/pub-tools-public-publication-data/pdf/43231.pdf){:target="_blank"}
+To learn more about Zero Trust, check [Zero Trust Networks: Building Secure Systems in Untrusted Networks](http://shop.oreilly.com/product/0636920052265.do){:target="_blank"} and the [BeyondCorp paper by Google](https://storage.googleapis.com/pub-tools-public-publication-data/pdf/43231.pdf){:target="_blank"}.
 
 ## Architecture overview
 
-As mentioned above, the Fyde architecture relies on three main components: an agent (Fyde App), a proxy (Fyde Access Proxy), and an administration console (Fyde Enterprise Console). The Fyde agent operates at the network layer. When a device starts a connection to a protected resource, the Fyde agent intercepts it and opens a mTLS connection with the Fyde Access Proxy, sending also the device and user attributes. The Fyde Access Proxy will check the attributes and authorize or deny the connection to the resource. To configure policies, you can use the Fyde Enterprise Console.
+As mentioned above, the Fyde architecture relies on three main components: an agent (Fyde App), a proxy (Fyde Access Proxy), and an administration console (Fyde Enterprise Console). The Fyde agent operates at the network layer. When a device starts a connection to a protected resource, the Fyde agent intercepts it and opens a mTLS connection with the Fyde Access Proxy, sending also the device and user attributes to the Fyde Enterprise console, which evaluates the policy, checks the attributes and allows or denies the connection to the resource. Admins can configure policies on the Fyde Enterprise Console UI.
+
+We also provide an API for the Fyde Enterprise Console functionality, as well as a thin wrapper around it as a command line utility - [Fyde CLI]({{ site.baseurl }}{% link fyde-cli/README.md %}).
 
 ![Architecture]({{ site.baseurl }}{% link imgs/fyde-architecture.png %})
 
