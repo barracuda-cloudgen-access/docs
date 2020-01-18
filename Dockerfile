@@ -4,4 +4,6 @@ FROM jekyll/jekyll:3.8
 
 ADD Gemfile Gemfile.lock /srv/jekyll/
 
-RUN bundler install
+RUN set -ex \
+    && gem install bundler \
+    && bundler install

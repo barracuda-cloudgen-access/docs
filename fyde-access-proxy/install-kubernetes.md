@@ -4,7 +4,6 @@ title: Install in Fyde Access Proxy in Kubernetes
 parent: Fyde Access Proxy
 nav_order: 3
 ---
-
 # Install in Kubernetes
 
 - Pre-requisites:
@@ -25,7 +24,7 @@ nav_order: 3
 
     - Download the manifest file: [envoy-proxy.yaml]({{ site.baseurl }}{% link /fyde-access-proxy/kubernetes/envoy-proxy.yaml %}){:target="_blank"}
 
-    - Make sure the Fyde Access Proxy port, as configured in Fyde Enterprise Console, is allowed in the firewall
+    - Ensure that configured public port for envoy matches the one configured in Fyde Enterprise Console for the corresponding Fyde Access Proxy
 
     - If required, update service anotations to match your environment
 

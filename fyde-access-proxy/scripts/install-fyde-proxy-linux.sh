@@ -25,15 +25,24 @@ function log_entry() {
 
 log_entry "INFO" "Please provide required variables"
 
-read -r -p "Specify Fyde Access Proxy public port (8000): " PUBLIC_PORT
-PUBLIC_PORT=${PUBLIC_PORT:-"8000"}
-read -r -p "Paste the Fyde Access Proxy enrollment link (hidden): " -s PROXY_TOKEN
-echo ""
+read -r -p "Specify Fyde Access Proxy public port (443): " PUBLIC_PORT
+PUBLIC_PORT=${PUBLIC_PORT:-"443"}
 
-log_entry "INFO" "Install yum repository manager and update cURL (necessary in old CentOS 7.0 versions)"
+while [[ -z "${PROXY_TOKEN:-}" ]];
+do
+    read -r -p "Paste the Fyde Access Proxy enrollment link (hidden): " -s PROXY_TOKEN
+    echo ""
+    if [[ -z "${PROXY_TOKEN:-}" ]]
+    then
+        log_entry "ERROR" "Fyde Access Proxy enrollment link cannot be empty"
+    fi
+done
 
-rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-yum -y install yum-utils curl
+# Run
+
+log_entry "INFO" "Install pre-requisites"
+
+yum -y install yum-utils
 
 log_entry "INFO" "Add Fyde repository"
 
@@ -83,7 +92,6 @@ log_entry "INFO" "Reload and start Fyde Proxy Orchestrator daemon"
 
 systemctl --system daemon-reload
 systemctl start fydeproxy
-
 
 log_entry "INFO" "Configure the firewall"
 

@@ -63,13 +63,21 @@ fi
 
 log_entry "INFO" "Please provide required variables"
 
-read -r -p "Specify Fyde Access Proxy public port (8000): " PUBLIC_PORT
-PUBLIC_PORT=${PUBLIC_PORT:-"8000"}
+read -r -p "Specify Fyde Access Proxy public port (443): " PUBLIC_PORT
+PUBLIC_PORT=${PUBLIC_PORT:-"443"}
 
 read -r -p "Install test resource (N/y): " INSTALL_TEST
+INSTALL_TEST=${INSTALL_TEST:-"N"}
 
-read -r -p "Paste the Fyde Access Proxy enrollment link [hidden]: " -s PROXY_TOKEN
-echo ""
+while [[ -z "${PROXY_TOKEN:-}" ]];
+do
+    read -r -p "Paste the Fyde Access Proxy enrollment link (hidden): " -s PROXY_TOKEN
+    echo ""
+    if [[ -z "${PROXY_TOKEN:-}" ]]
+    then
+        log_entry "ERROR" "Fyde Access Proxy enrollment link cannot be empty"
+    fi
+done
 
 # Get docker install script and execute (linux only)
 
@@ -152,7 +160,7 @@ else
 fi
 
 log_entry "INFO" "Replacing variables"
-sed -i -E "s|8000:8000|${PUBLIC_PORT}:8000|" docker-compose.yml
+sed -i -E "s|443:8000|${PUBLIC_PORT}:8000|" docker-compose.yml
 if [[ "$(sed --version 2> /dev/null)" =~ ^.*GNU.*$ ]]
 then
     SED_FIND='(<paste\ here\ your\ Fyde\ Access\ Proxy\ enrollment\ link>)'

@@ -10,7 +10,9 @@ metadata:
 spec:
   ports:
     - name: envoy-proxy
-      port: 8000
+      # Publicly exposed Fyde Access Proxy port
+      # Port must match the one defined in Fyde Enterprise Console
+      port: 443
       protocol: TCP
       targetPort: envoy
   selector:

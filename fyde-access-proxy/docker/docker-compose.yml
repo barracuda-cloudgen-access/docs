@@ -1,6 +1,6 @@
 # Docker compose Fyde Access Proxy
 ---
-version: '3.6'
+version: '3'
 services:
 
   envoy-proxy:
@@ -16,7 +16,7 @@ services:
     ports:
       # Publicly exposed Fyde Access Proxy port
       # Host port must match the one defined in Fyde Enterprise Console
-      - "8000:8000"
+      - "443:8000"
     restart: unless-stopped
 
   fyde-orchestrator:
