@@ -67,8 +67,8 @@ When using CSV, make sure to specify the correct field order in the header, and 
 
 ```
 Name,PublicHost,InternalHost,Ports,AccessProxyID,Enabled,AccessPolicyIds,Notes
-Test Resource 1,www.example.com,www.example.com,["80:80"],609e83f9-8004-4ef0-a3d4-b4c32ba3db4b,true,[40],batch created
-Test Resource 2,another.example.com,another.example.com,"[\"80:80\", \"443:443\"]",609e83f9-8004-4ef0-a3d4-b4c32ba3db4b,true,[40],batch created
+Test Resource 1,www.example.com,www.example.com,"[80:80]",609e83f9-8004-4ef0-a3d4-b4c32ba3db4b,true,[40],batch created
+Test Resource 2,another.example.com,another.example.com,"[80:80, 443:443]",609e83f9-8004-4ef0-a3d4-b4c32ba3db4b,true,[40],batch created
 ```
 
 `$ fyde-cli resources add --from-file=example.csv --file-format=csv`
@@ -104,8 +104,8 @@ Test Resource 2,another.example.com,another.example.com,"[\"80:80\", \"443:443\"
 
 ```
 ID,Name,PublicHost,InternalHost,Ports,AccessProxyID,Enabled,AccessPolicyIds,Notes
-155cbd52-4e39-4a16-9f59-0cf92f23cf2a,Test Resource 1,www.example.com,www.example.com,["80:80"],609e83f9-8004-4ef0-a3d4-b4c32ba3db4b,true,[40],batch edited
-c665a0f3-7474-416b-826d-9f626e9bc18f,Test Resource 2,another.example.com,another.example.com,"[\"80:80\", \"8000:8000\"]",609e83f9-8004-4ef0-a3d4-b4c32ba3db4b,true,[40],batch edited
+155cbd52-4e39-4a16-9f59-0cf92f23cf2a,Test Resource 1,www.example.com,www.example.com,"[80:80]",609e83f9-8004-4ef0-a3d4-b4c32ba3db4b,true,[40],batch edited
+c665a0f3-7474-416b-826d-9f626e9bc18f,Test Resource 2,another.example.com,another.example.com,"[80:80, 8000:8000]",609e83f9-8004-4ef0-a3d4-b4c32ba3db4b,true,[40],batch edited
 ```
 
 `$ fyde-cli resources edit --from-file=example.csv --file-format=csv`
