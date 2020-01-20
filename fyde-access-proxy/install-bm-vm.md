@@ -21,10 +21,40 @@ nav_order: 1
 
 - We advise to inspect the content before execution
 
-1. Download and execute installation script
+- Download and execute installation script
 
     ```sh
     sudo bash -c "$(curl -fsSL https://url.fyde.me/install-fyde-proxy-linux)"
+    ```
+
+- This script can also be used for unnatended instalations
+
+    ```sh
+    curl -fsSLo install-fyde-proxy-linux.sh https://url.fyde.me/install-fyde-proxy-linux
+    chmod +x install-fyde-proxy-linux.sh
+    ./install-fyde-proxy-linux.sh -h
+    ```
+
+    ```txt
+    Install Fyde Access Proxy script
+
+    Available parameters:
+      -h        - Show this help
+      -n        - Don't start services after install
+      -p int    - Specify public port (1-65535), required for unattended instalation
+      -t token  - Specify Fyde Access Proxy token
+      -u        - Unattended install, skip requesting input
+
+    Example for unattended instalation with Fyde Access Proxy token:
+      - Specify the Fyde Access Proxy token inside quotes
+
+      ./install-fyde-proxy-linux.sh -p 443 -t "https://xxxxxxxxxxxx"
+
+    Example for unattended instalation, skipping services start, without Fyde Access Proxy token:
+     - The token can also be obtained automatically via AWS SSM/Secrets Manager
+     - More info: https://fyde.github.io/docs/fyde-access-proxy/parameters/#fyde-proxy-orchestrator
+
+      ./install-fyde-proxy-linux.sh -n -p 443 -u
     ```
 
 ## CentOS - Manual steps
