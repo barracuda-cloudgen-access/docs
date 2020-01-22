@@ -2,7 +2,7 @@
 layout: default
 title: Computing
 parent: Fyde Access Proxy
-nav_order: 6
+nav_order: 7
 ---
 # Computing
 

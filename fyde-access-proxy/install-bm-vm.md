@@ -2,7 +2,7 @@
 layout: default
 title: Install in Bare Metal / Virtual Machine
 parent: Fyde Access Proxy
-nav_order: 1
+nav_order: 2
 ---
 # Install in Bare Metal / Virtual Machine
 
