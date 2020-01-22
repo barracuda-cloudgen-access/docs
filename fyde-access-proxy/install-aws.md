@@ -13,8 +13,8 @@ nav_order: 1
 - The AMI is available in the account 766535289950 in all regions under the prefix `amazonlinux-2-base_*`
 
 - Fyde Access Proxy AMI details:
-  - [CIS](https://www.cisecurity.org/){:target="_blank"} recomendations for CentOS
-  - [CIS](https://www.cisecurity.org/){:target="_blank"} recomendations for SSH
+  - [CIS](https://www.cisecurity.org/){:target="_blank"} recommendations for CentOS
+  - [CIS](https://www.cisecurity.org/){:target="_blank"} recommendations for SSH
   - Updated regularly to ensure the latest packages
   - Performs automatic install of security updates via [yum-cron](http://man7.org/linux/man-pages/man8/yum-cron.8.html){:target="_blank"} when deployed
 
