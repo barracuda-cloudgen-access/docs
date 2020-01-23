@@ -2,7 +2,7 @@
 layout: default
 title: Network
 parent: Fyde Access Proxy
-nav_order: 7
+nav_order: 8
 ---
 # Network
 

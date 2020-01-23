@@ -2,7 +2,7 @@
 layout: default
 title: Install in Fyde Access Proxy in Docker
 parent: Fyde Access Proxy
-nav_order: 2
+nav_order: 3
 ---
 # Install in Docker
 

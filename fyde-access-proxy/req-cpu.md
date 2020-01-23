@@ -2,7 +2,7 @@
 layout: default
 title: Computing
 parent: Fyde Access Proxy
-nav_order: 6
+nav_order: 7
 ---
 # Computing
 
@@ -18,8 +18,8 @@ nav_order: 6
 
 ## Baseline
 
-| Component             | CPU               | Memory    |
-| --------------------- | ----------------- | --------- |
-Envoy Proxy             | 0.25 core (2Ghz)  | 256MB     |
-Fyde Proxy Orchestrator | 0.1 core (2Ghz)   | 128MB     |
-Redis (HA only)         | 0.1 core (2Ghz)   | 32MB      |
+| Component                 | CPU               | Memory    |
+| ------------------------- | ----------------- | --------- |
+| Envoy Proxy               | 0.25 core (2Ghz)  | 256MB     |
+| Fyde Proxy Orchestrator   | 0.1 core (2Ghz)   | 128MB     |
+| Redis (HA only)           | 0.1 core (2Ghz)   | 32MB      |

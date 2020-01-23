@@ -2,7 +2,7 @@
 layout: default
 title: Monitor
 parent: Fyde Access Proxy
-nav_order: 8
+nav_order: 9
 ---
 # Monitor
 

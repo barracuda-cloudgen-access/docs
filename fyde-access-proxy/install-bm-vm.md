@@ -2,7 +2,7 @@
 layout: default
 title: Install in Bare Metal / Virtual Machine
 parent: Fyde Access Proxy
-nav_order: 1
+nav_order: 2
 ---
 # Install in Bare Metal / Virtual Machine
 
@@ -48,7 +48,7 @@ nav_order: 1
     Example for unattended instalation with Fyde Access Proxy token:
       - Specify the Fyde Access Proxy token inside quotes
 
-      ./install-fyde-proxy-linux.sh -p 443 -t "https://xxxxxxxxxxxx"
+      ./install-fyde-proxy-linux.sh -p 443 -t "https://xxxxxxxxxxxx" -u
 
     Example for unattended instalation, skipping services start, without Fyde Access Proxy token:
      - The token can also be obtained automatically via AWS SSM/Secrets Manager

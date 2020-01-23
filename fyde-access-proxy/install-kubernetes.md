@@ -2,7 +2,7 @@
 layout: default
 title: Install in Fyde Access Proxy in Kubernetes
 parent: Fyde Access Proxy
-nav_order: 3
+nav_order: 4
 ---
 # Install in Kubernetes
 
