@@ -8,12 +8,13 @@ nav_order: 2
 
 - Minimum OS supported versions:
   - CentOS 7
+  - RHEL 8
 
 - Debian / Ubuntu steps coming soon
 
 - Requires a valid [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy)
 
-- Choose [**Install script**](#install-script) or [**Manual steps**](#centos---manual-steps) to proceed
+- Choose [**Install script**](#install-script) or [**Manual steps**](#centos-rhel---manual-steps) to proceed
 
 ## Install script
 
@@ -57,7 +58,7 @@ nav_order: 2
       ./install-fyde-proxy-linux.sh -n -p 443 -u
     ```
 
-## CentOS - Manual steps
+## CentOS/RHEL - Manual steps
 
 1. Install yum repository manager
 
