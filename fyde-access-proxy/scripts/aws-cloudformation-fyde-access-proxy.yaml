@@ -30,26 +30,27 @@ Parameters:
     Type: 'List<AWS::EC2::Subnet::Id>'
     Description: The list of SubnetIds in your Virtual Private Cloud (VPC)
     ConstraintDescription: >-
-      must be a list of at least two existing subnets associated with at least
+      recomended to be a list of at least two existing subnets associated with at least
       two different availability zones. They should be residing in the selected
       Virtual Private Cloud.
 
-  MaxSizeASG:
+  ASGMaxSize:
     Description: Enter the Max Size for the ASG
     Default: 3
     Type: Number
+    MinValue: 1
 
-  MinSizeASG:
+  ASGMinSize:
     Description: Enter the Min Size for the ASG
     Default: 2
     Type: Number
-    MinValue: 2
+    MinValue: 1
 
-  DesiredCapacityASG:
+  ASGDesiredCapacity:
     Description: Enter the desired capacity for the ASG
     Default: 2
     Type: Number
-    MinValue: 2
+    MinValue: 1
 
   KeyName:
     Description: EC2 instance key name
@@ -213,8 +214,9 @@ Resources:
       VPCZoneIdentifier: !Ref Subnets
       Cooldown: 120
       LaunchConfigurationName: !Ref LaunchConfig
-      MaxSize: !Ref MaxSizeASG
-      MinSize: !Ref MinSizeASG
+      MaxSize: !Ref ASGMaxSize
+      MinSize: !Ref ASGMinSize
+      DesiredCapacity: !Ref ASGDesiredCapacity
       HealthCheckType: ELB
       HealthCheckGracePeriod: 300
       TargetGroupARNs:
