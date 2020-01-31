@@ -9,7 +9,7 @@ nav_order: 2
 
 Steps to create an Azure AD SAML application to use with Fyde Enterprise Console
 
-- Note: this configuration requires an [AZURE AD Premium P2 Subscription](https://azure.microsoft.com/en-us/services/active-directory/){:target="_blank"}
+- Note: this configuration requires an [AZURE AD Premium P1 or P2 Subscription](https://azure.microsoft.com/en-us/services/active-directory/){:target="_blank"}
 
 - The steps were retrieved from [this tutorial](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/add-application-portal){:target="_blank"}
 
