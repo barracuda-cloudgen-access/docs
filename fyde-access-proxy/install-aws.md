@@ -6,6 +6,28 @@ nav_order: 1
 ---
 # Install in AWS
 
+## Cloudformation Templates
+
+### ASG with NLB
+
+- This Cloudformation template contains all the resources and steps needed to deploy Fyde Access Proxy in an ASG behind an NLB
+
+- The template creates a highly available / self-healing infrastructure with a minimum of 2 EC2 instances that are part of an ASG and sit behind an NLB. Required security groups and ports are included. The latest AMI for the deployed region is automatically configured, at the date of the deploy
+
+- Install steps:
+
+  1. Get a [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy) by creating a new Fyde Access Proxy. Since we don't have the Host value yet, please insert a placeholder (e.g. temp.local)
+
+  2. Create the Cloudformation stack with the Cloudformation template obtained from [https://url.fyde.me/fyde-proxy-aws-cf](https://url.fyde.me/fyde-proxy-aws-cf){:target="_blank"}
+
+  3. Update the created Fyde Access Proxy Host with the DNS name obtained in the stack output key `NetworkLoadBalancerDnsName`
+
+  4. Configure access to the desired resources with the security group id obtained in the stack output key `SecurityGroupforResources`
+
+### ECS on AWS Fargate
+
+- Coming soon
+
 ## AMI
 
 - Fyde Access Proxy AMI is based on the oficial Amazon Linux 2 AMI
@@ -51,26 +73,6 @@ nav_order: 1
     ```
 
 - Please note that Fyde software is not included in the AMI, this image is intended to be used as the base to install the latest packages available with the provided scripts in [Install in Bare Metal / Virtual Machine]({{ site.baseurl }}{% link fyde-access-proxy/install-bm-vm.md %})
-
-## Cloudformation
-
-- The Cloudformation template contains all the resources and steps needed to deploy Fyde Access Proxy in an ASG behind an NLB
-
-- The template creates a highly available / self-healing infrastructure with a minimum of 2 EC2 instances that are part of an ASG and sit behind an NLB. Required security groups and ports are included. The latest AMI for the deployed region is automatically configured, at the date of the deploy
-
-- Install steps:
-
-  1. Get a [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy) by creating a new Fyde Access Proxy. Since we don't have the Host value yet, please insert a placeholder (e.g. temp.local)
-
-  2. Create the Cloudformation stack with the Cloudformation template obtained from [https://url.fyde.me/fyde-proxy-aws-cf](https://url.fyde.me/fyde-proxy-aws-cf){:target="_blank"}
-
-  3. Update the created Fyde Access Proxy Host with the DNS name obtained in the stack output key `NetworkLoadBalancerDnsName`
-
-  4. Configure access to the desired resources with the security group id obtained in the stack output key `SecurityGroupforResources`
-
-## ECS on AWS Fargate
-
-- Coming soon
 
 ## Troubleshoot
 
