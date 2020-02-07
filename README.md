@@ -12,18 +12,10 @@ generator. Changes to `master` automatically get deployed to github pages.
 
 ### Docker
 
-First, build the docker container locally:
+To build and start the docker container run:
 
 ```sh
-docker build -t fyde-docs .
-```
-
-Next, serve the project:
-
-```sh
-docker run -v "$PWD:/srv/jekyll" \
-  -p 4000:4000 -p 35729:35729 fyde-docs \
-  jekyll serve --incremental --livereload
+yarn start
 ```
 
 Open your browser on <http://localhost:4000/docs/>.
