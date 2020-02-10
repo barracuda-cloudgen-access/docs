@@ -20,9 +20,7 @@ nav_order: 3
 
 ## Install script
 
-- Please note that the steps below will execute scripts obtained externally
-
-- We advise to inspect the content before execution
+- The steps below will execute a script obtained externally, we advise to inspect the content before execution
 
 1. Download and execute script
 
