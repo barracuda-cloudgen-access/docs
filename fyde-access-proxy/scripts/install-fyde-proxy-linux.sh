@@ -115,7 +115,14 @@ fi
 # Pre-requisites
 
 log_entry "INFO" "Install pre-requisites"
-yum -y install yum-utils
+yum -y install yum-utils chrony
+
+log_entry "INFO" "Ensure chrony daemon is enabled on system boot and started"
+systemctl enable chronyd
+systemctl start chronyd
+
+log_entry "INFO" "Ensure time synchronization is enabled"
+timedatectl set-ntp on
 
 log_entry "INFO" "Add Fyde repository"
 yum-config-manager -y --add-repo https://downloads.fyde.com/fyde.repo

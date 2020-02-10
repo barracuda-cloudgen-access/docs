@@ -18,9 +18,9 @@ nav_order: 2
 
 ## Install script
 
-- Please note that the steps below will execute scripts obtained externally
+- The steps below will execute a script obtained externally, we advise to inspect the content before execution
 
-- We advise to inspect the content before execution
+- The script will install and enable chrony service for time synchronization, required to ensure tokens are validated properly
 
 - Download and execute installation script
 
@@ -60,10 +60,23 @@ nav_order: 2
 
 ## CentOS/RHEL - Manual steps
 
-1. Install yum repository manager
+1. Install pre-requisites
 
     ```sh
-    sudo yum -y install yum-utils
+    sudo yum -y install yum-utils chrony
+    ```
+
+1. Ensure chrony daemon is enabled on system boot and started
+
+    ```sh
+    sudo systemctl enable chronyd
+    sudo systemctl start chronyd
+    ```
+
+1. Ensure time synchronization is enabled
+
+    ```sh
+    sudo timedatectl set-ntp on
     ```
 
 1. Add Fyde repository
