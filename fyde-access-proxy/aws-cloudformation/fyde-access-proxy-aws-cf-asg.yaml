@@ -184,7 +184,7 @@ Resources:
   InboundSG:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
-      GroupDescription: Enable inbound acess to Fyde Access Proxy on the configured port
+      GroupDescription: Allow inbound access to Fyde Access Proxy on the configured port
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: !Ref FydeAccessProxyPublicPort
@@ -200,7 +200,7 @@ Resources:
   ResourceSG:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
-      GroupDescription: Use to allow FydeAccessProxy access to internal resources
+      GroupDescription: Allow FydeAccessProxy access to internal resources
       VpcId: !Ref VpcId
       Tags:
         - Key: Name

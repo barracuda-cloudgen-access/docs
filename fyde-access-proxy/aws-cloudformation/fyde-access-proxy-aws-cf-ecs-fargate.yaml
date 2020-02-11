@@ -1,0 +1,643 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: >-
+  fyde Access Proxy Cloudformation template
+  Creates ECS containers in AWS Fargate infrastructure
+
+Parameters:
+
+  fydeAccessProxyToken:
+    Description: fyde Access Proxy Token for this proxy (obtained from the console after proxy creation)
+    Type: String
+    MinLength: 20
+    NoEcho: true
+
+  fydeAccessProxyPublicPort:
+    Description: Public port for this proxy (must match the value configured in the console for this proxy)
+    Default: 443
+    Type: Number
+    MinValue: 1
+    MaxValue: 65535
+
+  vpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: vpcId of your existing Virtual Private Cloud (VPC)
+    ConstraintDescription: >-
+      must be the VPC Id of an existing Virtual Private Cloud. Outbound traffic
+      for the default security group associated with this VPC should be enabled.
+
+  subnets:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: The list of SubnetIds in your Virtual Private Cloud (VPC)
+    ConstraintDescription: >-
+      recomended to be a list of at least two existing subnets associated with at least
+      two different availability zones. They should be residing in the selected
+      Virtual Private Cloud.
+
+  orchestratorDesiredCapacity:
+    Description: Enter the desired capacity for the Orchestrator nodes
+    Default: 2
+    Type: Number
+    MinValue: 1
+
+  envoyDesiredCapacity:
+    Description: Enter the desired capacity for the Envoy nodes
+    Default: 2
+    Type: Number
+    MinValue: 1
+
+  logRetentionDays:
+    Description: Days to keep container logs in Cloudwatch (0 = never delete)
+    Default: 30
+    Type: Number
+    MinValue: 0
+
+Conditions:
+
+  logGroupNoDelete: !Equals [!Ref logRetentionDays, 0]
+  createRedis: !Not [!Equals [!Ref orchestratorDesiredCapacity, 1]]
+
+Resources:
+
+##
+## Secrets
+##
+
+  fydeEnrollmentToken:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: fyde_enrollment_token
+      Description: fyde Access Proxy Enrollment Token
+      SecretString: !Ref fydeAccessProxyToken
+      Tags:
+        - Key: Name
+          Value: fydeEnrollmentToken
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: orchestrator
+        - Key: Platform
+          Value: ecsFargate
+
+##
+## Discovery and Logging
+##
+
+  privateNamespace:
+    Type: AWS::ServiceDiscovery::PrivateDnsNamespace
+    Properties:
+        Name: fyde-access-proxy-ecs-fargate
+        Vpc: !Ref vpcId
+
+  logGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: fyde-access-proxy-ecs-fargate
+      RetentionInDays: !If [logGroupNoDelete, !Ref "AWS::NoValue", !Ref logRetentionDays]
+
+##
+## Network Load Balancer
+##
+
+  nlb:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Subnets: !Ref subnets
+      Scheme: internet-facing
+      Type: network
+      Tags:
+        - Key: Name
+          Value: fyde
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: envoy
+        - Key: Platform
+          Value: ecsFargate
+
+  nlbListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref nlbTargetGroup
+      LoadBalancerArn: !Ref nlb
+      Port: !Ref fydeAccessProxyPublicPort
+      Protocol: TCP
+
+  nlbTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    DependsOn: nlb
+    Properties:
+      HealthCheckIntervalSeconds: 30
+      HealthyThresholdCount: 3
+      Port: !Ref fydeAccessProxyPublicPort
+      Protocol: TCP
+      UnhealthyThresholdCount: 3
+      TargetType: ip
+      VpcId: !Ref vpcId
+      Tags:
+        - Key: Name
+          Value: fyde
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: envoy
+        - Key: Platform
+          Value: ecsFargate
+
+##
+## Security Groups
+##
+
+  inboundSg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow inbound access to fyde Access Proxy on the configured port
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: !Ref fydeAccessProxyPublicPort
+          ToPort: !Ref fydeAccessProxyPublicPort
+          CidrIp: 0.0.0.0/0
+      VpcId: !Ref vpcId
+      Tags:
+        - Key: Name
+          Value: fydeInbound
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: envoy
+        - Key: Platform
+          Value: ecsFargate
+
+  orchestratorSg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow access to Orchestrator
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 50051
+          ToPort: 50051
+          SourceSecurityGroupId: !Ref envoySg
+      VpcId: !Ref vpcId
+      Tags:
+        - Key: Name
+          Value: fydeOrchestrator
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: orchestrator
+        - Key: Platform
+          Value: ecsFargate
+
+  redisSg:
+    Type: AWS::EC2::SecurityGroup
+    Condition: createRedis
+    Properties:
+      GroupDescription: Allow access to redis
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 6379
+          ToPort: 6379
+          SourceSecurityGroupId: !Ref orchestratorSg
+      VpcId: !Ref vpcId
+      Tags:
+        - Key: Name
+          Value: fydeRedis
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: redis
+        - Key: Platform
+          Value: ecsFargate
+
+  envoySg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow Envoy proxy access to internal resources
+      VpcId: !Ref vpcId
+      Tags:
+        - Key: Name
+          Value: fydeEnvoy
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: envoy
+        - Key: Platform
+          Value: ecsFargate
+
+##
+## ECS Cluster and Global Role
+##
+
+  ecsCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: fydeAccessProxy
+      Tags:
+        - Key: Name
+          Value: fydeAccessProxy
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: fydeAccessProxy
+        - Key: Platform
+          Value: ecsFargate
+
+  taskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+
+##
+## Orchestrator
+##
+
+  orchestratorEcsTask:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Cpu: '256'
+      Memory: '0.5GB'
+      ExecutionRoleArn: !Ref orchestratorRole
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      TaskRoleArn: !Ref taskRole
+      ContainerDefinitions:
+        - Name: fydeOrchestrator
+          Image: fydeinc/fydeproxy-centos:latest
+          Environment:
+            - Name: FYDE_ENVOY_LISTENER_PORT
+              Value: !Ref fydeAccessProxyPublicPort
+            - !If
+              - createRedis
+              - Name: FYDE_REDIS_HOST
+                Value: !Sub
+                  - ${redisHostname}.fyde-access-proxy-ecs-fargate
+                  - { redisHostname: !GetAtt redisDiscoveryService.Name }
+              - !Ref AWS::NoValue
+            - !If
+              - createRedis
+              - Name: FYDE_REDIS_PORT
+                Value: 6379
+              - !Ref AWS::NoValue
+          PortMappings:
+            - ContainerPort: 50051
+              HostPort: 50051
+              Protocol: tcp
+          Secrets:
+            - Name: FYDE_ENROLLMENT_TOKEN
+              ValueFrom: !Ref fydeEnrollmentToken
+          HealthCheck:
+            Command:
+              - CMD-SHELL
+              - cat
+              - <
+              - /dev/null
+              - >
+              - /dev/tcp/127.0.0.1/50051
+            Interval: 5
+            Retries: 3
+            StartPeriod: 15
+            Timeout: 10
+          Essential: true
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref logGroup
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: fydeAccessProxy
+      Tags:
+        - Key: Name
+          Value: fydeOrchestrator
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: orchestrator
+        - Key: Platform
+          Value: ecsFargate
+
+  orchestratorEcsService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: fydeOrchestrator
+      Cluster: !Ref ecsCluster
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref orchestratorSg
+          Subnets: !Ref subnets
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 100
+      DesiredCount: !Ref orchestratorDesiredCapacity
+      EnableECSManagedTags: false
+      LaunchType: FARGATE
+      ServiceRegistries:
+        - RegistryArn: !GetAtt orchestratorDiscoveryService.Arn
+          ContainerName: fydeOrchestrator
+      SchedulingStrategy: REPLICA
+      TaskDefinition: !Ref orchestratorEcsTask
+      Tags:
+        - Key: Name
+          Value: fydeOrchestrator
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: orchestrator
+        - Key: Platform
+          Value: ecsFargate
+
+  orchestratorDiscoveryService:
+    Type: AWS::ServiceDiscovery::Service
+    Properties:
+      Name: Orchestrator
+      Description: Discovery service for the fyde orchestrator service
+      DnsConfig:
+        RoutingPolicy: WEIGHTED
+        DnsRecords:
+          - TTL: 60
+            Type: A
+      HealthCheckCustomConfig:
+        FailureThreshold: 1
+      NamespaceId: !Ref privateNamespace
+
+  orchestratorRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: fydeSecrets
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'secretsmanager:DescribeSecret'
+                  - 'secretsmanager:GetSecretValue'
+                Resource: !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:fyde_*'
+              - Effect: Allow
+                Action:
+                  - 'secretsmanager:ListSecrets'
+                Resource: '*'
+        - PolicyName: fydeLogStream
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: !GetAtt logGroup.Arn
+
+##
+## redis
+##
+
+  redisEcsTask:
+    Type: AWS::ECS::TaskDefinition
+    Condition: createRedis
+    Properties:
+      Cpu: '256'
+      Memory: '0.5GB'
+      ExecutionRoleArn: !Ref redisRole
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      TaskRoleArn: !Ref taskRole
+      ContainerDefinitions:
+        - Name: fydeRedis
+          Image: redis:5
+          PortMappings:
+            - ContainerPort: 6379
+              HostPort: 6379
+              Protocol: tcp
+          HealthCheck:
+            Command:
+              - redis-cli
+              - PING
+            Interval: 5
+            Retries: 3
+            StartPeriod: 15
+            Timeout: 10
+          Essential: true
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref logGroup
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: fydeAccessProxy
+      Tags:
+        - Key: Name
+          Value: fydeRedis
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: redis
+        - Key: Platform
+          Value: ecsFargate
+
+  redisEcsService:
+    Type: AWS::ECS::Service
+    Condition: createRedis
+    Properties:
+      ServiceName: fydeRedis
+      Cluster: !Ref ecsCluster
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref redisSg
+          Subnets: !Ref subnets
+      DesiredCount: 1
+      EnableECSManagedTags: false
+      LaunchType: FARGATE
+      ServiceRegistries:
+        - RegistryArn: !GetAtt redisDiscoveryService.Arn
+          ContainerName: fydeRedis
+      SchedulingStrategy: REPLICA
+      TaskDefinition: !Ref redisEcsTask
+      Tags:
+        - Key: Name
+          Value: fydeRedis
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: redis
+        - Key: Platform
+          Value: ecsFargate
+
+  redisDiscoveryService:
+    Type: AWS::ServiceDiscovery::Service
+    Condition: createRedis
+    Properties:
+      Name: redis
+      Description: Discovery service for the fyde redis service
+      DnsConfig:
+        RoutingPolicy: WEIGHTED
+        DnsRecords:
+          - TTL: 60
+            Type: A
+      HealthCheckCustomConfig:
+        FailureThreshold: 1
+      NamespaceId: !Ref privateNamespace
+
+  redisRole:
+    Type: AWS::IAM::Role
+    Condition: createRedis
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: fydeLogStream
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: !GetAtt logGroup.Arn
+
+##
+## Envoy
+##
+
+  envoyEcsTask:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Cpu: '512'
+      Memory: '1GB'
+      ExecutionRoleArn: !Ref envoyRole
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      TaskRoleArn: !Ref taskRole
+      ContainerDefinitions:
+        - Name: fydeEnvoy
+          Image: fydeinc/envoyproxy-centos:latest
+          Environment:
+            - Name: FYDE_PROXY_HOST
+              Value: !Sub
+                - ${orchestratorHostname}.fyde-access-proxy-ecs-fargate
+                - { orchestratorHostname: !GetAtt orchestratorDiscoveryService.Name }
+            - Name: FYDE_PROXY_PORT
+              Value: '50051'
+          PortMappings:
+            - ContainerPort: !Ref fydeAccessProxyPublicPort
+              HostPort: !Ref fydeAccessProxyPublicPort
+              Protocol: tcp
+          HealthCheck:
+            Command:
+              - CMD-SHELL
+              - cat
+              - <
+              - /dev/null
+              - >
+              - !Sub
+                - /dev/tcp/127.0.0.1/${publicPort}
+                - { publicPort: !Ref fydeAccessProxyPublicPort }
+            Interval: 5
+            Retries: 3
+            StartPeriod: 15
+            Timeout: 10
+          Essential: true
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref logGroup
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: fydeAccessProxy
+      Tags:
+        - Key: Name
+          Value: fydeEnvoy
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: envoy
+        - Key: Platform
+          Value: ecsFargate
+
+  envoyEcsService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: fydeEnvoy
+      Cluster: !Ref ecsCluster
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref envoySg
+            - !Ref inboundSg
+          Subnets: !Ref subnets
+      LoadBalancers:
+        - ContainerName: fydeEnvoy
+          ContainerPort: !Ref fydeAccessProxyPublicPort
+          TargetGroupArn: !Ref nlbTargetGroup
+      DeploymentConfiguration:
+        MaximumPercent: 200
+        MinimumHealthyPercent: 100
+      DesiredCount: !Ref envoyDesiredCapacity
+      EnableECSManagedTags: false
+      LaunchType: FARGATE
+      SchedulingStrategy: REPLICA
+      TaskDefinition: !Ref envoyEcsTask
+      Tags:
+        - Key: Name
+          Value: fydeEnvoy
+        - Key: Application
+          Value: fydeAccessProxy
+        - Key: Service
+          Value: envoy
+        - Key: Platform
+          Value: ecsFargate
+
+  envoyRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: fydeLogStream
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: !GetAtt logGroup.Arn
+
+Outputs:
+  networkLoadBalancerDnsName:
+    Description: Update the fyde Access Proxy in the Console with this DNS name
+    Value:
+      !GetAtt nlb.DNSName
+  securityGroupforResources:
+    Description: Use this group to allow fyde Access Proxy access to internal resources
+    Value:
+      !Ref envoySg

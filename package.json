@@ -1,0 +1,14 @@
+{
+  "name": "fyde-docs",
+  "version": "0.0",
+  "description": "The docs repo for Fyde",
+  "main": "index.js",
+  "repository": "git@github.com:fyde/docs.git",
+  "author": "ops@fyde.com",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "docker build -t fyde-docs .",
+    "start": "yarn build && docker run -v \"$PWD:/srv/jekyll\" -p 4000:4000 -p 35729:35729 fyde-docs jekyll serve --incremental --livereload"
+  }
+}
