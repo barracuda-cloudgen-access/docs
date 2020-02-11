@@ -18,7 +18,7 @@ nav_order: 1
 
   1. Get a [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy) by creating a new Fyde Access Proxy. Since we don't have the Host value yet, please insert a placeholder (e.g. temp.local)
 
-  2. Create the Cloudformation stack with the Cloudformation template obtained from [https://url.fyde.me/fyde-proxy-aws-cf](https://url.fyde.me/fyde-proxy-aws-cf){:target="_blank"}
+  2. Create the Cloudformation stack with the Cloudformation template obtained from [https://url.fyde.me/fyde-proxy-aws-cf-asg](https://url.fyde.me/fyde-proxy-aws-cf-asg){:target="_blank"}
 
   3. Update the created Fyde Access Proxy Host with the DNS name obtained in the stack output key `NetworkLoadBalancerDnsName`
 
