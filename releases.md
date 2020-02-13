@@ -69,3 +69,16 @@ Release date: 11-02-2020
 ## Fyde Deployment Scripts
 
 Added [Cloudformation scripts for proxy deployment]({{ site.baseurl }}{% link fyde-access-proxy/install-aws.md %}).
+
+## Fyde Directory Connector - Version 1.1.0
+
+Release date: 13-02-2020
+
+### Improvements
+
+- Added Azure AD support
+- Added support for user and group filtering
+
+### Bugfixes
+
+- Updated Google Suite compatibility
