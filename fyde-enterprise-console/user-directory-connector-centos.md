@@ -7,8 +7,9 @@ nav_order: 1
 ---
 # Install in CentOS
 
-- Supported distributions:
+- Minimum OS supported versions:
   - CentOS 7
+  - RHEL 8
 
 - Requires a valid User Directory connector token
 
