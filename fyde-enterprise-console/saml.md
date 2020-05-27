@@ -1,22 +1,41 @@
 ---
 layout: default
 title: SAML Configuration
-parent: Fyde Enterprise Console
-nav_order: 7
-has_children: true
+parent: Identity Provider
+grand_parent: Fyde Enterprise Console
+nav_order: 1
 has_toc: false
 ---
 # SAML Configuration
 
-- SAML authentication can be configured for enrolling devices
+- SAML authentication can be configured for enrolling devices through a specific identity provider.
 
-- Start with the [common](#common) steps and then follow [provider specific](#provider-specific) steps to finish configuration
+## Configure SAML
 
-## Common
+1. To configure SAML, go to **Settings**, then  **General**, **Identity Provider**,
+click **Activate Provider** and then **SAML 2.0**.
 
-- [Fyde Enterprise Console]({{ site.baseurl }}{% link fyde-enterprise-console/saml-enterprise-console.md %})
+    ![Console Settings]({{ site.baseurl }}{% link imgs/ec-idp-enterprise-console-settings-button.png %})
 
-## Provider Specific
+1. Please take note of the fields your provider will require:
+
+    - Identifier (Entity ID)
+
+    - Assertion Consumer Service URL
+
+    - SSO URL
+
+    ![Console Settings]({{ site.baseurl }}{% link imgs/ec-saml-enterprise-console-settings-menu.png %})
+
+1. Follow one of the [provider specific](#provider-specific) steps to obtain the required fields:
+
+    - Entity ID
+
+    - Redirect URL (SSO URL)
+
+    - Certificate
+
+## Provider Specific Steps
 
 - [Azure AD]({{ site.baseurl }}{% link fyde-enterprise-console/saml-azure.md %})
 

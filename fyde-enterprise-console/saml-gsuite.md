@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Google Suite SAML
-parent: SAML Configuration
+parent: Identity Provider
 grand_parent: Fyde Enterprise Console
 nav_order: 3
 ---
@@ -41,7 +41,7 @@ Steps to create a Google Suite SAML application to use with Fyde Enterprise Cons
 
     ![SAML Configuration]({{ site.baseurl }}{% link imgs/ec-saml-google-configuration.png %})
 
-1. In this menu we are going to use the values obtained from step 2 in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml-enterprise-console.md %}):
+1. In this menu we are going to use the values obtained from step 2 in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml.md %}):
 
     - Please fill in:
 
@@ -67,7 +67,7 @@ Steps to create a Google Suite SAML application to use with Fyde Enterprise Cons
 
     ![SAML Enable]({{ site.baseurl }}{% link imgs/ec-saml-google-enable.png %})
 
-1. Use the values obtained to continue the step 3 configuration in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml-enterprise-console.md %}):
+1. Use the values obtained to continue the step 3 configuration in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml.md %}):
 
     - **Entity ID**
 
