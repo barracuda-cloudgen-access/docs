@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Okta SAML
-parent: SAML Configuration
+parent: Identity Provider
 grand_parent: Fyde Enterprise Console
 nav_order: 4
 ---
@@ -45,7 +45,7 @@ Steps to create an Okta SAML application to use with Fyde Enterprise Console
 
     ![SAML Details]({{ site.baseurl }}{% link imgs/ec-saml-okta-general-settings.png %})
 
-1. In this menu we are going to use the values obtained from step 2 in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml-enterprise-console.md %}):
+1. In this menu we are going to use the values obtained from step 2 in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml.md %}):
 
     - Please fill in:
 
@@ -77,7 +77,7 @@ Steps to create an Okta SAML application to use with Fyde Enterprise Console
 
 1. Get provider definitions by selecting **Sign On** and **View Setup Instructions**
 
-    - Use the values obtained to continue the step 3 configuration in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml-enterprise-console.md %}):
+    - Use the values obtained to continue the step 3 configuration in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml.md %}):
 
     - **Identity Provider Issuer** - **Entity ID**
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Azure AD SAML
-parent: SAML Configuration
+parent: Identity Provider
 grand_parent: Fyde Enterprise Console
 nav_order: 2
 ---
@@ -37,7 +37,7 @@ Steps to create an Azure AD SAML application to use with Fyde Enterprise Console
 
     ![SSO Method]({{ site.baseurl }}{% link imgs/ec-saml-azure-sso-method.png %})
 
-1. In this menu we are going to use the values obtained from step 2 in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml-enterprise-console.md %}):
+1. In this menu we are going to use the values obtained from step 2 in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml.md %}):
 
     - Please fill in:
 
@@ -69,7 +69,7 @@ Steps to create an Azure AD SAML application to use with Fyde Enterprise Console
 
     ![SAML Provider]({{ site.baseurl }}{% link imgs/ec-saml-azure-application-properties.png %})
 
-1. Use the values obtained to continue the step 3 configuration in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml-enterprise-console.md %}):
+1. Use the values obtained to continue the step 3 configuration in [Fyde Enterprise Console SAML]({{ site.baseurl }}{% link fyde-enterprise-console/saml.md %}):
 
     - **Entity ID** -> **Azure AD identifier**
 
