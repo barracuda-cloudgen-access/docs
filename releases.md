@@ -7,40 +7,22 @@ nav_order: 9
 
 ## Fyde App - Version 0.24.0
 
-Release date: 10-02-2020
+Release date: 13-05-2020
 
-### Improvements
+- Added option to reset activity
+- Several improvements and bugfixes
 
-- Added support for wildcard resources
-- Added support for disk encryption, firewall and anti-virus detection policies on Windows
-- Improved bug report screen
+## Fyde Enterprise Console - Version 0.10.14
 
-### Bugfixes
+Release date: 10-05-2020
 
-- Fixed a problem on the screen lock policy restriction on macOS
-- Fix for all clients: fixed handling of HTTP chunked transfer encoding
-
-## Fyde Enterprise Console - Version 0.10.1
-
-Release date: 10-02-2020
-
-### Improvements
-
-- Added support for resources with wildcard domains and port ranges
-- Added password reset flow
 - Several bug fixes and performance improvements
 
-## Fyde Cli - Version 0.8.0
+## Fyde Cli - Version 0.8.4
 
-Release date: 11-02-2020
+Release date: 4-05-2020
 
-_**Deprecation warning**: please upgrade to the newest version as soon as possible since there are API incompatibilities on older ones_
-
-### Improvements
-
-- Adds support for resources with wildcard domains and port ranges
-- Add support for specifying several conditions and parameters in several API endpoints
-- Several other [improvements](https://github.com/fyde/fyde-cli/releases/tag/v0.8.0).
+- API definitions updated to match the latest Enterprise Console API. Affected operations: device listing, device enabling/disabling, device auth revoking
 
 ## Fyde Proxy Orchestrator - Version 1.2.0
 
@@ -68,7 +50,10 @@ Release date: 11-02-2020
 
 ## Fyde Deployment Scripts
 
-Added [Cloudformation scripts for proxy deployment]({{ site.baseurl }}{% link fyde-access-proxy/install-aws.md %}).
+Release date: 27-05-2020
+
+- Several fixes.
+- Added [Cloudformation scripts for proxy deployment]({{ site.baseurl }}{% link fyde-access-proxy/install-aws.md %}).
 
 ## Fyde Directory Connector - Version 1.1.0
 
