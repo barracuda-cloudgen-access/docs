@@ -33,8 +33,10 @@ Here is a complete list of all configuration parameters that this program uses.
 |https-proxy        |               |string |Use HTTPS proxy. Example: “https://proxy.host:1234/” or “socks5://10.0.0.1:5555”|
 |live_test_timeout  |30             |int    |Liveness of the redis data for active jobs in server_mode. If data about a pending job is not refreshed by the end of this timeout, the system considers the connector instance handling the job died and cleans up the data associated|
 |logfile            |               |string |Log file to send all output. It is also sent to stderr by default|
+|loglevel           |info           |string |Log level to use. Valid values error/warning/info/debug |
 |okta-auth-token    |               |string |This is an Okta API token and it is required to sync with Okta Directories|
 |okta-domainname    |               |string |This is the domain assigned to your organization inside Okta. something like exampleorg.okta.com|
+|only-matched-groups|True           |bool   |Decides if it should only push groups that match the group filters, or all of them |
 |prometheus         |False          |bool   |Prometheus metrics for the connector|
 |prometheus_port    |9000           |int    |Prometheus port|
 |run_once           |False          |bool   |Run only one sync cycle and exit|
