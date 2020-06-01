@@ -16,7 +16,7 @@ The first step to configure a User Directory connector is to create it in the Fy
 
 This program utilizes the same configuration system than our Fyde Proxy Orchestrator, so all options can be configured using command line arguments, environment variables, docker secrets, AWS SSM, etc. Click [here]({{ site.baseurl }}{% link fyde-enterprise-console/user-directory-connector-parameters.md %}) for more information on parameters.
 
-A connector can be installed on a Centos OS using RPMs, it can also be run directly on any modern linux (it is a single static binary), or using a docker container. Click [here]({{ site.baseurl }}{% link fyde-enterprise-console/user-directory-connector-centos.md %}) for CentOS install steps.
+A connector can be installed on a Centos OS using RPMs, any Debian-based OS, it can also be run directly on any modern linux (it is a single static binary), or using a docker container. Click [here]({{ site.baseurl }}{% link fyde-enterprise-console/user-directory-connector-centos.md %}) for CentOS install steps. Click [here]({{ site.baseurl }}{% link fyde-enterprise-console/user-directory-connector-debian.md %}) for Debian/Ubuntu install steps.
 
 The only mandatory configuration parameter is the `enrollment_token`, which you obtain from the Fyde Enterprise Console when you create a new User Directory.
 
