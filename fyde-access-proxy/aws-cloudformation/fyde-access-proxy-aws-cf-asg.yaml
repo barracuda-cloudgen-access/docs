@@ -11,6 +11,7 @@ Parameters:
     Type: String
     MinLength: '20'
     NoEcho: true
+    AllowedPattern: '^https:\/\/.*\.fyde\.com\/proxies.*proxy_auth_token.*$'
 
   FydeAccessProxyPublicPort:
     Description: Public port for this proxy (must match the value configured in the console for this proxy)
