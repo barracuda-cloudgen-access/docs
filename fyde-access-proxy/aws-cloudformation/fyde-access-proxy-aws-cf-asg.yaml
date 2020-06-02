@@ -22,18 +22,18 @@ Parameters:
 
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
-    Description: VpcId of your existing Virtual Private Cloud (VPC)
+    Description: Select the Virtual Private Cloud (VPC) to use
     ConstraintDescription: >-
       must be the VPC Id of an existing Virtual Private Cloud. Outbound traffic
       for the default security group associated with this VPC should be enabled.
 
-  Subnets:
+  PublicSubnets:
     Type: 'List<AWS::EC2::Subnet::Id>'
-    Description: The list of SubnetIds in your Virtual Private Cloud (VPC)
+    Description: 'Select the SubnetIds to use. NOTE: Use Public Subnets only'
     ConstraintDescription: >-
       recomended to be a list of at least two existing subnets associated with at least
       two different availability zones. They should be residing in the selected
-      Virtual Private Cloud.
+      Virtual Private Cloud and should allow access to internet
 
   ASGMaxSize:
     Description: Enter the Max Size for the ASG
@@ -148,7 +148,7 @@ Resources:
   NLB:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
-      Subnets: !Ref Subnets
+      Subnets: !Ref PublicSubnets
       Scheme: internet-facing
       Type: network
       Tags:
@@ -212,7 +212,7 @@ Resources:
   AutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
-      VPCZoneIdentifier: !Ref Subnets
+      VPCZoneIdentifier: !Ref PublicSubnets
       Cooldown: 120
       LaunchConfigurationName: !Ref LaunchConfig
       MaxSize: !Ref ASGMaxSize

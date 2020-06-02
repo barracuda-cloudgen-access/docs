@@ -23,18 +23,18 @@ Parameters:
 
   vpcId:
     Type: AWS::EC2::VPC::Id
-    Description: vpcId of your existing Virtual Private Cloud (VPC)
+    Description: Select the Virtual Private Cloud (VPC) to use
     ConstraintDescription: >-
       must be the VPC Id of an existing Virtual Private Cloud. Outbound traffic
       for the default security group associated with this VPC should be enabled.
 
-  subnets:
-    Type: List<AWS::EC2::Subnet::Id>
-    Description: The list of SubnetIds in your Virtual Private Cloud (VPC)
+  publicSubnets:
+    Type: 'List<AWS::EC2::Subnet::Id>'
+    Description: 'Select the SubnetIds to use. NOTE: Use Public Subnets only'
     ConstraintDescription: >-
       recomended to be a list of at least two existing subnets associated with at least
       two different availability zones. They should be residing in the selected
-      Virtual Private Cloud.
+      Virtual Private Cloud and should allow access to internet
 
   orchestratorDesiredCapacity:
     Description: Enter the desired capacity for the Orchestrator nodes
@@ -104,7 +104,7 @@ Resources:
   nlb:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
-      Subnets: !Ref subnets
+      Subnets: !Ref publicSubnets
       Scheme: internet-facing
       Type: network
       Tags:
@@ -336,7 +336,7 @@ Resources:
           AssignPublicIp: ENABLED
           SecurityGroups:
             - !Ref orchestratorSg
-          Subnets: !Ref subnets
+          Subnets: !Ref publicSubnets
       DeploymentConfiguration:
         MaximumPercent: 200
         MinimumHealthyPercent: 100
@@ -463,7 +463,7 @@ Resources:
           AssignPublicIp: ENABLED
           SecurityGroups:
             - !Ref redisSg
-          Subnets: !Ref subnets
+          Subnets: !Ref publicSubnets
       DesiredCount: 1
       EnableECSManagedTags: false
       LaunchType: FARGATE
@@ -589,7 +589,7 @@ Resources:
           SecurityGroups:
             - !Ref envoySg
             - !Ref inboundSg
-          Subnets: !Ref subnets
+          Subnets: !Ref publicSubnets
       LoadBalancers:
         - ContainerName: fydeEnvoy
           ContainerPort: !Ref fydeAccessProxyPublicPort
