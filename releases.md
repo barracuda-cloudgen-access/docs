@@ -18,11 +18,13 @@ Release date: 10-05-2020
 
 - Several bug fixes and performance improvements
 
-## Fyde Cli - Version 0.8.4
+## Fyde Cli - Version 0.9.1
 
-Release date: 4-05-2020
+Release date: 5-05-2020
 
-- API definitions updated to match the latest Enterprise Console API. Affected operations: device listing, device enabling/disabling, device auth revoking
+- Added support for SSO login
+- Added admin management support (list, create, edit, delete)
+- Added support to set a different email for administrators SSO authentication
 
 ## Fyde Proxy Orchestrator - Version 1.2.0
 
@@ -55,15 +57,9 @@ Release date: 27-05-2020
 - Several fixes.
 - Added [Cloudformation scripts for proxy deployment]({{ site.baseurl }}{% link fyde-access-proxy/install-aws.md %}).
 
-## Fyde Directory Connector - Version 1.1.0
+## Fyde Directory Connector - Version 1.3.0
 
-Release date: 13-02-2020
+Release date: 1-06-2020
 
-### Improvements
+- AD support improvements
 
-- Added Azure AD support
-- Added support for user and group filtering
-
-### Bugfixes
-
-- Updated Google Suite compatibility
