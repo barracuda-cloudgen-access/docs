@@ -1,6 +1,6 @@
 # Docker compose Fyde Access Proxy
 ---
-version: '3'
+version: '3.5'
 services:
 
   envoy-proxy:
