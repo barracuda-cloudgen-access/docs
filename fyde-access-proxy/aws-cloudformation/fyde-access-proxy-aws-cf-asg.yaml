@@ -27,9 +27,17 @@ Parameters:
       must be the VPC Id of an existing Virtual Private Cloud. Outbound traffic
       for the default security group associated with this VPC should be enabled.
 
-  PublicSubnets:
+  NLBPublicSubnets:
     Type: 'List<AWS::EC2::Subnet::Id>'
-    Description: 'Select the SubnetIds to use. NOTE: Use Public Subnets only'
+    Description: 'Select the Public Subnet Ids to use for the Network Load Balancer. NOTE: Use Public Subnets only'
+    ConstraintDescription: >-
+      recomended to be a list of at least two existing subnets associated with at least
+      two different availability zones. They should be residing in the selected
+      Virtual Private Cloud and should allow access to internet
+
+  EC2Subnets:
+    Type: 'List<AWS::EC2::Subnet::Id>'
+    Description: 'Select the Subnet Ids to use for the EC2 instances. NOTE: Use Private Subnets with NAT Gateway configured or Public Subnets'
     ConstraintDescription: >-
       recomended to be a list of at least two existing subnets associated with at least
       two different availability zones. They should be residing in the selected
@@ -148,7 +156,7 @@ Resources:
   NLB:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
-      Subnets: !Ref PublicSubnets
+      Subnets: !Ref NLBPublicSubnets
       Scheme: internet-facing
       Type: network
       Tags:
@@ -182,10 +190,10 @@ Resources:
         - Key: Application
           Value: FydeAccessProxyASG
 
-  InboundSG:
+  InboundNLBSecGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
-      GroupDescription: Allow inbound access to Fyde Access Proxy on the configured port
+      GroupDescription: Allow inbound access to NLB on the configured port
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: !Ref FydeAccessProxyPublicPort
@@ -198,10 +206,29 @@ Resources:
         - Key: Application
           Value: FydeAccessProxyASG
 
-  ResourceSG:
+  InboundEC2SecGroup:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
-      GroupDescription: Allow FydeAccessProxy access to internal resources
+      GroupDescription: Allow inbound access to EC2 instances on the configured port
+      # https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#target-security-groups
+      # You cannot allow traffic from clients to targets through the load balancer using the security groups for the clients in the security groups for the targets.
+      # Use the client CIDR blocks in the target security groups instead.
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: !Ref FydeAccessProxyPublicPort
+          ToPort: !Ref FydeAccessProxyPublicPort
+          CidrIp: 0.0.0.0/0
+      VpcId: !Ref VpcId
+      Tags:
+        - Key: Name
+          Value: FydeAccessProxy
+        - Key: Application
+          Value: FydeAccessProxyASG
+
+  ResourceSecGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Use this group to allow FydeAccessProxy access to internal resources
       VpcId: !Ref VpcId
       Tags:
         - Key: Name
@@ -212,7 +239,7 @@ Resources:
   AutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
-      VPCZoneIdentifier: !Ref PublicSubnets
+      VPCZoneIdentifier: !Ref EC2Subnets
       Cooldown: 120
       LaunchConfigurationName: !Ref LaunchConfig
       MaxSize: !Ref ASGMaxSize
@@ -236,11 +263,10 @@ Resources:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
       KeyName: !Ref KeyName
-      AssociatePublicIpAddress: true
       ImageId: !Ref FydeAccessProxyAmiLatest
       SecurityGroups:
-        - !Ref InboundSG
-        - !Ref ResourceSG
+        - !Ref InboundEC2SecGroup
+        - !Ref ResourceSecGroup
       InstanceType: !Ref InstanceType
       IamInstanceProfile: !Ref InstanceProfile
       UserData:
@@ -288,11 +314,13 @@ Resources:
                 Resource: '*'
 
 Outputs:
+
   NetworkLoadBalancerDnsName:
     Description: Update the Fyde Access Proxy in the Console with this DNS name
     Value:
       !GetAtt NLB.DNSName
+
   SecurityGroupforResources:
     Description: Use this group to allow Fyde Access Proxy access to internal resources
     Value:
-      !Ref ResourceSG
+      !Ref ResourceSecGroup
