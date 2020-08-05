@@ -82,7 +82,7 @@ Please follow the next steps to perform the required configuration to access a r
 
   - **Resource Name**: HTTP Test
 
-  - **Public Host**: http.test.local
+  - **Public Host**: http.example.org
 
   - **Resource Host**: httptest
 
@@ -139,7 +139,7 @@ Please follow the next steps to perform the required configuration to access a r
 
 - Access the configured resource by visiting the following link from the enrolled device:
 
-  - <http://http.test.local:81>{:target="_blank"}
+  - <http://http.example.org:81>{:target="_blank"}
 
 ## Troubleshoot
 
