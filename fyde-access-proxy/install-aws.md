@@ -10,7 +10,7 @@ nav_order: 1
 
 ### Install steps
 
-  1. Get a [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy) by creating a new Fyde Access Proxy. Since we don't have the value for Host parameters yet, please insert a placeholder (e.g. temp.local)
+  1. Get a [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy) by creating a new Fyde Access Proxy. Since we don't have the value for Host parameters yet, please insert a placeholder (e.g. temp.example.org)
 
   2. Choose one of the templates:
 

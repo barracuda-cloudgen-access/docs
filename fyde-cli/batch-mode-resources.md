@@ -25,8 +25,8 @@ The expected fields for each format are as follows:
 | --- | --- | --- | --- | --- | --- |
 | `id` | string | `ID` | `0090b4e1-99d8-46c5-bd80-84fabcd67214` | ID of the resource to edit.<br>**Used only when editing** | When editing
 | `name` | string | `Name` | `Gitea` | Name of the resource | When adding
-| `public_host` | string | `PublicHost` | `gitea.local` | Public host of the resource | When adding
-| `internal_host` | string | `InternalHost` | `gitea.local` | Internal host of the resource | When adding
+| `public_host` | string | `PublicHost` | `git.example.org` | Public host of the resource | When adding
+| `internal_host` | string | `InternalHost` | `git.internal.example.org` | Internal host of the resource | When adding
 | `port_mappings` | object | `PortMappings` | _See below_ | Port mappings | When adding
 | `access_proxy_id` | string | `AccessProxyID` | `01b79087-2146-4399-802f-30e5fd2e2d8f` | Proxy ID for the resource | When adding
 | `enabled` | boolean | `Enabled` | `true` | Whether the resource is enabled | When adding

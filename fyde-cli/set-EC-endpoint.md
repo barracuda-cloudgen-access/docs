@@ -50,8 +50,8 @@ fyde-cli will still use HTTPS, but it will accept any certificate presented by t
 This behavior can be enabled by including the `--insecure-skip-verify` option when setting the endpoint.
 
 ```
-$ fyde-cli endpoint set --insecure-skip-verify test.local
-Endpoint changed to test.local.
+$ fyde-cli endpoint set --insecure-skip-verify example.org
+Endpoint changed to example.org.
 Credentials cleared, please login again using `fyde-cli login`
 WARNING: TLS certificate verification is being skipped for the endpoint. THIS IS INSECURE.
 ```
@@ -67,8 +67,8 @@ fyde-cli will still follow any redirects to HTTPS that the server might present.
 This behavior can be enabled by including the `--insecure-skip-verify` option when setting the endpoint.
 
 ```
-$ fyde-cli endpoint set --insecure-use-http test.local
-Endpoint changed to test.local.
+$ fyde-cli endpoint set --insecure-use-http example.org
+Endpoint changed to example.org.
 Credentials cleared, please login again using `fyde-cli login`
 WARNING: HTTP, instead of HTTPS, is being used for API communication. THIS IS INSECURE.
 ```
