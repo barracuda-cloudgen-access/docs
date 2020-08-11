@@ -6,21 +6,29 @@ nav_order: 1
 ---
 # Install in AWS
 
+## Terraform modules
+
+  1. Get a [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy) by creating a new Fyde Access Proxy. Since we don't have the value for Host parameters yet, please insert a placeholder (e.g. temp.example.org)
+
+  1. Go to [Terraform modules](https://github.com/fyde/terraform-modules){:target="_blank"} for detailed deployment steps
+
+  1. After the instalation, update the created Fyde Access Proxy Host with the DNS name obtained in the terraform output resource `Network_Load_Balancer_DNS_Name`
+
 ## Cloudformation Templates
 
 ### Install steps
 
   1. Get a [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy) by creating a new Fyde Access Proxy. Since we don't have the value for Host parameters yet, please insert a placeholder (e.g. temp.example.org)
 
-  2. Choose one of the templates:
+  1. Choose one of the templates:
 
       - [ASG with NLB](#asg-with-nlb)
 
       - [ECS on AWS Fargate](#ecs-on-aws-fargate)
 
-  3. Update the created Fyde Access Proxy Host with the DNS name obtained in the stack output key `NetworkLoadBalancerDnsName`
+  1. Update the created Fyde Access Proxy Host with the DNS name obtained in the stack output key `NetworkLoadBalancerDnsName`
 
-  4. Configure access to the desired resources with the security group id obtained in the stack output key `SecurityGroupforResources`
+  1. Configure access to the desired resources with the security group id obtained in the stack output key `SecurityGroupforResources`
 
 [launch-stack-logo]: https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png "Launch Stack"
 
