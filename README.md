@@ -27,8 +27,8 @@ This installation requires [brew](https://brew.sh/):
 
 ```sh
 brew install rbenv ruby-build
-rbenv install 2.5.1
-rbenv local 2.5.1
+rbenv install 2.7.1
+rbenv local 2.7.1
 gem install bundler
 bundle install
 ```
