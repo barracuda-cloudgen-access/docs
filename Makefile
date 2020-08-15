@@ -3,7 +3,7 @@ docker-run:
 	docker build -t fyde-docs -f Dockerfile .
 	docker run --rm -v "$${PWD}:/srv/jekyll" \
 		-p 4000:4000 -p 35729:35729 \
-		fyde-docs jekyll serve --incremental --livereload
+		fyde-docs jekyll serve --incremental --livereload --source docs
 
 .PHONY: macos-run
 macos-run:
@@ -13,4 +13,4 @@ macos-run:
 	rbenv local "$$(cat .ruby-version)"
 	gem install bundler
 	bundle install
-	bundle exec jekyll serve --livereload
+	bundle exec jekyll serve --livereload --source docs

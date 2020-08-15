@@ -1,6 +1,6 @@
 # Fyde Documentation
 
-![Fyde](imgs/fyde-logo.png)
+![Fyde](docs/imgs/fyde-logo.png)
 
 - Website: <https://fyde.com>
 - Documentation: <https://fyde.github.io/docs>
