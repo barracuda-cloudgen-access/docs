@@ -98,17 +98,18 @@ nav_order: 2
     you will need to add the CAP_NET_BIND_SERVICE capability to Envoy.
 
     ```sh
-    sudo mkdir -p /etc/systemd/system/envoy.service.d
 
-    sudo bash -c "cat > /etc/systemd/system/envoy.service.d/10-add-cap-net-bind.conf <<EOF
-    [Service]
-    Capabilities=CAP_NET_BIND_SERVICE+ep
-    CapabilityBoundingSet=CAP_NET_BIND_SERVICE
-    AmbientCapabilities=CAP_NET_BIND_SERVICE
-    SecureBits=keep-caps
-    EOF"
+sudo mkdir -p /etc/systemd/system/envoy.service.d
 
-    sudo chmod 600 /etc/systemd/system/envoy.service.d/10-add-cap-net-bind.conf
+sudo bash -c "cat > /etc/systemd/system/envoy.service.d/10-add-cap-net-bind.conf <<EOF
+[Service]
+Capabilities=CAP_NET_BIND_SERVICE+ep
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+SecureBits=keep-caps
+EOF"
+
+sudo chmod 600 /etc/systemd/system/envoy.service.d/10-add-cap-net-bind.conf
     ```
 
 1. Reload and start Envoy Proxy
@@ -128,15 +129,16 @@ nav_order: 2
 1. Configure environment using a service unit override
 
     ```sh
-    sudo mkdir -p /etc/systemd/system/fydeproxy.service.d
 
-    sudo bash -c "cat > /etc/systemd/system/fydeproxy.service.d/10-environment.conf <<EOF
-    [Service]
-    Environment='FYDE_ENROLLMENT_TOKEN=<paste here your Fyde Access Proxy enrollment link>'
-    Environment='FYDE_ENVOY_LISTENER_PORT=<replace with the corresponding Fyde Access Proxy port, as configured in Fyde Enterprise Console>'
-    EOF"
+sudo mkdir -p /etc/systemd/system/fydeproxy.service.d
 
-    sudo chmod 600 /etc/systemd/system/fydeproxy.service.d/10-environment.conf
+sudo bash -c "cat > /etc/systemd/system/fydeproxy.service.d/10-environment.conf <<EOF
+[Service]
+Environment='FYDE_ENROLLMENT_TOKEN=<paste here your Fyde Access Proxy enrollment link>'
+Environment='FYDE_ENVOY_LISTENER_PORT=<replace with the corresponding Fyde Access Proxy port, as configured in Fyde Enterprise Console>'
+EOF"
+
+sudo chmod 600 /etc/systemd/system/fydeproxy.service.d/10-environment.conf
     ```
 
 1. Reload and start Fyde Proxy Orchestrator daemon

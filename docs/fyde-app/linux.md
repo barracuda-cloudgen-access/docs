@@ -35,12 +35,13 @@ Supported versions:
 1. Add repository
 
     ```sh
-    REPO_URL="downloads.fyde.com"
-    wget -q -O - "https://$REPO_URL/fyde-public-key.asc" | sudo apt-key add -
-    sudo bash -c "cat > /etc/apt/sources.list.d/fyde.list <<EOF
-    deb https://$REPO_URL/apt stable main
-    EOF"
-    sudo apt update
+
+REPO_URL="downloads.fyde.com"
+wget -q -O - "https://$REPO_URL/fyde-public-key.asc" | sudo apt-key add -
+sudo bash -c "cat > /etc/apt/sources.list.d/fyde.list <<EOF
+deb https://$REPO_URL/apt stable main
+EOF"
+sudo apt update
     ```
 
 1. Install

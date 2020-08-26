@@ -40,16 +40,17 @@ nav_order: 1
     - Check all the available [parameters]({{ site.baseurl }}{% link fyde-enterprise-console/user-directory-connector-parameters.md %})
 
     ```sh
-    sudo mkdir -p /etc/systemd/system/fyde-connector.service.d
 
-    sudo bash -c "cat > /etc/systemd/system/fyde-connector.service.d/10-environment.conf <<EOF
-    [Service]
-    Environment='FYDE_ENROLLMENT_TOKEN=https://enterprise.fyde.com/connectors/v1/connectorid1?auth_token=connector1_token&tenant_id=tenantid1'
-    Environment='FYDE_OKTA_AUTH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-    Environment='FYDE_OKTA_DOMAINNAME=xxxxxx.okta.com'
-    EOF"
+sudo mkdir -p /etc/systemd/system/fyde-connector.service.d
 
-    sudo chmod 600 /etc/systemd/system/fyde-connector.service.d/10-environment.conf
+sudo bash -c "cat > /etc/systemd/system/fyde-connector.service.d/10-environment.conf <<EOF
+[Service]
+Environment='FYDE_ENROLLMENT_TOKEN=https://enterprise.fyde.com/connectors/v1/connectorid1?auth_token=connector1_token&tenant_id=tenantid1'
+Environment='FYDE_OKTA_AUTH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+Environment='FYDE_OKTA_DOMAINNAME=xxxxxx.okta.com'
+EOF"
+
+sudo chmod 600 /etc/systemd/system/fyde-connector.service.d/10-environment.conf
     ```
 
 1. Reload and start Fyde User Directory Connector
