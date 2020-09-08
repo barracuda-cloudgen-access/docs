@@ -5,12 +5,13 @@ nav_order: 9
 ---
 # Latest releases
 
-## Fyde App - Version 0.24.0
+## Fyde App - Version 0.27.5
 
-Release date: 13-05-2020
+Release date: 7-09-2020
 
-- Added option to reset activity
-- Several improvements and bugfixes
+- Linux: ignore link-local requests
+- Linux: set system nameservers when computer leaves sleep/hibernation
+- Fixed HTTPS request contention
 
 ## Fyde Enterprise Console - Version 0.10.14
 
