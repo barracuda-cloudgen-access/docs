@@ -7,7 +7,11 @@ metadata:
   annotations:
     # Adjust according to your kubernetes cluster environment
     # https://kubernetes.io/docs/concepts/services-networking/#publishing-services-service-types
+    # Example for AWS
+    # Requires a security group allowing access to the service NodePort from 0.0.0.0/tcp
+    # service.beta.kubernetes.io/aws-load-balancer-type: nlb
 spec:
+  externalTrafficPolicy: Local
   ports:
     - name: envoy-proxy
       # Publicly exposed Fyde Access Proxy port
