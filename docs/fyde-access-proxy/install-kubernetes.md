@@ -26,7 +26,7 @@ nav_order: 4
 
     - Ensure that configured public port for envoy matches the one configured in Fyde Enterprise Console for the corresponding Fyde Access Proxy
 
-    - If required, update service anotations to match your environment
+    - Update service anotations to match your environment
 
 1. Create the Fyde Proxy Orchestrator manifest file
 
