@@ -5,13 +5,11 @@ nav_order: 9
 ---
 # Latest releases
 
-## Fyde App - Version 0.27.5
+## Fyde App - Version 0.27.6
 
-Release date: 7-09-2020
+Release date: 14-09-2020
 
-- Linux: ignore link-local requests
-- Linux: set system nameservers when computer leaves sleep/hibernation
-- Fixed HTTPS request contention
+- Fixed deadlock in the network stack
 
 ## Fyde Enterprise Console - Version 0.10.14
 
@@ -64,3 +62,12 @@ Release date: 1-06-2020
 
 - AD support improvements
 
+# Obsolete releases
+
+## Fyde App - Version 0.27.5
+
+Release date: 7-09-2020
+
+- Linux: ignore link-local requests
+- Linux: set system nameservers when computer leaves sleep/hibernation
+- Fixed HTTPS request contention
