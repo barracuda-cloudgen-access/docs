@@ -43,6 +43,14 @@ Parameters:
       two different availability zones. They should be residing in the selected
       Virtual Private Cloud and should allow access to internet
 
+  AssociatePublicIpAddress:
+    Description: If you specify true, each instance in the Auto Scaling group receives a unique public IP address. Default is false.
+    Type: String
+    Default: false
+    AllowedValues:
+      - false
+      - true
+
   ASGMaxSize:
     Description: Enter the Max Size for the ASG
     Default: 3
@@ -262,6 +270,7 @@ Resources:
   LaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
+      AssociatePublicIpAddress: !Ref AssociatePublicIpAddress
       KeyName: !Ref KeyName
       ImageId: !Ref FydeAccessProxyAmiLatest
       SecurityGroups:
