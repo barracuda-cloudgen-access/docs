@@ -10,8 +10,6 @@ set -euo pipefail
 
 # Set help
 
-# Set help
-
 function program_help {
 
     echo -e "Install Fyde Access Proxy script
