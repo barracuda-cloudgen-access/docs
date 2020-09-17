@@ -6,11 +6,22 @@ parent: Releases
 ---
 # Fyde Proxy Envoy
 
+## Version 1.13.4.1
+
+Release date: 2020.08.29
+
+- Fix dns_cache crash when domain cannot be resolved
+
+## Version 1.13.4
+
+Release date: 2020.08.26
+
+- backport dns_cache fix from upstream
+- Fixes on the release process
+
 ## Version 1.13.0
 
-Release date: 11-02-2020
-
-### Improvements
+Release date: 2020.02.11
 
 - Rebased all code to follow upstream 1.13.0
 - Added support for debian packaging and alpine docker images

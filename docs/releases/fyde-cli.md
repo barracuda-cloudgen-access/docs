@@ -6,9 +6,21 @@ parent: Releases
 ---
 # Fyde Cli
 
+## Version 0.9.3
+
+Release date: 2020.09.12
+
+- Added support for Wildcard Exceptions
+
+## Version 0.9.2
+
+Release date: 2020.08.07
+
+- Added evaluate_resource API ("fyde-cli device evaluate")
+
 ## Version 0.9.1
 
-Release date: 5-05-2020
+Release date: 2020.05.05
 
 - Added support for SSO login
 - Added admin management support (list, create, edit, delete)
@@ -16,13 +28,13 @@ Release date: 5-05-2020
 
 ## Version 0.8.4
 
-Release date: 4-05-2020
+Release date: 2020.05.04
 
 - API definitions updated to match the latest Enterprise Console API. Affected operations: device listing, device enabling/disabling, device auth revoking
 
 ## Version 0.8.0
 
-Release date: 11-02-2020
+Release date: 2020.02.11
 
 **Deprecation warning**: please upgrade to the newest version as soon as possible since there are API incompatibilities on older ones
 
@@ -32,7 +44,7 @@ Release date: 11-02-2020
 
 ## Version 0.7.0
 
-Release date: 17-12-2019
+Release date: 2019.12.17
 
 - Access resource model updated to match Enterprise Console API changes
   - Increased consistency of the output of delete, device authorization revoke, user and source enable/disable, and user enrollment management commands

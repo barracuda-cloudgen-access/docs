@@ -6,34 +6,34 @@ parent: Releases
 ---
 # Fyde Deployment Scripts
 
-### 16-09-2020
+### 2020.09.16
 
 - [Cloudformation] Add AssociatePublicIpAddress configuration for ASG
 
-### 11-08-2020
+### 2020.08.11
 
 - [terraform] Add modules for Fyde Access Proxy deployment
 
-### 02-08-2020
+### 2020.08.02
 
 - [Cloudformation] Allow specifying private subnets for EC2 instances
 
-### 02-06-2020
+### 2020.06.02
 
 - [Cloudformation] Add AllowedPattern to `fydeAccessProxyToken`
 
-### 27-05-2020
+### 2020.05.27
 
 - [Bootstrap Scripts]  Several fixes
 
-### 11-02-2020
+### 2020.02.11
 
 - [Cloudformation] Add template for Fyde Access Proxy in ECS Fargate
 
-### 10-02-2020
+### 2020.02.10
 
 - [Bootstrap Scripts] Ensure timesync for RHEL/CentOS
 
-### 23-01-2020
+### 2020.01.23
 
 - [Cloudformation] Add templates for Fyde Access Proxy deployment with ASG
