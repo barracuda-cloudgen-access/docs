@@ -4,19 +4,12 @@ has_children: false
 nav_order: 6
 ---
 # Glossary
+{: .no_toc }
 
-- [Glossary](#glossary)
-  - [Admin](#admin)
-  - [Device](#device)
-  - [Envoy Proxy](#envoy-proxy)
-  - [Fyde Access Proxy](#fyde-access-proxy)
-  - [Fyde Access Proxy enrollment link](#fyde-access-proxy-enrollment-link)
-  - [Fyde App](#fyde-app)
-  - [fyde-cli](#fyde-cli)
-  - [Fyde Enterprise Console](#fyde-enterprise-console)
-  - [Fyde Proxy Orchestrator](#fyde-proxy-orchestrator)
-  - [Fyde User Directory Connector](#fyde-user-directory-connector)
-  - [User](#user)
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
 
 ## Admin
 

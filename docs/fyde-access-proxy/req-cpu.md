@@ -5,6 +5,14 @@ parent: Fyde Access Proxy
 nav_order: 7
 ---
 # Computing
+{: .no_toc }
+
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
+
+## Description
 
 ## Requirements
 

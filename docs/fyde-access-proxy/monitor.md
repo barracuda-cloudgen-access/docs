@@ -5,6 +5,14 @@ parent: Fyde Access Proxy
 nav_order: 9
 ---
 # Monitor
+{: .no_toc }
+
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
+
+## Description
 
 - Prometheus metrics are enabled by default in the Fyde Access Proxy components
 - The scrapping path is in the root of the endpoint `/`

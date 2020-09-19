@@ -5,6 +5,14 @@ parent: Fyde Access Proxy
 nav_order: 2
 ---
 # Install in Bare Metal / Virtual Machine
+{: .no_toc }
+
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
+
+## Description
 
 - Minimum OS supported versions:
   - CentOS 7
@@ -164,4 +172,4 @@ nav_order: 2
 
 ## Troubleshoot
 
-- For troubleshooting steps please visit: [Troubleshooting]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot.md %})
+- For troubleshooting steps please visit: [Troubleshooting]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot/README.md %})

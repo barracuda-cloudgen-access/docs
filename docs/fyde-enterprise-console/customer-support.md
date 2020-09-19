@@ -16,4 +16,4 @@ We will get back to you as soon as possible!
 
 ## Info
 
-For Fyde Access Proxy related troubleshooting check [here]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot.md %})
+For Fyde Access Proxy related troubleshooting check [here]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot/README.md %})
