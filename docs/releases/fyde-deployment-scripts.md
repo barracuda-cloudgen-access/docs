@@ -6,6 +6,11 @@ parent: Releases
 ---
 # Fyde Deployment Scripts
 
+### 2020.09.19
+
+- [Cloudformation] Add redis configuration for ASG
+- [Bootstrap Scripts] Add redis configuration parameters
+
 ### 2020.09.16
 
 - [Cloudformation] Add AssociatePublicIpAddress configuration for ASG

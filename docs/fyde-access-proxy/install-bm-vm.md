@@ -139,6 +139,15 @@ nav_order: 2
     sudo chmod 600 /etc/systemd/system/fydeproxy.service.d/10-environment.conf
     ```
 
+    - For highly available instalations, access to a redis server is required for communication between Fyde Orchestrators
+
+    ```sh
+    sudo bash -c "cat >> /etc/systemd/system/fydeproxy.service.d/10-environment.conf <<EOF
+    Environment='FYDE_REDIS_HOST=<specify redis host ip or dns>'
+    Environment='FYDE_REDIS_PORT=<specify redis port, defaults for 6379 if not included>'
+    EOF"
+    ```
+
 1. Reload and start Fyde Proxy Orchestrator daemon
 
     ```sh
