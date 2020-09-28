@@ -5,12 +5,24 @@ parent: Fyde Access Proxy
 nav_order: 3
 ---
 # Install in Docker
+{: .no_toc }
+
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
+
+## Description
 
 - Minimum OS supported versions:
   - Debian 9
   - Centos 7
   - Ubuntu 16.04
   - MacOS 10.14
+
+- Pre-requisites
+  - [Docker](https://www.docker.com/get-started){:target="_blank"} (version 18.02.0+)
+  - [Docker Compose](https://docs.docker.com/compose/install/){:target="_blank"} (version 1.21.0+)
 
 - The required images are available in Dockerhub registry under the organization [FydeInc](https://url.fyde.me/docker){:target="_blank"}
 
@@ -29,14 +41,6 @@ nav_order: 3
     ```
 
 ## Manual steps
-
-### Pre-requisites
-
-- [Docker](https://www.docker.com/get-started){:target="_blank"} (version 18.02.0+)
-
-- [Docker Compose](https://docs.docker.com/compose/install/){:target="_blank"} (version 1.21.0+)
-
-### Docker Compose
 
 1. Create the docker compose file
 
@@ -60,4 +64,4 @@ nav_order: 3
 
 ## Troubleshoot
 
-- For troubleshooting steps please visit: [Troubleshooting]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot.md %})
+- For troubleshooting steps please visit: [Troubleshooting]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot/README.md %})

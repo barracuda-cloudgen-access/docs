@@ -4,6 +4,12 @@ has_children: false
 nav_order: 8
 ---
 # How to's
+{: .no_toc }
+
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
 
 ## Setting up a Windows Share
 

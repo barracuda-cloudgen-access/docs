@@ -4,6 +4,12 @@ has_children: false
 nav_order: 7
 ---
 # FAQ
+{: .no_toc }
+
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
 
 ## I uninstalled the Fyde app and am not enrolled in my company/cannot enroll again.
 

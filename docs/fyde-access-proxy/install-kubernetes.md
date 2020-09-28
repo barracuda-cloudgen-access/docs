@@ -5,13 +5,18 @@ parent: Fyde Access Proxy
 nav_order: 4
 ---
 # Install in Kubernetes
+{: .no_toc }
+
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
+
+## Description
 
 - Pre-requisites:
-
   - Running [kubernetes cluster](https://kubernetes.io/){:target="_blank"} or local [minikube](https://kubernetes.io/docs/setup/minikube/){:target="_blank"} installation
-
   - Configured and installed [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/){:target="_blank"}
-
   - [Fyde Access Proxy enrollment link]({{ site.baseurl }}{% link fyde-enterprise-console/add-fyde-access-proxy.md %}#adding-a-proxy)
 
 - The steps described assume familiarity with kubernetes
@@ -58,4 +63,4 @@ nav_order: 4
 
 ## Troubleshoot
 
-- For troubleshooting steps please visit: [Troubleshooting]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot.md %})
+- For troubleshooting steps please visit: [Troubleshooting]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot/README.md %})

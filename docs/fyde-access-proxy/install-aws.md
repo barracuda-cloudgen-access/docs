@@ -5,6 +5,12 @@ parent: Fyde Access Proxy
 nav_order: 1
 ---
 # Install in AWS
+{: .no_toc }
+
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
 
 ## Terraform modules
 
@@ -106,4 +112,4 @@ nav_order: 1
 
 ## Troubleshoot
 
-- For troubleshooting steps please visit: [Troubleshooting]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot.md %})
+- For troubleshooting steps please visit: [Troubleshooting]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot/README.md %})

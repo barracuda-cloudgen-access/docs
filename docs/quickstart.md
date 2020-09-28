@@ -7,6 +7,13 @@ nav_order: 2
 
 Please follow the next steps to perform the required configuration to access a resource protected by Fyde Access Proxy.
 
+{: .no_toc }
+
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
+
 ## 1. Add new Fyde Access Proxy
 
 - Fyde Access Proxy is the software combo that contains Envoy Proxy and Fyde Proxy Orchestrator
@@ -143,4 +150,4 @@ Please follow the next steps to perform the required configuration to access a r
 
 ## Troubleshoot
 
-- If the device is not accessing the resource please visit: [Troubleshooting]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot.md %}) for troubleshooting steps
+- If the device is not accessing the resource please visit: [Troubleshooting]({{ site.baseurl }}{% link fyde-access-proxy/troubleshoot/README.md %}) for troubleshooting steps

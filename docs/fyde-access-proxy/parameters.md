@@ -5,6 +5,12 @@ parent: Fyde Access Proxy
 nav_order: 6
 ---
 # Parameters
+{: .no_toc }
+
+## Table of contents
+{: .no_toc }
+- TOC
+{:toc}
 
 ## Fyde Envoy Proxy
 
