@@ -34,23 +34,29 @@ nav_order: 1
 
 ### ASG with NLB
 
-- [![launch-stack-logo]](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=fyde&templateURL=https://fyde-cloudformation-store.s3.amazonaws.com/fyde-access-proxy-aws-cf-asg.yaml){:target="_blank"}
-
 - Contains all the resources and steps needed to deploy Fyde Access Proxy in an ASG behind an NLB
 
-- The template creates a highly available / self-healing infrastructure with a minimum of 2 EC2 instances that are part of an ASG and sit behind an NLB. Required security groups and ports are included. The latest AMI for the deployed region is automatically configured, at the date of the deploy
+- The template creates a highly available / self-healing infrastructure with a minimum of 2 EC2 instances that are part of an ASG and sit behind an NLB
 
-- Download Template [here](https://url.fyde.me/fyde-proxy-aws-cf-asg){:target="_blank"}
+- All the resources are created with the principle of least privilege
+
+- The latest AMI for the deployed region is automatically configured, at the date of the deploy
+
+- When the parameter `EC2ASGDesiredCapacity` is higher than `1` (defaults to `2`), the stack will deploy a Redis Replication Group with 2 nodes, this is required for communication between Fyde Orchestrators
+
+- [![launch-stack-logo]](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=fyde&templateURL=https://fyde-cloudformation-store.s3.amazonaws.com/fyde-access-proxy-aws-cf-asg.yaml){:target="_blank"}
+
+- Template available [here](https://url.fyde.me/fyde-proxy-aws-cf-asg){:target="_blank"}
 
 ### ECS on AWS Fargate
-
-- [![launch-stack-logo]](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=fyde&templateURL=https://fyde-cloudformation-store.s3.amazonaws.com/fyde-access-proxy-aws-cf-ecs-fargate.yaml){:target="_blank"}
 
 - Contains all the resources and steps needed to deploy Fyde Access Proxy in an [ECS](https://aws.amazon.com/ecs/){:target="_blank"} cluster hosted on [AWS Fargate](https://aws.amazon.com/fargate/){:target="_blank"}
 
 - The template creates the required containers behind an NLB. Required security groups are included. The template will use the latest container versions
 
-- Download Template [here](https://url.fyde.me/fyde-proxy-aws-cf-ecs-fargate){:target="_blank"}
+- [![launch-stack-logo]](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=fyde&templateURL=https://fyde-cloudformation-store.s3.amazonaws.com/fyde-access-proxy-aws-cf-ecs-fargate.yaml){:target="_blank"}
+
+- Template available [here](https://url.fyde.me/fyde-proxy-aws-cf-ecs-fargate){:target="_blank"}
 
 ## AMI
 

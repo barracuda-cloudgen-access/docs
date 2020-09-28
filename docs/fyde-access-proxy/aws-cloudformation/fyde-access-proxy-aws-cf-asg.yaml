@@ -7,14 +7,16 @@ Description: >-
 Parameters:
 
   FydeAccessProxyToken:
-    Description: Fyde Access Proxy Token for this proxy (obtained from the console after proxy creation)
+    Description: >-
+      Fyde Access Proxy Token for this proxy (obtained from the console after proxy creation).
     Type: String
     MinLength: '20'
     NoEcho: true
     AllowedPattern: '^https:\/\/.*\.fyde\.com\/proxies.*proxy_auth_token.*$'
 
   FydeAccessProxyPublicPort:
-    Description: Public port for this proxy (must match the value configured in the console for this proxy)
+    Description: >-
+      Public port for this proxy (must match the value configured in the console for this proxy).
     Default: 443
     Type: Number
     MinValue: 1
@@ -22,14 +24,16 @@ Parameters:
 
   VpcId:
     Type: 'AWS::EC2::VPC::Id'
-    Description: Select the Virtual Private Cloud (VPC) to use
+    Description: Select the Virtual Private Cloud (VPC) to use.
     ConstraintDescription: >-
       must be the VPC Id of an existing Virtual Private Cloud. Outbound traffic
       for the default security group associated with this VPC should be enabled.
 
   NLBPublicSubnets:
     Type: 'List<AWS::EC2::Subnet::Id>'
-    Description: 'Select the Public Subnet Ids to use for the Network Load Balancer. NOTE: Use Public Subnets only'
+    Description: >-
+      Select the Public Subnet Ids to use for the Network Load Balancer.
+      NOTE: Use Public Subnets only.
     ConstraintDescription: >-
       recomended to be a list of at least two existing subnets associated with at least
       two different availability zones. They should be residing in the selected
@@ -37,44 +41,48 @@ Parameters:
 
   EC2Subnets:
     Type: 'List<AWS::EC2::Subnet::Id>'
-    Description: 'Select the Subnet Ids to use for the EC2 instances. NOTE: Use Private Subnets with NAT Gateway configured or Public Subnets'
+    Description: >-
+      Select the Subnet Ids to use for the EC2 instances.
+      NOTE: Use Private Subnets with NAT Gateway configured or Public Subnets.
     ConstraintDescription: >-
       recomended to be a list of at least two existing subnets associated with at least
       two different availability zones. They should be residing in the selected
       Virtual Private Cloud and should allow access to internet
 
-  AssociatePublicIpAddress:
-    Description: If you specify true, each instance in the Auto Scaling group receives a unique public IP address. Default is false.
+  EC2AssociatePublicIpAddress:
+    Description: >-
+      If you specify true, each instance in the Auto Scaling group receives a unique public IP address.
+      Default is false.
     Type: String
     Default: false
     AllowedValues:
       - false
       - true
 
-  ASGMaxSize:
+  EC2ASGMaxSize:
     Description: Enter the Max Size for the ASG
     Default: 3
     Type: Number
     MinValue: 1
 
-  ASGMinSize:
+  EC2ASGMinSize:
     Description: Enter the Min Size for the ASG
     Default: 2
     Type: Number
     MinValue: 1
 
-  ASGDesiredCapacity:
+  EC2ASGDesiredCapacity:
     Description: Enter the desired capacity for the ASG
     Default: 2
     Type: Number
     MinValue: 1
 
-  KeyName:
+  EC2KeyName:
     Description: EC2 instance key name
     Type: 'AWS::EC2::KeyPair::KeyName'
     ConstraintDescription: must be the name of an existing EC2 KeyPair
 
-  InstanceType:
+  EC2InstanceType:
     Description: EC2 instance type
     Type: String
     Default: t2.small
@@ -85,7 +93,22 @@ Parameters:
       - t2.large
     ConstraintDescription: must be a valid EC2 instance type.
 
+  RedisSubnets:
+    Type: 'List<AWS::EC2::Subnet::Id>'
+    Description: >-
+      Select the Subnet Ids to use for the redis instances.
+      Required although Redis is only created when EC2ASGDesiredCapacity is not 1.
+      NOTE: Use Private Subnets
+
+Conditions:
+
+  RedisRequired: !Not [!Equals [!Ref EC2ASGDesiredCapacity, 1]]
+
 Resources:
+
+#
+# Find AMI
+#
 
   DescribeImagesRole:
     Type: AWS::IAM::Role
@@ -151,6 +174,10 @@ Resources:
       Name: 'amazonlinux-2-base_*'
       Architecture: x86_64
 
+#
+# Secret
+#
+
   FydeEnrollmentToken:
     Type: 'AWS::SecretsManager::Secret'
     Properties:
@@ -160,6 +187,10 @@ Resources:
       Tags:
         - Key: Name
           Value: FydeAccessProxy
+
+#
+# NLB
+#
 
   NLB:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
@@ -198,21 +229,9 @@ Resources:
         - Key: Application
           Value: FydeAccessProxyASG
 
-  InboundNLBSecGroup:
-    Type: 'AWS::EC2::SecurityGroup'
-    Properties:
-      GroupDescription: Allow inbound access to NLB on the configured port
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: !Ref FydeAccessProxyPublicPort
-          ToPort: !Ref FydeAccessProxyPublicPort
-          CidrIp: 0.0.0.0/0
-      VpcId: !Ref VpcId
-      Tags:
-        - Key: Name
-          Value: FydeAccessProxy
-        - Key: Application
-          Value: FydeAccessProxyASG
+#
+# Security Groups
+#
 
   InboundEC2SecGroup:
     Type: 'AWS::EC2::SecurityGroup'
@@ -244,15 +263,44 @@ Resources:
         - Key: Application
           Value: FydeAccessProxyASG
 
+  RedisSecGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Condition: RedisRequired
+    Properties:
+      GroupDescription: Used to allow FydeAccessProxy access to redis
+      VpcId: !Ref VpcId
+      Tags:
+        - Key: Name
+          Value: FydeAccessProxy
+        - Key: Application
+          Value: FydeAccessProxyASG
+
+  RedisSecGroupIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Condition: RedisRequired
+    Properties:
+      FromPort: 6379
+      ToPort: 6379
+      GroupId: !Ref RedisSecGroup
+      IpProtocol: tcp
+      SourceSecurityGroupId: !Ref RedisSecGroup
+
+#
+# Fyde Access Proxy Instances
+#
+
   AutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
+    UpdatePolicy:
+      AutoScalingRollingUpdate:
+        MaxBatchSize: 1
     Properties:
       VPCZoneIdentifier: !Ref EC2Subnets
       Cooldown: 120
       LaunchConfigurationName: !Ref LaunchConfig
-      MaxSize: !Ref ASGMaxSize
-      MinSize: !Ref ASGMinSize
-      DesiredCapacity: !Ref ASGDesiredCapacity
+      MaxSize: !Ref EC2ASGMaxSize
+      MinSize: !Ref EC2ASGMinSize
+      DesiredCapacity: !Ref EC2ASGDesiredCapacity
       HealthCheckType: ELB
       HealthCheckGracePeriod: 300
       TargetGroupARNs:
@@ -266,28 +314,40 @@ Resources:
         - Key: Application
           Value: FydeAccessProxyASG
           PropagateAtLaunch: 'true'
+        - Key: Redis
+          Value: !If [ RedisRequired, 'true', 'false' ]
+          PropagateAtLaunch: 'true'
 
   LaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
-      AssociatePublicIpAddress: !Ref AssociatePublicIpAddress
-      KeyName: !Ref KeyName
+      AssociatePublicIpAddress: !Ref EC2AssociatePublicIpAddress
+      KeyName: !Ref EC2KeyName
       ImageId: !Ref FydeAccessProxyAmiLatest
       SecurityGroups:
         - !Ref InboundEC2SecGroup
         - !Ref ResourceSecGroup
-      InstanceType: !Ref InstanceType
+        - !If [ RedisRequired, !Ref RedisSecGroup, !Ref 'AWS::NoValue' ]
+      InstanceType: !Ref EC2InstanceType
       IamInstanceProfile: !Ref InstanceProfile
       UserData:
-        Fn::Base64: !Sub |
-          #!/bin/bash -xe
-          INSTALL_PATH="/tmp/fyde-access-proxy"
-          INSTALL_URL="https://url.fyde.me/install-fyde-proxy-linux"
-          mkdir -p "$INSTALL_PATH"
-          curl -fsSLo "$INSTALL_PATH/install-fyde-proxy-linux.sh" "$INSTALL_URL"
-          chmod +x "$INSTALL_PATH/install-fyde-proxy-linux.sh"
-          sudo "$INSTALL_PATH/install-fyde-proxy-linux.sh" -p ${FydeAccessProxyPublicPort} -u
-          rm -rf "$INSTALL_PATH"
+        Fn::Base64:
+          !Join
+            - "\n"
+            - - '#!/bin/bash'
+              - 'set -xeuo pipefail'
+              - 'curl -sL "https://url.fyde.me/install-fyde-proxy-linux" | bash -s -- \'
+              - '  -u \'
+              - !Join
+                - ' '
+                - - !Sub '  -p "${FydeAccessProxyPublicPort}"'
+                  - !If [ RedisRequired, '\', !Ref 'AWS::NoValue' ]
+              - !If [ RedisRequired, !Sub '  -r "${RedisCacheReplicationGroup.PrimaryEndPoint.Address}" \', !Ref 'AWS::NoValue' ]
+              - !If [ RedisRequired, !Sub '  -s "${RedisCacheReplicationGroup.PrimaryEndPoint.Port}"', !Ref 'AWS::NoValue' ]
+
+#
+# IAM
+#
 
   InstanceProfile:
     Type: 'AWS::IAM::InstanceProfile'
@@ -308,19 +368,71 @@ Resources:
             Action:
               - 'sts:AssumeRole'
       Path: /
-      Policies:
-        - PolicyName: GetFydeSecrets
-          PolicyDocument:
-            Statement:
-              - Effect: Allow
-                Action:
-                  - 'secretsmanager:DescribeSecret'
-                  - 'secretsmanager:GetSecretValue'
-                Resource: !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:fyde_*'
-              - Effect: Allow
-                Action:
-                  - 'secretsmanager:ListSecrets'
-                Resource: '*'
+
+  InstancePolicyFydeSecrets:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: GetFydeSecrets
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'secretsmanager:DescribeSecret'
+              - 'secretsmanager:GetSecretValue'
+            Resource: !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:fyde_*'
+          - Effect: Allow
+            Action:
+              - 'secretsmanager:ListSecrets'
+            Resource: '*'
+      Roles:
+        - !Ref InstanceRole
+
+  InstancePolicyRedis:
+    Type: 'AWS::IAM::Policy'
+    Condition: RedisRequired
+    Properties:
+      PolicyName: DiscoverRedisCluster
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: 'elasticache:DescribeCacheClusters'
+            Resource: !Sub 'arn:aws:elasticache:${AWS::Region}:${AWS::AccountId}:replicationgroup:${RedisCacheReplicationGroup}'
+      Roles:
+        - !Ref InstanceRole
+
+#
+# Redis
+#
+
+  RedisCacheReplicationGroup:
+    Type: 'AWS::ElastiCache::ReplicationGroup'
+    Condition: RedisRequired
+    Properties:
+      AutomaticFailoverEnabled: true
+      MultiAZEnabled: true
+      CacheNodeType: cache.t2.micro
+      CacheSubnetGroupName: !Ref RedisCacheSubnetGroup
+      Engine: redis
+      NumCacheClusters: 2
+      Port: 6379
+      ReplicationGroupDescription: Redis for Fyde Access Proxy
+      SecurityGroupIds:
+        - !Ref RedisSecGroup
+      Tags:
+        - Key: Name
+          Value: FydeAccessProxy
+        - Key: Application
+          Value: FydeAccessProxyASG
+
+  RedisCacheSubnetGroup:
+    Type: AWS::ElastiCache::SubnetGroup
+    Condition: RedisRequired
+    Properties:
+      CacheSubnetGroupName: FydeAccessProxy
+      Description: Redis Subnet Group for Fyde Access Proxy
+      SubnetIds: !Ref RedisSubnets
 
 Outputs:
 
