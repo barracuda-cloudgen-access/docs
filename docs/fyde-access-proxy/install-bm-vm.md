@@ -135,6 +135,8 @@ nav_order: 2
 
 1. Configure environment using a service unit override
 
+    - We need to set the temporary directory due to `tmpfiles.d` daemon incompatibility
+
     ```sh
     sudo mkdir -p /etc/systemd/system/fydeproxy.service.d
 
@@ -142,6 +144,7 @@ nav_order: 2
     [Service]
     Environment='FYDE_ENROLLMENT_TOKEN=<paste here your Fyde Access Proxy enrollment link>'
     Environment='FYDE_ENVOY_LISTENER_PORT=<replace with the corresponding Fyde Access Proxy port, as configured in Fyde Enterprise Console>'
+    Environment='TMPDIR=/var/run/fydeproxy'
     EOF"
 
     sudo chmod 600 /etc/systemd/system/fydeproxy.service.d/10-environment.conf
