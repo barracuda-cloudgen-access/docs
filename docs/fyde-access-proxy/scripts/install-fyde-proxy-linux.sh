@@ -177,6 +177,9 @@ log_entry "INFO" "Configure Fyde Proxy Orchestrator"
 
 UNIT_OVERRIDE=("[Service]" "Environment='FYDE_ENVOY_LISTENER_PORT=${PUBLIC_PORT}'")
 
+# Update tmp dir to avoid tmpfiles.d removing our uncompressed PyInstaller bundle
+UNIT_OVERRIDE+=("Environment='TMPDIR=/var/run/fydeproxy'")
+
 if [[ -n "${PROXY_TOKEN:-}" ]]; then
     UNIT_OVERRIDE+=("Environment='FYDE_ENROLLMENT_TOKEN=${PROXY_TOKEN}'")
 fi
