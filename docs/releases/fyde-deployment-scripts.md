@@ -6,6 +6,11 @@ parent: Releases
 ---
 # Fyde Deployment Scripts
 
+### 2020.09.29
+
+- [Cloudformation] Add option to specify custom AMI
+- [Bootstrap Scripts] Add check for yum lock
+
 ### 2020.09.28
 
 - [Cloudformation] Add configuration to set fydeproxy service loglevel
