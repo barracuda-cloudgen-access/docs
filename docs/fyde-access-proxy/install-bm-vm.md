@@ -152,6 +152,7 @@ nav_order: 2
     [Service]
     Environment='FYDE_ENROLLMENT_TOKEN=<paste here your Fyde Access Proxy enrollment link>'
     Environment='FYDE_ENVOY_LISTENER_PORT=<replace with the corresponding Fyde Access Proxy port, as configured in Fyde Enterprise Console>'
+    Environment='FYDE_LOGLEVEL=info'
     Environment='TMPDIR=/var/run/fydeproxy'
     EOF"
 
