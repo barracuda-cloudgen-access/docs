@@ -11,6 +11,7 @@ color_scheme: fyde
 search_enabled: true
 
 # Aux links for the upper right navigation
+aux_links_new_tab: true
 aux_links:
   "Enterprise Console":
     - "//enterprise.fyde.com"
