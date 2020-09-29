@@ -49,19 +49,27 @@ nav_order: 2
 
     Available parameters:
       -h        - Show this help
+      -l string - Loglevel (debug, info, warning, error, critical), defaults to info.
       -n        - Don't start services after install
       -p int    - Specify public port (1-65535), required for unattended instalation
+      -r string - Specify Redis host to use for token cache <only required for HA architecture>
+      -s int    - Specify Redis port <optional>
       -t token  - Specify Fyde Access Proxy token
-      -u        - Unattended install, skip requesting input
+      -u        - Unattended install, skip requesting input <optional>
 
     Example for unattended instalation with Fyde Access Proxy token:
       - Specify the Fyde Access Proxy token inside quotes
 
       ./install-fyde-proxy-linux.sh -p 443 -t "https://xxxxxxxxxxxx" -u
 
+    Example for unattended instalation with Fyde Access Proxy token with Redis endpoint:
+      - Specify the Fyde Access Proxy token inside quotes
+
+      ./install-fyde-proxy-linux.sh -p 443 -t "https://xxxxxxxxxxxx" -u -r localhost -s 6379
+
     Example for unattended instalation, skipping services start, without Fyde Access Proxy token:
-     - The token can also be obtained automatically via AWS SSM/Secrets Manager
-     - More info: https://fyde.github.io/docs/fyde-access-proxy/parameters/#fyde-proxy-orchestrator
+      - The token can also be obtained automatically via AWS SSM/Secrets Manager
+      - More info: https://fyde.github.io/docs/fyde-access-proxy/parameters/#fyde-proxy-orchestrator
 
       ./install-fyde-proxy-linux.sh -n -p 443 -u
     ```

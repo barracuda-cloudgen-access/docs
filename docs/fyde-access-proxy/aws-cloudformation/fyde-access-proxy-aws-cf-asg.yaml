@@ -116,6 +116,19 @@ Parameters:
     Type: Number
     MinValue: 0
 
+  FydeProxyLoglevel:
+    Description: >-
+      Set the Fyde Proxy orchestrator log level.
+      Default is info.
+    Type: String
+    Default: info
+    AllowedValues:
+      - debug
+      - info
+      - warning
+      - error
+      - critical
+
 Conditions:
 
   RedisRequired: !Not [!Equals [!Ref EC2ASGDesiredCapacity, 1]]
@@ -381,7 +394,7 @@ Resources:
               - '  -u \'
               - !Join
                 - ' '
-                - - !Sub '  -p "${FydeAccessProxyPublicPort}"'
+                - - !Sub ' -p "${FydeAccessProxyPublicPort}" -l "${FydeProxyLoglevel}" '
                   - !If [ RedisRequired, '\', !Ref 'AWS::NoValue' ]
               - !If [ RedisRequired, !Sub '  -r "${RedisCacheReplicationGroup.PrimaryEndPoint.Address}" \', !Ref 'AWS::NoValue' ]
               - !If [ RedisRequired, !Sub '  -s "${RedisCacheReplicationGroup.PrimaryEndPoint.Port}"', !Ref 'AWS::NoValue' ]
