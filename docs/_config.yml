@@ -5,6 +5,7 @@ baseurl: /docs
 url: https://fyde.github.io
 description: Documentation for the Fyde Enterprise Console
 permalink: pretty
+color_scheme: fyde
 
 # Enable or disable the site search
 search_enabled: true
