@@ -70,43 +70,46 @@ nav_order: 1
 
 - The AMI is available in the account 766535289950 in all regions under the prefix `amazonlinux-2-base_*`
 
-- Fyde Access Proxy AMI details:
+- Fyde Access Proxy AMI includes:
   - [CIS](https://www.cisecurity.org/){:target="_blank"} recommendations for CentOS
   - [CIS](https://www.cisecurity.org/){:target="_blank"} recommendations for SSH
   - Updated regularly to ensure the latest packages
-  - Performs automatic install of security updates via [yum-cron](http://man7.org/linux/man-pages/man8/yum-cron.8.html){:target="_blank"} when deployed
+  - Performs automatic install of security updates via [yum-cron](http://man7.org/linux/man-pages/man8/yum-cron.8.html){:target="_blank"}
 
-- Example for listing the available AMIs with aws-cli tools
+- Latest AMIs
 
-  - Please note these ids will change with new versions
+  - The ids will change with new versions
+  - Update: 2020.09.29
 
-    ```sh
-    → date -u
-    Wed Jan 22 21:42:01 UTC 2020
+  ```txt
+  ap-northeast-1: ami-0e0313875a5d5e6eb
+  ap-northeast-2: ami-0f23a2f6eac85ddad
+  ap-south-1: ami-0d16041bffb3c0325
+  ap-southeast-1: ami-0c27b55ffe958e7ad
+  ap-southeast-2: ami-09f1391351e80b115
+  ca-central-1: ami-00302b74d7dec8b5f
+  eu-central-1: ami-00d752df7a2d84347
+  eu-north-1: ami-01de00f26f31eaaac
+  eu-west-1: ami-0d2ef373a5b0adf10
+  eu-west-2: ami-0c05321fc62d47126
+  eu-west-3: ami-0e1f41f834e33bd3f
+  sa-east-1: ami-0189741b4f7063ebe
+  us-east-1: ami-09dea62ce16b051ca
+  us-east-2: ami-0bb58cf9c890b60a3
+  us-west-1: ami-08e6bfb27a03b8a07
+  us-west-2: ami-0c5d9af262b1c0c54
+  ```
 
-    → for region in $(aws ec2 describe-regions --query "Regions[].RegionName" --output text); \
-      do echo "${region}: $(aws ec2 describe-images --owners 766535289950 \
-        --filters Name=name,Values=amazonlinux-2-base_* \
-        --query "reverse(sort_by(Images, &CreationDate))[0].ImageId" \
-        --output text --region ${region})"; \
-      done
-    eu-north-1: ami-01776f96a2bcba9c0
-    ap-south-1: ami-060533e21f97843fe
-    eu-west-3: ami-058a7b459aa9742ce
-    eu-west-2: ami-0da8e217042aa1b9f
-    eu-west-1: ami-06d428d348ad6634a
-    ap-northeast-2: ami-0a315a5409f2c4283
-    ap-northeast-1: ami-0e77a541fb2ef41f1
-    sa-east-1: ami-03a71597766642f8a
-    ca-central-1: ami-0ea12b59141d17ccd
-    ap-southeast-1: ami-04741feffb4f38b37
-    ap-southeast-2: ami-0b1feebb9f2a57e56
-    eu-central-1: ami-0f10c8bc67da07640
-    us-east-1: ami-00ee7d804af55cf4c
-    us-east-2: ami-024d399c7a47c3ead
-    us-west-1: ami-012d519302625eb00
-    us-west-2: ami-0d023437b65cbea27
-    ```
+- Listing the available AMIs with aws-cli tools
+
+  ```sh
+  for region in $(aws ec2 describe-regions --query "Regions[].RegionName" --output text); do
+    echo "${region}: $(aws ec2 describe-images --owners 766535289950 \
+    --filters Name=name,Values=amazonlinux-2-base_* \
+    --query "reverse(sort_by(Images, &CreationDate))[0].ImageId" \
+    --output text --region ${region})"
+  done
+  ```
 
 - Please note that Fyde software is not included in the AMI, this image is intended to be used as the base to install the latest packages available with the provided scripts in [Install in Bare Metal / Virtual Machine]({{ site.baseurl }}{% link fyde-access-proxy/install-bm-vm.md %})
 
