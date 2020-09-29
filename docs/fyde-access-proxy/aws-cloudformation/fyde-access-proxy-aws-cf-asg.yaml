@@ -387,6 +387,8 @@ Resources:
             - "\n"
             - - '#!/bin/bash'
               - 'set -xeuo pipefail'
+              - 'echo "RateLimitBurst=10000" >> /etc/systemd/journald.conf'
+              - 'systemctl restart systemd-journald.service'
               - !If [ CloudWatchLogsEnabled, 'curl -sL "https://url.fyde.me/config-ec2-cloudwatch-logs" | bash -s -- \', Ref 'AWS::NoValue' ]
               - !If [ CloudWatchLogsEnabled, '  -l "/aws/ec2/FydeAccessProxy" \', Ref 'AWS::NoValue' ]
               - !If [ CloudWatchLogsEnabled, !Sub '  -r "${AWS::Region}"', !Ref 'AWS::NoValue' ]
