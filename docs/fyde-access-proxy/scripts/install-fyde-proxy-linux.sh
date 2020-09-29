@@ -130,6 +130,15 @@ fi
 
 # Pre-requisites
 
+log_entry "INFO" "Check for yum lock file"
+for i in $(seq 1 300); do
+    if ! [ -f /var/run/yum.pid ]; then
+        break
+    fi
+    echo "Lock found. Check ${i}/300"
+    sleep 1
+done
+
 log_entry "INFO" "Install pre-requisites"
 yum -y install yum-utils chrony
 
