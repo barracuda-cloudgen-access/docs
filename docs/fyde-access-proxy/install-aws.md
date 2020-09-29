@@ -48,7 +48,7 @@ nav_order: 1
 
 - The latest AMI for the deployed region is automatically configured, at the date of the deploy
 
-- When the parameter `EC2ASGDesiredCapacity` is higher than `1` (defaults to `2`), the stack will deploy a Redis Replication Group with 2 nodes, this is required for communication between Fyde Orchestrators
+- When the parameter `EC2ASGDesiredCapacity` is higher than `1` (defaults to `2`), the stack will deploy a Redis Replication Group with 2 nodes on different Availability Zones. This is required for communication between Fyde Orchestrators
 
 - [![launch-stack-logo]](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=fyde&templateURL=https://fyde-cloudformation-store.s3.amazonaws.com/fyde-access-proxy-aws-cf-asg.yaml){:target="_blank"}
 

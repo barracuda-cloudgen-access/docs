@@ -96,7 +96,7 @@ Parameters:
   RedisSubnets:
     Type: 'List<AWS::EC2::Subnet::Id>'
     Description: >-
-      Select the Subnet Ids to use for the redis instances.
+      Select the Subnet Ids to use for the redis instances. At least two subnets on different Availability Zones must be provided.
       Required although Redis is only created when EC2ASGDesiredCapacity is not 1.
       NOTE: Use Private Subnets.
 
