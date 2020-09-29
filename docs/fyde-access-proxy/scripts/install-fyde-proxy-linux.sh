@@ -52,7 +52,7 @@ while getopts ":hl:np:r:s:t:u" OPTION 2>/dev/null; do
             program_help
         ;;
         l)
-            LOGLEVEL="${OPTARG:-info}"
+            LOGLEVEL="${OPTARG}"
         ;;
         n)
             NO_START_SVC="true"
@@ -180,7 +180,7 @@ systemctl enable fydeproxy
 log_entry "INFO" "Configure Fyde Proxy Orchestrator"
 
 UNIT_OVERRIDE=("[Service]" "Environment='FYDE_ENVOY_LISTENER_PORT=${PUBLIC_PORT}'")
-UNIT_OVERRIDE+=("Environment='FYDE_LOGLEVEL=${LOGLEVEL}'")
+UNIT_OVERRIDE+=("Environment='FYDE_LOGLEVEL=${LOGLEVEL:-"info"}'")
 
 # Update tmp dir to avoid tmpfiles.d removing our uncompressed PyInstaller bundle
 UNIT_OVERRIDE+=("Environment='TMPDIR=/var/run/fydeproxy'")
