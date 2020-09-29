@@ -16,6 +16,7 @@ function program_help {
 
 Available parameters:
   -h \\t\\t- Show this help
+  -l string \\t- Loglevel (debug, info, warning, error, critical), defaults to info.
   -n \\t\\t- Don't start services after install
   -p int \\t- Specify public port (1-65535), required for unattended instalation
   -r string \\t- Specify Redis host to use for token cache <only required for HA architecture>
@@ -45,10 +46,13 @@ Example for unattended instalation, skipping services start, without Fyde Access
 
 # Get parameters
 
-while getopts ":hnp:r:s:t:u" OPTION 2>/dev/null; do
+while getopts ":hl:np:r:s:t:u" OPTION 2>/dev/null; do
     case "${OPTION}" in
         h)
             program_help
+        ;;
+        l)
+            LOGLEVEL="${OPTARG:-info}"
         ;;
         n)
             NO_START_SVC="true"
@@ -176,6 +180,7 @@ systemctl enable fydeproxy
 log_entry "INFO" "Configure Fyde Proxy Orchestrator"
 
 UNIT_OVERRIDE=("[Service]" "Environment='FYDE_ENVOY_LISTENER_PORT=${PUBLIC_PORT}'")
+UNIT_OVERRIDE+=("Environment='FYDE_LOGLEVEL=${LOGLEVEL}'")
 
 # Update tmp dir to avoid tmpfiles.d removing our uncompressed PyInstaller bundle
 UNIT_OVERRIDE+=("Environment='TMPDIR=/var/run/fydeproxy'")

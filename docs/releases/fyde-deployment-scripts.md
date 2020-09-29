@@ -6,9 +6,14 @@ parent: Releases
 ---
 # Fyde Deployment Scripts
 
+### 2020.09.28
+
+- [Cloudformation] Add configuration to set fydeproxy service loglevel
+
 ### 2020.09.19
 
 - [Cloudformation] Add redis configuration for ASG
+- [Cloudformation] Add configuration to send logs to Cloudformation for ASG
 - [Bootstrap Scripts] Add redis configuration parameters
 
 ### 2020.09.16

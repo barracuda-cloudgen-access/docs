@@ -98,19 +98,56 @@ Parameters:
     Description: >-
       Select the Subnet Ids to use for the redis instances.
       Required although Redis is only created when EC2ASGDesiredCapacity is not 1.
-      NOTE: Use Private Subnets
+      NOTE: Use Private Subnets.
+
+  CloudWatchLogs:
+    Description: >-
+      Send '/var/log/message' logs to CloudWatch.
+      Default is true.
+    Type: String
+    Default: true
+    AllowedValues:
+      - true
+      - false
+
+  CloudWatchLogsRetentionInDays:
+    Description: Days to keep CloudWatch logs (0 = never delete).
+    Default: 7
+    Type: Number
+    MinValue: 0
+
+  FydeProxyLoglevel:
+    Description: >-
+      Set the Fyde Proxy orchestrator log level.
+      Default is info.
+    Type: String
+    Default: info
+    AllowedValues:
+      - debug
+      - info
+      - warning
+      - error
+      - critical
 
 Conditions:
 
   RedisRequired: !Not [!Equals [!Ref EC2ASGDesiredCapacity, 1]]
+  CloudWatchLogsEnabled: !Equals [!Ref CloudWatchLogs, true]
 
 Resources:
 
 #
-# Find AMI
+# Get Latest AMI
 #
 
-  DescribeImagesRole:
+  CloudWatchLogsGroupGetLatestAMI:
+    Type: AWS::Logs::LogGroup
+    Condition: CloudWatchLogsEnabled
+    Properties:
+      LogGroupName: '/aws/lambda/FydeAccessProxyGetLatestAMI'
+      RetentionInDays: !Ref CloudWatchLogsRetentionInDays
+
+  RoleGetLatestAMI:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -127,16 +164,23 @@ Resources:
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-              - Action: ec2:DescribeImages
-                Effect: Allow
+              - Effect: Allow
+                Action: ec2:DescribeImages
                 Resource: '*'
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: !GetAtt CloudWatchLogsGroupGetLatestAMI.Arn
 
-  GetLatestAMI:
+  LambdaGetLatestAMI:
     Type: AWS::Lambda::Function
+    DependsOn: CloudWatchLogsGroupGetLatestAMI
     Properties:
+      FunctionName: FydeAccessProxyGetLatestAMI
       Runtime: python3.6
       Handler: index.handler
-      Role: !Sub ${DescribeImagesRole.Arn}
+      Role: !Sub ${RoleGetLatestAMI.Arn}
       Timeout: 60
       Code:
         ZipFile: |
@@ -165,11 +209,16 @@ Resources:
             except:
               traceback.print_last()
               cfnresponse.send(event, context, cfnresponse.FAIL, {}, "ok")
+      Tags:
+        - Key: Name
+          Value: FydeAccessProxy
+        - Key: Application
+          Value: FydeAccessProxyASG
 
-  FydeAccessProxyAmiLatest:
+  CustomGetLatestAMI:
     Type: Custom::FindAMI
     Properties:
-      ServiceToken: !Sub ${GetLatestAMI.Arn}
+      ServiceToken: !Sub ${LambdaGetLatestAMI.Arn}
       Owner: '766535289950'
       Name: 'amazonlinux-2-base_*'
       Architecture: x86_64
@@ -187,6 +236,8 @@ Resources:
       Tags:
         - Key: Name
           Value: FydeAccessProxy
+        - Key: Application
+          Value: FydeAccessProxyASG
 
 #
 # NLB
@@ -323,7 +374,7 @@ Resources:
     Properties:
       AssociatePublicIpAddress: !Ref EC2AssociatePublicIpAddress
       KeyName: !Ref EC2KeyName
-      ImageId: !Ref FydeAccessProxyAmiLatest
+      ImageId: !Ref CustomGetLatestAMI
       SecurityGroups:
         - !Ref InboundEC2SecGroup
         - !Ref ResourceSecGroup
@@ -336,11 +387,14 @@ Resources:
             - "\n"
             - - '#!/bin/bash'
               - 'set -xeuo pipefail'
+              - !If [ CloudWatchLogsEnabled, 'curl -sL "https://url.fyde.me/config-ec2-cloudwatch-logs" | bash -s -- \', Ref 'AWS::NoValue' ]
+              - !If [ CloudWatchLogsEnabled, '  -l "/aws/ec2/FydeAccessProxy" \', Ref 'AWS::NoValue' ]
+              - !If [ CloudWatchLogsEnabled, !Sub '  -r "${AWS::Region}"', !Ref 'AWS::NoValue' ]
               - 'curl -sL "https://url.fyde.me/install-fyde-proxy-linux" | bash -s -- \'
               - '  -u \'
               - !Join
                 - ' '
-                - - !Sub '  -p "${FydeAccessProxyPublicPort}"'
+                - - !Sub ' -p "${FydeAccessProxyPublicPort}" -l "${FydeProxyLoglevel}" '
                   - !If [ RedisRequired, '\', !Ref 'AWS::NoValue' ]
               - !If [ RedisRequired, !Sub '  -r "${RedisCacheReplicationGroup.PrimaryEndPoint.Address}" \', !Ref 'AWS::NoValue' ]
               - !If [ RedisRequired, !Sub '  -s "${RedisCacheReplicationGroup.PrimaryEndPoint.Port}"', !Ref 'AWS::NoValue' ]
@@ -402,6 +456,27 @@ Resources:
       Roles:
         - !Ref InstanceRole
 
+  InstancePolicyCloudWatchLogsEC2:
+    Type: 'AWS::IAM::Policy'
+    Condition: CloudWatchLogsEnabled
+    Properties:
+      PolicyName: CloudWatchLogsEC2
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'logs:CreateLogGroup'
+              - 'logs:CreateLogStream'
+              - 'logs:PutLogEvents'
+            Resource: !GetAtt CloudWatchLogsGroupEC2.Arn
+          - Effect: Allow
+            Action:
+              - 'logs:DescribeLogStreams'
+            Resource: '*'
+      Roles:
+        - !Ref InstanceRole
+
 #
 # Redis
 #
@@ -433,6 +508,17 @@ Resources:
       CacheSubnetGroupName: FydeAccessProxy
       Description: Redis Subnet Group for Fyde Access Proxy
       SubnetIds: !Ref RedisSubnets
+
+#
+# CloudWatch Logs
+#
+
+  CloudWatchLogsGroupEC2:
+    Type: AWS::Logs::LogGroup
+    Condition: CloudWatchLogsEnabled
+    Properties:
+      LogGroupName: '/aws/ec2/FydeAccessProxy'
+      RetentionInDays: !Ref CloudWatchLogsRetentionInDays
 
 Outputs:
 

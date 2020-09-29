@@ -21,6 +21,19 @@ Parameters:
     MinValue: 1
     MaxValue: 65535
 
+  fydeAccessProxyLoglevel:
+    Description: >-
+      Set the Fyde Proxy orchestrator log level.
+      Default is info.
+    Type: String
+    Default: info
+    AllowedValues:
+      - debug
+      - info
+      - warning
+      - error
+      - critical
+
   vpcId:
     Type: AWS::EC2::VPC::Id
     Description: Select the Virtual Private Cloud (VPC) to use
@@ -278,6 +291,8 @@ Resources:
           Environment:
             - Name: FYDE_ENVOY_LISTENER_PORT
               Value: !Ref fydeAccessProxyPublicPort
+            - Name: FYDE_LOGLEVEL
+              Value: !Ref fydeAccessProxyLoglevel
             - !If
               - createRedis
               - Name: FYDE_REDIS_HOST
