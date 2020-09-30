@@ -93,6 +93,14 @@ Parameters:
       - t2.large
     ConstraintDescription: must be a valid EC2 instance type.
 
+  EC2AMI:
+    Description: >-
+      Use 'fyde' to use AMI maintained and secured by Fyde.
+      Suported types are CentOS or AWS Linux based.
+    Type: String
+    Default: fyde
+    ConstraintDescription: must be a valid EC2 AMI.
+
   RedisSubnets:
     Type: 'List<AWS::EC2::Subnet::Id>'
     Description: >-
@@ -131,6 +139,7 @@ Parameters:
 
 Conditions:
 
+  UseFydeAMI: !Equals [!Ref EC2AMI, "fyde"]
   RedisRequired: !Not [!Equals [!Ref EC2ASGDesiredCapacity, 1]]
   CloudWatchLogsEnabled: !Equals [!Ref CloudWatchLogs, true]
 
@@ -142,13 +151,14 @@ Resources:
 
   CloudWatchLogsGroupGetLatestAMI:
     Type: AWS::Logs::LogGroup
-    Condition: CloudWatchLogsEnabled
+    Condition: UseFydeAMI
     Properties:
       LogGroupName: '/aws/lambda/FydeAccessProxyGetLatestAMI'
       RetentionInDays: !Ref CloudWatchLogsRetentionInDays
 
   RoleGetLatestAMI:
     Type: AWS::IAM::Role
+    Condition: UseFydeAMI
     Properties:
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
@@ -175,6 +185,7 @@ Resources:
 
   LambdaGetLatestAMI:
     Type: AWS::Lambda::Function
+    Condition: UseFydeAMI
     DependsOn: CloudWatchLogsGroupGetLatestAMI
     Properties:
       FunctionName: FydeAccessProxyGetLatestAMI
@@ -217,6 +228,7 @@ Resources:
 
   CustomGetLatestAMI:
     Type: Custom::FindAMI
+    Condition: UseFydeAMI
     Properties:
       ServiceToken: !Sub ${LambdaGetLatestAMI.Arn}
       Owner: '766535289950'
@@ -374,7 +386,7 @@ Resources:
     Properties:
       AssociatePublicIpAddress: !Ref EC2AssociatePublicIpAddress
       KeyName: !Ref EC2KeyName
-      ImageId: !Ref CustomGetLatestAMI
+      ImageId: !If [ UseFydeAMI, !Ref CustomGetLatestAMI, !Ref EC2AMI ]
       SecurityGroups:
         - !Ref InboundEC2SecGroup
         - !Ref ResourceSecGroup
