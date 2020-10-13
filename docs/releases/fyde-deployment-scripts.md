@@ -6,6 +6,18 @@ parent: Releases
 ---
 # Fyde Deployment Scripts
 
+### 2020.10.11
+
+- [terraform] Require terraform 0.13 to allow validations
+- [terraform] Update README and misc logic
+- [terraform] Allow using custom AMI
+- [terraform] Add CloudWatch logs configuration
+- [terraform] Add Fyde Access Proxy log level configuration
+- [terraform] Prevent lingering token after module removal
+- [terraform] Create redis elasticache when instance count is more than 1
+- [terraform] Recycle instances on launch configuration change
+- [terraform] Update to v1.1.0
+
 ### 2020.09.29
 
 - [Cloudformation] Add option to specify custom AMI
