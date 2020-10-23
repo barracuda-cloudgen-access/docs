@@ -1,10 +1,16 @@
 ---
-title: Fyde Cli
+title: Fyde CLI
 has_children: false
 nav_order: 3
 parent: Releases
 ---
-# Fyde Cli
+# Fyde CLI
+
+## Version 0.10.0
+
+Release date: 2020.10.23
+
+- Added support for Admin roles
 
 ## Version 0.9.3
 

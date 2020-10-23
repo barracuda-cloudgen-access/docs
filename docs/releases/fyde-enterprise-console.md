@@ -6,6 +6,22 @@ parent: Releases
 ---
 # Fyde Enterprise Console
 
+## Version 0.12.0
+
+Release date: 2020.10.23
+
+- Add support for Admin roles
+- Remove old revoke_enrollment API
+
+## Version 0.11.7
+
+Release date: 2020.10.20
+
+- Update Device metadata database
+- Use proper responses to DELETE verbs
+- Remove RbacLegacy dead code
+- Fix some eager loading warnings
+
 ## Version 0.11.5
 
 Release date: 2020.09.15
