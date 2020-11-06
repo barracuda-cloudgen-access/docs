@@ -22,8 +22,9 @@ The identity provider is now configured.
 
 ## Microsoft OpenID Connect
 
-When choosing this option, there are no additional steps to configure.
-The identity provider is now configured.
+When choosing this option, write a comma separated list of all Microsoft Azure AD Tenant IDs you wish to use for SSO.
+
+Each Tenant ID will become a link once you accept the form. An Azure Administrator must click on each of these links to grant Administrator Consent to our OpenID Connect Authenticator app.
 
 ## Custom OpenID Connect
 
