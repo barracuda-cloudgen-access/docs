@@ -41,15 +41,18 @@ nav_order: 6
 | authz_timeout             | 30            | int   | Fyde authorization call timeout (seconds)                             |
 | enable_ipv6               | False         | bool  | Enable ipv6 usage for DNS in envoy                                    |
 | enrollment_token          | None          | str   | Enrollment token provided by Fyde Enterprise Console                  |
-| envoy_listener_port       | 8000          | int   | Envoy General Listener port                                           |
+| envoy_listener_ip         | '0.0.0.0'     | str   | Envoy Proxy listener IP                                               |
+| envoy_listener_port       | 8000          | int   | Envoy Proxy listener port                                             |
 | envoy_prometheus          | True          | bool  | Prometheus metrics for Envoy Proxy status                             |
-| envoy_prometheus_port     | 9000          | int   | Prometheus for Envoy Proxy port                                       |
+| envoy_prometheus_ip       | '0.0.0.0'     | str   | Prometheus metrics for Envoy Proxy listener IP                        |
+| envoy_prometheus_port     | 9000          | int   | Prometheus metrics for Envoy Proxy listener port                      |
 | grpc_insecure             | True          | bool  | gRPC insecure mode for the Fyde Proxy Orchestrator                    |
 | grpc_listener             | '[::]:50051'  | str   | gRPC listener for the Fyde Proxy Orchestrator                         |
 | http_proxy                | None          | str   | Use HTTP proxy. Example: "http://proxy.host:1234/" or "socks5://10.0.0.1:5555"    |
 | https_proxy               | None          | str   | Use HTTPS proxy. Example: "https://proxy.host:1234/" or "socks5://10.0.0.1:5555"  |
 | proxy_prometheus          | True          | bool  | Prometheus metrics for Fyde Proxy Orchestrator status                 |
-| proxy_prometheus_port     | 9010          | int   | Prometheus for Fyde Proxy Orchestrator port                           |
+| proxy_prometheus_ip       | '0.0.0.0'     | str   | Prometheus metrics for Fyde Proxy Orchestrator listener IP            |
+| proxy_prometheus_port     | 9010          | int   | Prometheus metrics for Fyde Proxy Orchestrator listener port          |
 | redis_ssl                 | False         | bool  | Enable SSL support for Redis connections                              |
 | redis_sentinel_ssl        | False         | bool  | Enable SSL support for Redis Sentinel connections                     |
 | redis_ssl_cert_reqs       | 'none'        | str   | SSL Certificate verification options. one of 'none', 'optional', 'required'. [More info here](https://docs.python.org/3/library/ssl.html#ssl.SSLContext.verify_mode) |

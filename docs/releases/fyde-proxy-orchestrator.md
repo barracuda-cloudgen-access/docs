@@ -6,6 +6,12 @@ parent: Releases
 ---
 # Fyde Proxy Orchestrator
 
+## Version 1.3.4
+
+Release date: 2020.11.06
+
+- Add new configuration parameters: envoy_prometheus_ip, proxy_prometheus_ip and envoy_listener_ip
+
 ## Version 1.3.3
 
 Release date: 2020.09.13
