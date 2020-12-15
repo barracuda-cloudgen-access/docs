@@ -23,6 +23,7 @@ Available parameters:
   -s int \\t- Specify Redis port <optional>
   -t token \\t- Specify Fyde Access Proxy token
   -u \\t\\t- Unattended install, skip requesting input <optional>
+  -z \\t\\t- Skip configuring ntp server <optional>
 
 Example for unattended instalation with Fyde Access Proxy token:
   - Specify the Fyde Access Proxy token inside quotes
@@ -46,7 +47,7 @@ Example for unattended instalation, skipping services start, without Fyde Access
 
 # Get parameters
 
-while getopts ":hl:np:r:s:t:u" OPTION 2>/dev/null; do
+while getopts ":hl:np:r:s:t:uz" OPTION 2>/dev/null; do
     case "${OPTION}" in
         h)
             program_help
@@ -71,6 +72,9 @@ while getopts ":hl:np:r:s:t:u" OPTION 2>/dev/null; do
         ;;
         u)
             UNATTENDED_INSTALL="true"
+        ;;
+        z)
+            SKIP_NTP="true"
         ;;
         \?)
             echo "Invalid option: -${OPTARG}"
@@ -140,14 +144,19 @@ for i in $(seq 1 300); do
 done
 
 log_entry "INFO" "Install pre-requisites"
-yum -y install yum-utils chrony
+yum -y install yum-utils
 
-log_entry "INFO" "Ensure chrony daemon is enabled on system boot and started"
-systemctl enable chronyd
-systemctl start chronyd
+if [[ "${SKIP_NTP:-}" == "true" ]]; then
+    log_entry "INFO" "Skipping NTP configuration"
+else
+    log_entry "INFO" "Ensure chrony daemon is enabled on system boot and started"
+    yum -y install chrony
+    systemctl enable chronyd
+    systemctl start chronyd
 
-log_entry "INFO" "Ensure time synchronization is enabled"
-timedatectl set-ntp on
+    log_entry "INFO" "Ensure time synchronization is enabled"
+    timedatectl set-ntp on
+fi
 
 log_entry "INFO" "Add Fyde repository"
 yum-config-manager -y --add-repo https://downloads.fyde.com/fyde.repo
