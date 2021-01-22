@@ -1,9 +1,11 @@
-# Fyde Documentation
+# DEPRECATION WARNING
 
-![Fyde](docs/imgs/fyde-logo.png)
+This documentation has moved to https://campus.barracuda.com/product/cloudgenaccess/.
 
-- Website: <https://fyde.com>
-- Documentation: <https://fyde.github.io/docs>
+# Barracuda CloudGen Access Documentation
+
+- Product Website: <https://www.barracuda.com/products/cloudgen-access>
+- Documentation: <https://campus.barracuda.com/product/cloudgenaccess/>
 
 ## Description
 
