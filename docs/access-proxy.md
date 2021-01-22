@@ -4,6 +4,9 @@ title: CloudGen Access Proxy
 nav_order: 5
 permalink: /fyde-access-proxy
 ---
+# Fyde has been acquired by Barracuda
+
+Fyde is now [Barracuda CloudGen Access](https://www.barracuda.com/products/cloudgen-access)
 
 # Moved
 
