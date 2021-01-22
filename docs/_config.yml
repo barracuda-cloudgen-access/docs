@@ -1,6 +1,6 @@
 # Site settings
 remote_theme: pmarsceill/just-the-docs
-title: Barracuda CloudGen Access Docs
+title: Barracuda CloudGen Access
 baseurl: /docs
 url: https://fyde.github.io
 description: Documentation for the Barracuda CloudGen Access product

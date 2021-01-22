@@ -4,6 +4,9 @@ title: CloudGen Access App
 nav_order: 3
 permalink: /fyde-app
 ---
+# Fyde has been acquired by Barracuda
+
+Fyde is now [Barracuda CloudGen Access](https://www.barracuda.com/products/cloudgen-access)
 
 # Moved
 

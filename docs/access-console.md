@@ -4,6 +4,9 @@ title: CloudGen Access Console
 nav_order: 4
 permalink: /fyde-enterprise-console
 ---
+# Fyde has been acquired by Barracuda
+
+Fyde is now [Barracuda CloudGen Access](https://www.barracuda.com/products/cloudgen-access)
 
 # Moved
 
