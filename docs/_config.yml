@@ -1,9 +1,9 @@
 # Site settings
 remote_theme: pmarsceill/just-the-docs
-title: Fyde Docs
+title: Barracuda CloudGen Access Docs
 baseurl: /docs
 url: https://fyde.github.io
-description: Documentation for the Fyde Enterprise Console
+description: Documentation for the Barracuda CloudGen Access product
 permalink: pretty
 color_scheme: fyde
 
@@ -13,11 +13,9 @@ search_enabled: true
 # Aux links for the upper right navigation
 aux_links_new_tab: true
 aux_links:
-  "Enterprise Console":
+  "Access Console":
     - "//enterprise.fyde.com"
   "Service Status":
     - "//status.fyde.com"
-  "Fyde.com":
-    - "//fyde.com"
-  "Edit":
-    - "//github.com/fyde/docs"
+  "CloudGen Access":
+    - "//www.barracuda.com/products/cloudgen-access"
