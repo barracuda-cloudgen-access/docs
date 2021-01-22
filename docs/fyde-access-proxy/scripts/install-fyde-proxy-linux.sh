@@ -69,6 +69,10 @@ while getopts ":hl:np:r:s:t:uz" OPTION 2>/dev/null; do
         ;;
         t)
             PROXY_TOKEN="${OPTARG}"
+            if ! [[ "${PROXY_TOKEN:-}" =~ ^http[s]?://[^/]+/proxies/v[0-9]+/enrollment/[0-9a-f-]+\?proxy_auth_token=[^\&]+\&tenant_id=[0-9a-f-]+$ ]]; then
+                echo "Fyde Access Proxy enrollment token is invalid, please try again"
+                exit 3
+            fi
         ;;
         u)
             UNATTENDED_INSTALL="true"
@@ -122,6 +126,9 @@ else
         echo ""
         if [[ -z "${PROXY_TOKEN:-}" ]]; then
             log_entry "ERROR" "Fyde Access Proxy enrollment link cannot be empty"
+        elif ! [[ "${PROXY_TOKEN:-}" =~ ^http[s]?://[^/]+/proxies/v[0-9]+/enrollment/[0-9a-f-]+\?proxy_auth_token=[^\&]+\&tenant_id=[0-9a-f-]+$ ]]; then
+            log_entry "ERROR" "Fyde Access Proxy enrollment token is invalid, please try again"
+            unset PROXY_TOKEN
         fi
     done
 
