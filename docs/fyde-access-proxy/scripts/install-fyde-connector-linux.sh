@@ -14,12 +14,13 @@ function program_help {
     echo -e "Install CloudGen Access User Directory Connector script
 
 Available parameters:
+  -e \\t\\t- Extra connector environment variables (can be used multiple times)
   -h \\t\\t- Show this help
   -l string \\t- Loglevel (debug, info, warning, error, critical), defaults to info.
   -n \\t\\t- Don't start services after install
   -t token \\t- Specify CloudGen Access Connector enrollment token
+  -u \\t\\t- Unattended install, skip requesting input <optional>
   -z \\t\\t- Skip configuring ntp server <optional>
-  -e \\t\\t- Extra connector environment variables (can be used multiple times)
 "
     exit 0
 
@@ -27,7 +28,7 @@ Available parameters:
 
 # Get parameters
 EXTRA=()
-while getopts ":e:hl:nt:z" OPTION 2>/dev/null; do
+while getopts ":e:hl:nt:uz" OPTION 2>/dev/null; do
     case "${OPTION}" in
         e)
             VALUE="$(echo "${OPTARG}" | cut -d= -f1 | tr [:lower:]- [:upper:]_)"
@@ -51,6 +52,9 @@ while getopts ":e:hl:nt:z" OPTION 2>/dev/null; do
                 echo "CloudGen Access Connector enrollment token is invalid, please try again"
                 exit 3
             fi
+        ;;
+        u)
+            UNATTENDED_INSTALL="true"
         ;;
         z)
             SKIP_NTP="true"
@@ -83,54 +87,109 @@ function log_entry() {
 
 }
 
+# Check if run as root
+
+if [[ "$EUID" != "0" ]]; then
+    log_entry "ERROR" "This script needs to be run as root"
+    exit 1
+fi
+
 # Prepare inputs
 
-if [[ -z "${CONNECTOR_TOKEN:-}" ]]; then
-    log_entry "INFO" "Please provide required variables"
+if [[ "${UNATTENDED_INSTALL:-}" == "true" ]] || ! [[ -t 0 ]]; then
+    if [[ -z "${CONNECTOR_TOKEN:-}" ]]; then
+        log_entry "INFO" "Connector Token not found on command line, make sure you provide it some other way"
+    fi
+else
+    if [[ -z "${CONNECTOR_TOKEN:-}" ]]; then
+        log_entry "INFO" "Please provide required variables"
 
-    while [[ -z "${CONNECTOR_TOKEN:-}" ]]; do
-        read -r -p "Paste the CloudGen Access Connector enrollment token here (hidden): " -s CONNECTOR_TOKEN
-        echo ""
-        if [[ -z "${CONNECTOR_TOKEN:-}" ]]; then
-            log_entry "ERROR" "CloudGen Access Connector enrollment token cannot be empty"
-        elif ! [[ "${CONNECTOR_TOKEN:-}" =~ ^http[s]?://[^/]+/connectors/v[0-9]+/[0-9a-f]+\?auth_token=[^\&]+\&tenant_id=[0-9a-f-]+$ ]]; then
-            log_entry "ERROR" "CloudGen Access Connector enrollment token is invalid, please try again"
-            unset CONNECTOR_TOKEN
-        fi
-    done
+        while [[ -z "${CONNECTOR_TOKEN:-}" ]]; do
+            read -r -p "Paste the CloudGen Access Connector enrollment token here (hidden): " -s CONNECTOR_TOKEN
+            echo ""
+            if [[ -z "${CONNECTOR_TOKEN:-}" ]]; then
+                log_entry "ERROR" "CloudGen Access Connector enrollment token cannot be empty"
+            elif ! [[ "${CONNECTOR_TOKEN:-}" =~ ^http[s]?://[^/]+/connectors/v[0-9]+/[0-9a-f]+\?auth_token=[^\&]+\&tenant_id=[0-9a-f-]+$ ]]; then
+                log_entry "ERROR" "CloudGen Access Connector enrollment token is invalid, please try again"
+                unset CONNECTOR_TOKEN
+            fi
+        done
+    fi
+
+    if [[ -z "${EXTRA:-}" ]]; then
+        read -r -p "Extra Connector Parameters (Enter an empty line to continue): " KV
+
+        while [[ -n "${KV:-}" ]]; do
+            VALUE="$(echo "${KV}" | cut -d= -f1 | tr [:lower:]- [:upper:]_)"
+            if ! [[ "${VALUE}" =~ ^FYDE_ ]]; then
+                VALUE="FYDE_${VALUE}"
+            fi
+            EXTRA+=("${VALUE}=$(echo "${KV}" | cut -d= -f2-)")
+            read -r -p "Extra Connector Parameters (Enter an empty line to continue): " KV
+        done
+    fi
 fi
 
 # Pre-requisites
 
-log_entry "INFO" "Check for yum lock file"
+source /etc/os-release
+
+log_entry "INFO" "Check for package manager lock file"
 for i in $(seq 1 300); do
-    if ! [ -f /var/run/yum.pid ]; then
-        break
+    if [[ "${ID_LIKE:-}" == "debian" ]]; then
+        if ! fuser /var/{lib/{dpkg,apt/lists},cache/apt/archives}/lock >/dev/null 2>&1; then
+            break
+        fi
+    elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+        if ! [ -f /var/run/yum.pid ]; then
+            break
+        fi
+    else
+        echo "Unrecognized distribution type: ${ID_LIKE}"
+        exit 4
     fi
     echo "Lock found. Check ${i}/300"
     sleep 1
 done
 
-log_entry "INFO" "Install pre-requisites"
-yum -y install yum-utils
+if [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+    log_entry "INFO" "Install pre-requisites"
+    yum -y install yum-utils
+fi
 
 if [[ "${SKIP_NTP:-}" == "true" ]]; then
     log_entry "INFO" "Skipping NTP configuration"
 else
-    log_entry "INFO" "Ensure chrony daemon is enabled on system boot and started"
-    yum -y install chrony
-    systemctl enable chronyd
-    systemctl start chronyd
+    if [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+        log_entry "INFO" "Ensure chrony daemon is enabled on system boot and started"
+        yum -y install chrony
+        systemctl enable chronyd
+        systemctl start chronyd
+    fi
 
     log_entry "INFO" "Ensure time synchronization is enabled"
+    timedatectl set-ntp off
     timedatectl set-ntp on
 fi
 
 log_entry "INFO" "Add Fyde repository"
-yum-config-manager -y --add-repo https://downloads.fyde.com/fyde.repo
+if [[ "${ID_LIKE:-}" == "debian" ]]; then
+    REPO_URL="downloads.fyde.com"
+    wget -q -O - "https://$REPO_URL/fyde-public-key.asc" | apt-key add -
+    bash -c "cat > /etc/apt/sources.list.d/fyde.list <<EOF
+deb https://$REPO_URL/apt stable main
+EOF"
+    sudo apt update
+elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+    yum-config-manager -y --add-repo https://downloads.fyde.com/fyde.repo
+fi
 
 log_entry "INFO" "Install CloudGen Access Connector"
-yum -y install fyde-connector
+if [[ "${ID_LIKE:-}" == "debian" ]]; then
+    apt -y install fyde-connector
+elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+    yum -y install fyde-connector
+fi
 systemctl enable fyde-connector
 
 log_entry "INFO" "Configure CloudGen Access Connector"
