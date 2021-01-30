@@ -136,7 +136,7 @@ source /etc/os-release
 
 log_entry "INFO" "Check for package manager lock file"
 for i in $(seq 1 300); do
-    if [[ "${ID_LIKE:-}" == "debian" ]]; then
+    if [[ "${ID_LIKE:-}" == *"debian"* ]]; then
         if ! fuser /var/{lib/{dpkg,apt/lists},cache/apt/archives}/lock >/dev/null 2>&1; then
             break
         fi
@@ -173,7 +173,7 @@ else
 fi
 
 log_entry "INFO" "Add Fyde repository"
-if [[ "${ID_LIKE:-}" == "debian" ]]; then
+if [[ "${ID_LIKE:-}" == *"debian"* ]]; then
     REPO_URL="downloads.fyde.com"
     wget -q -O - "https://$REPO_URL/fyde-public-key.asc" | apt-key add -
     bash -c "cat > /etc/apt/sources.list.d/fyde.list <<EOF
@@ -185,7 +185,7 @@ elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
 fi
 
 log_entry "INFO" "Install CloudGen Access Connector"
-if [[ "${ID_LIKE:-}" == "debian" ]]; then
+if [[ "${ID_LIKE:-}" == *"debian"* ]]; then
     apt -y install fyde-connector
 elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
     yum -y install fyde-connector

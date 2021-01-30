@@ -108,6 +108,13 @@ function log_entry() {
 
 }
 
+# Check if run as root
+
+if [[ "$EUID" != "0" ]]; then
+    log_entry "ERROR" "This script needs to be run as root"
+    exit 1
+fi
+
 # Prepare inputs
 
 if [[ "${UNATTENDED_INSTALL:-}" == "true" ]] || ! [[ -t 0 ]]; then
@@ -141,37 +148,66 @@ fi
 
 # Pre-requisites
 
-log_entry "INFO" "Check for yum lock file"
+source /etc/os-release
+
+log_entry "INFO" "Check for package manager lock file"
 for i in $(seq 1 300); do
-    if ! [ -f /var/run/yum.pid ]; then
-        break
+    if [[ "${ID_LIKE:-}" == *"debian"* ]]; then
+        if ! fuser /var/{lib/{dpkg,apt/lists},cache/apt/archives}/lock >/dev/null 2>&1; then
+            break
+        fi
+    elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+        if ! [ -f /var/run/yum.pid ]; then
+            break
+        fi
+    else
+        echo "Unrecognized distribution type: ${ID_LIKE}"
+        exit 4
     fi
     echo "Lock found. Check ${i}/300"
     sleep 1
 done
 
 log_entry "INFO" "Install pre-requisites"
-yum -y install yum-utils
+if [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+    yum -y install yum-utils
+fi
 
 if [[ "${SKIP_NTP:-}" == "true" ]]; then
     log_entry "INFO" "Skipping NTP configuration"
 else
-    log_entry "INFO" "Ensure chrony daemon is enabled on system boot and started"
-    yum -y install chrony
-    systemctl enable chronyd
-    systemctl start chronyd
+    if [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+        log_entry "INFO" "Ensure chrony daemon is enabled on system boot and started"
+        yum -y install chrony
+        systemctl enable chronyd
+        systemctl start chronyd
+    fi
 
     log_entry "INFO" "Ensure time synchronization is enabled"
+    timedatectl set-ntp off
     timedatectl set-ntp on
 fi
 
 log_entry "INFO" "Add Fyde repository"
-yum-config-manager -y --add-repo https://downloads.fyde.com/fyde.repo
+if [[ "${ID_LIKE:-}" == *"debian"* ]]; then
+    REPO_URL="downloads.fyde.com"
+    wget -q -O - "https://$REPO_URL/fyde-public-key.asc" | apt-key add -
+    bash -c "cat > /etc/apt/sources.list.d/fyde.list <<EOF
+deb https://$REPO_URL/apt stable main
+EOF"
+    sudo apt update
+elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+    yum-config-manager -y --add-repo https://downloads.fyde.com/fyde.repo
+fi
 
 # Envoy Proxy
 
 log_entry "INFO" "Install Envoy Proxy"
-yum -y install envoy
+if [[ "${ID_LIKE:-}" == *"debian"* ]]; then
+    apt -y install envoy
+elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+    yum -y install envoy
+fi
 systemctl enable envoy
 
 if [ "${PUBLIC_PORT}" -lt 1024 ]; then
@@ -199,16 +235,17 @@ fi
 # Fyde Proxy Orchestrator
 
 log_entry "INFO" "Install Fyde Proxy Orchestrator"
-yum -y install fydeproxy
+if [[ "${ID_LIKE:-}" == *"debian"* ]]; then
+    apt -y install fydeproxy
+elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+    yum -y install fydeproxy
+fi
 systemctl enable fydeproxy
 
 log_entry "INFO" "Configure Fyde Proxy Orchestrator"
 
 UNIT_OVERRIDE=("[Service]" "Environment='FYDE_ENVOY_LISTENER_PORT=${PUBLIC_PORT}'")
 UNIT_OVERRIDE+=("Environment='FYDE_LOGLEVEL=${LOGLEVEL:-"info"}'")
-
-# Update tmp dir to avoid tmpfiles.d removing our uncompressed PyInstaller bundle
-UNIT_OVERRIDE+=("Environment='TMPDIR=/var/run/fydeproxy'")
 
 if [[ -n "${PROXY_TOKEN:-}" ]]; then
     UNIT_OVERRIDE+=("Environment='FYDE_ENROLLMENT_TOKEN=${PROXY_TOKEN}'")
@@ -235,11 +272,20 @@ else
 fi
 
 log_entry "INFO" "Configure the firewall"
-if systemctl status firewalld &> /dev/null; then
-    firewall-cmd --zone=public --add-port="${PUBLIC_PORT}/tcp" --permanent
-    firewall-cmd --reload
-else
-    log_entry "WARNING" "Firewalld not started, skipping configuration"
+if [[ "${ID_LIKE:-}" == *"debian"* ]]; then
+    if systemctl status ufw &> /dev/null; then
+        ufw allow "${PUBLIC_PORT}/tcp"
+        ufw reload
+    else
+        log_entry "WARNING" "UFW not started, skipping configuration"
+    fi
+elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
+    if systemctl status firewalld &> /dev/null; then
+        firewall-cmd --zone=public --add-port="${PUBLIC_PORT}/tcp" --permanent
+        firewall-cmd --reload
+    else
+        log_entry "WARNING" "Firewalld not started, skipping configuration"
+    fi
 fi
 
 log_entry "INFO" "Check logs:"
