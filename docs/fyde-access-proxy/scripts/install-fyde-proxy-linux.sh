@@ -289,7 +289,7 @@ elif [[ "${ID_LIKE:-}" == *"rhel"* ]]; then
 fi
 
 log_entry "INFO" "Check logs:"
-echo "tail /var/log/envoy/envoy.log -f"
+echo "journalctl -u envoy -f"
 echo "journalctl -u fydeproxy -f"
 
 if [[ "${NO_START_SVC:-}" == true ]]; then
