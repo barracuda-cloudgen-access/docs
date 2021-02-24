@@ -228,8 +228,8 @@ fi
 if [[ "${NO_START_SVC:-}" == true ]]; then
     log_entry "INFO" "Skip Envoy Proxy daemon start"
 else
-    log_entry "INFO" "Start Envoy Proxy daemon"
-    systemctl start envoy
+    log_entry "INFO" "Ensure Envoy Proxy daemon is running with latest config"
+    systemctl restart envoy
 fi
 
 # Fyde Proxy Orchestrator
@@ -267,8 +267,8 @@ systemctl --system daemon-reload
 if [[ "${NO_START_SVC:-}" == "true" ]]; then
     log_entry "INFO" "Skip Fyde Proxy Orchestrator start"
 else
-    log_entry "INFO" "Start Fyde Proxy Orchestrator daemon"
-    systemctl start fydeproxy
+    log_entry "INFO" "Ensure Fyde Proxy Orchestrator daemon is running with latest config"
+    systemctl restart fydeproxy
 fi
 
 log_entry "INFO" "Configure the firewall"
